@@ -1,0 +1,5 @@
+- name: 计算机组成原理
+  href: articles/
+- name: 操作系统
+  href: api/
+  homepage: api/index.md
