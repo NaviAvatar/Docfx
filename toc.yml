@@ -1,5 +1,10 @@
 - name: 计算机组成原理
-  href: articles/
+  href: CCP/
 - name: 操作系统
-  href: api/
-  homepage: api/index.md
+  href: OperatingSystem/
+- name: 数据结构与算法
+  href: Algorithm/
+- name: 计算机网络
+  href: ComputerNetwork/
+- name: 语言
+  href: Language/

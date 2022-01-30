@@ -17,14 +17,38 @@
     "content": [
       {
         "files": [
-          "api/**.yml",
-          "api/index.md"
+          "OperatingSystem/**.yml",
+          "OperatingSystem/index.md"
         ]
       },
       {
         "files": [
-          "articles/**.md",
-          "articles/**/toc.yml",
+          "CCP/**.md",
+          "CCP/**/toc.yml",
+          "toc.yml",
+          "*.md"
+        ]
+      },
+      {
+        "files": [
+          "ComputerNetwork/**.md",
+          "ComputerNetwork/**/toc.yml",
+          "toc.yml",
+          "*.md"
+        ]
+      },
+      {
+        "files": [
+          "Algorithm/**.md",
+          "Algorithm/**/toc.yml",
+          "toc.yml",
+          "*.md"
+        ]
+      },
+      {
+        "files": [
+          "Language/**.md",
+          "Language/**/toc.yml",
           "toc.yml",
           "*.md"
         ]
