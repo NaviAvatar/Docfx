@@ -77,14 +77,14 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "Language/intro.md",
+      "source_relative_path": "Language/index.md",
       "output": {
         ".html": {
-          "relative_path": "Language/intro.html",
-          "hash": "6LtLSXaXxN2H/OBDTDJySfmoAhLyPQ8NS4ZpimmZPaw="
+          "relative_path": "Language/index.html",
+          "hash": "ILfxWQVT61TGuoI1HlIP02LT14MdHzuN2KrHDbHdUmo="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -93,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "Language/toc.html",
-          "hash": "v/ifsSSzqF38Z4ueFAEDrkoD+sciI1B+kkv50EibC/E="
+          "hash": "8TwWWsjD8OVTynfLjkIYCpJyWH/vVVpaZu76vsmYja8="
         }
       },
       "is_incremental": false,
@@ -141,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "8qvoj1+mVKjq+yoy2ch7E7OoFPyxKfqYaAOrMXwBEio="
+          "hash": "1Y4zQTsFrlPi3Z6bBJ5AVHqatpIE6g81Os7ZLulFR2o="
         }
       },
       "is_incremental": false,
