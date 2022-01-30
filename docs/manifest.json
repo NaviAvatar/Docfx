@@ -77,23 +77,23 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "Language/index.md",
+      "source_relative_path": "Languages/intro.md",
       "output": {
         ".html": {
-          "relative_path": "Language/index.html",
-          "hash": "ILfxWQVT61TGuoI1HlIP02LT14MdHzuN2KrHDbHdUmo="
+          "relative_path": "Languages/intro.html",
+          "hash": "MuTRgJ3JtRieYADDUbTCkseesvfew++Lr0jJrnVOi9g="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
       "type": "Toc",
-      "source_relative_path": "Language/toc.yml",
+      "source_relative_path": "Languages/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "Language/toc.html",
-          "hash": "8TwWWsjD8OVTynfLjkIYCpJyWH/vVVpaZu76vsmYja8="
+          "relative_path": "Languages/toc.html",
+          "hash": "w/KU1upI3y2QvN4bjjVzvgqANpda2Mgwp+ltWne7Ji4="
         }
       },
       "is_incremental": false,
@@ -141,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "5GA7rW4h+lxakxA1EwrvASlVc0xUdy32NWw5JyPDPKw="
+          "hash": "DZfesqZBYFYtZN5NJ27NEBBC4dWbc5uqTqYgt8QKe2Y="
         }
       },
       "is_incremental": false,
@@ -161,7 +161,7 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 6,
-          "skipped_file_count": 6
+          "skipped_file_count": 5
         },
         "TocDocumentProcessor": {
           "can_incremental": false,

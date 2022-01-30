@@ -33,8 +33,8 @@
       },
       {
         "files": [
-          "Language/**.md",
-          "Language/**/toc.yml",
+          "Languages/**.md",
+          "Languages/**/toc.yml",
           "toc.yml",
           "*.md"
         ]
