@@ -84,7 +84,7 @@
           "hash": "6LtLSXaXxN2H/OBDTDJySfmoAhLyPQ8NS4ZpimmZPaw="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -93,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "Language/toc.html",
-          "hash": "EeABt2fKz5bMdKsxZV8WTwRPLLv5vWOW5EdN+1lefXM="
+          "hash": "v/ifsSSzqF38Z4ueFAEDrkoD+sciI1B+kkv50EibC/E="
         }
       },
       "is_incremental": false,
@@ -132,7 +132,7 @@
           "hash": "Yox7wBEv7VVv7zGb5SP0Nu4tQpbqQOse/zwRb88twrI="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -161,7 +161,7 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 6,
-          "skipped_file_count": 5
+          "skipped_file_count": 6
         },
         "TocDocumentProcessor": {
           "can_incremental": false,
