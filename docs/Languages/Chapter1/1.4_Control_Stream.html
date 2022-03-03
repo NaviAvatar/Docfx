@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>&#27969;&#30340;&#35299;&#37322; </title>
+    <title>&#25511;&#21046;&#27969; </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="&#27969;&#30340;&#35299;&#37322; ">
+    <meta name="title" content="&#25511;&#21046;&#27969; ">
     <meta name="generator" content="docfx 2.59.0.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
@@ -67,107 +67,113 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h2 id="流的解释">流的解释</h2>
+<h1 id="控制流">控制流</h1>
 
-<blockquote>
-<p>在1.1节中代码开头&lt;iostream&gt;是c++语言的一个标准库，提供IO机制。</p>
-</blockquote>
-<p>​	IO库包含两个基础类型：</p>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>istream</td>
-<td>输入流</td>
-</tr>
-<tr>
-<td>ostream</td>
-<td>输出流</td>
-</tr>
-</tbody>
-</table>
-<p>流的含义：一个流就是一个字符序列，随着时间的推移，字符是顺序生成或消耗的。</p>
-<h2 id="标准输入输出对象">标准输入输出对象</h2>
-<p>标准库定义了4个IO对象。</p>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>cin</td>
-<td>标准输入</td>
-</tr>
-<tr>
-<td>cout</td>
-<td>标准输出</td>
-</tr>
-<tr>
-<td>cerr</td>
-<td>输出警告信息</td>
-</tr>
-<tr>
-<td>clog</td>
-<td>输出日志打印信息</td>
-</tr>
-</tbody>
-</table>
-<p>[^书上是这么说，但是在窗口使用cout\cerr\clog，看起来没什么区别。]:</p>
-<p>上述四个关键字是在std命名空间下的，使用要加命名空间在前面，如std::cout。</p>
-<h2 id="如何使用输入输出流">如何使用输入输出流：</h2>
+<p>语句一般是顺序执行的。</p>
+<h2 id="1-while语句">1 while语句</h2>
+<p>​	while语句反复执行一段代码，知道给的条件为假为止。</p>
+<h3 id="示例使用while语句求和1到10">示例：使用while语句求和1到10</h3>
 <pre><code class="lang-c++">#include &lt;iostream&gt;
+using namespace std;
 
 int main()
 {
-    std::cout &lt;&lt; &quot;input two numbers: &quot; &lt;&lt; std::endl;
-    int v1, v2;
-    std::cin &gt;&gt; v1 &gt;&gt; v2;
-    std::cout &lt;&lt; &quot;v1 add v2 equals &quot; &lt;&lt; v1 + v2 &lt;&lt; std::endl;
+    int i = 0 ,sum = 0;
+    while (i &lt;= 10)
+    {
+        sum += i;
+        i++;
+    }
+    cout &lt;&lt; &quot;result is &quot; &lt;&lt; sum &lt;&lt; endl;
     return 0;
 }
 </code></pre>
-<p>运行结果：</p>
-<p><em>input two numbers:</em></p>
-<p><em>5 6</em></p>
-<p><em>v1 add v2 equals 11</em></p>
-<h2 id="向流写入数据">向流写入数据</h2>
-<p>先熟悉两个运算符：</p>
-<table>
-<thead>
-<tr>
-<th>运算符</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>&lt;&lt;</td>
-<td>输出运算符</td>
-</tr>
-<tr>
-<td>&gt;&gt;</td>
-<td>输入运算符</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>std::cout &lt;&lt; &quot;input two numbers: &quot; &lt;&lt; std::endl;</p>
-</blockquote>
-<p><font color='red'><strong>&lt;&lt;</strong></font>运算符接受两个运算对象，左侧运算对象必须是ostream对象，右侧运算对象是要打印的值。<font color='red'><strong>&lt;&lt;</strong></font>运算符的结果是返回左侧的运算对象，因此可以连续使用两次<font color='red'><strong>&lt;&lt;</strong></font>。</p>
-<p>endl关键字是结束当前行，与设备关联的缓冲区中的内容全部刷到设备中。确保关联的缓冲中所有内容输出出来。</p>
-<h2 id="从流读取数据">从流读取数据</h2>
-<blockquote>
-<p>std::cin&gt;&gt;v1&gt;&gt;v2;</p>
-</blockquote>
-<p>和&lt;&lt;运算符类似。</p>
+<p>输出结果：result is 55</p>
+<p>while(condition)</p>
+<p>​	statement;</p>
+<p>其执行过程是交替执行condition和statement,直至condition为假为止。</p>
+<h2 id="2-do--while语句">2 do ... while语句</h2>
+<h3 id="示例使用dowhile语句求和1到10">示例：使用doWhile语句求和1到10</h3>
+<pre><code class="lang-c++">#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+    int i = 0 ,sum = 0;
+    do
+    {
+        sum += i;
+        i++;
+    } while (i &lt;= 10);
+    cout &lt;&lt; &quot;result is &quot; &lt;&lt; sum &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p>输出结果：result is 55</p>
+<p>do{</p>
+<p>​	statement;</p>
+<p>}while(condition)</p>
+<p>其执行过程是交替执行statement和condition，直至condition条件为假为止。和while区别是先执行statement语句。</p>
+<h2 id="3-for-语句">3 for 语句</h2>
+<h3 id="示例使用for语句求和1到10">示例：使用for语句求和1到10</h3>
+<pre><code class="lang-c++">#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+    int sum = 0;
+    for (int i = 0; i &lt;= 10; i++)
+    {
+        sum += i;
+    }
+    cout &lt;&lt; &quot;result is &quot; &lt;&lt; sum &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p>输出结果：result is 55</p>
+<p>for(statment1; condition; statment2)</p>
+<p>{</p>
+<p>​	statement3;</p>
+<p>}</p>
+<p>其执行过程是statement1,交替执行condition，statement3,statement2。</p>
+<h2 id="4-if语句">4 if语句</h2>
+<p>if语句是支持条件执行，是众多语言中最简单的语句之一。</p>
+<pre><code class="lang-c++">if(condition1)
+{
+    statement1;
+}
+else if(condition2)
+{
+    statement2;
+}
+...
+else if(conditionx)
+{
+    statementx;
+}
+else{
+    statementlast;
+}
+</code></pre>
+<p>从上往下执行，最先遇到condition为true的是statement执行，其余不执行。</p>
+<h2 id="5-读取数量不定的输入数据">5 读取数量不定的输入数据</h2>
+<p>有一组数据，预先不知道其数据是多少。要计算这组数据的求和，只能一个一个读取。</p>
+<pre><code class="lang-c++">int main()
+{
+    int sum = 0, value = 0;
+    while (cin &gt;&gt; value)
+    {
+        sum += value; // 把每个数据和加到sum
+    }
+
+    cout &lt;&lt; &quot;result is &quot; &lt;&lt; sum &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p>输入数据：10 43 92</p>
+<p>result is 145</p>
+<p>当使用istream流对象作为condition的时候，while判断条件时是检测流的状态。即如果流有效，没有遇到错误那么就是true。当流遇到文件结束符，或遇到一个无效输入时（输入的不是一个int类型的数），那么istream对象就会变为无效。</p>
+<p><font color='red'>从键盘输入文件结束符</font> 不同操作系统不同操作，在windows下是ctrl+z，然后按回车。</p>
 </article>
           </div>
           
@@ -176,7 +182,7 @@ int main()
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter1/1.2_IOstream.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter1/1.4_Control_Stream.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

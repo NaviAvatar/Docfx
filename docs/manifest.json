@@ -81,10 +81,46 @@
       "output": {
         ".html": {
           "relative_path": "Languages/Chapter1/1.2_IOstream.html",
-          "hash": "zezZOR8ac2vXa17/F/aJYa/CwjoApZBUakKLf9k4BsI="
+          "hash": "xWlVltUQixrA/UB2OppEX2z/xzuCxSzrQEjgwEIHnjI="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter1/1.3_Comments_Intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter1/1.3_Comments_Intro.html",
+          "hash": "8JIiE+6TPmI05FJ16hyTovlJSFO2o/F1vzrfSP7Hpmc="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter1/1.4_Control_Stream.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter1/1.4_Control_Stream.html",
+          "hash": "sC/0lifP1dk1zI2m5UHXB27RmvAuaUcfkAwXwHJvB8U="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter1/1.5_Class_Intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter1/1.5_Class_Intro.html",
+          "hash": "IHDkCDw3Eg+ns2RgIfnRXuwLMMZsiouuTfsSUdW7y4g="
+        }
+      },
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -117,7 +153,7 @@
       "output": {
         ".html": {
           "relative_path": "Languages/toc.html",
-          "hash": "3ANu8WUrPFyi+f7Iz7UW2ZYKDk6khYka17B4zJg7WWM="
+          "hash": "mfsk9SVxiMCNAnhnf2W/8VNCKURS2/pbXEVgFVqAKG0="
         }
       },
       "is_incremental": false,
@@ -184,8 +220,8 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 8,
-          "skipped_file_count": 7
+          "total_file_count": 11,
+          "skipped_file_count": 11
         },
         "TocDocumentProcessor": {
           "can_incremental": false,

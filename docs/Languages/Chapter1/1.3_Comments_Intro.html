@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>&#27969;&#30340;&#35299;&#37322; </title>
+    <title>&#27880;&#37322;&#31616;&#20171; </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="&#27969;&#30340;&#35299;&#37322; ">
+    <meta name="title" content="&#27880;&#37322;&#31616;&#20171; ">
     <meta name="generator" content="docfx 2.59.0.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
@@ -67,107 +67,51 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h2 id="流的解释">流的解释</h2>
+<h1 id="注释简介">注释简介</h1>
 
-<blockquote>
-<p>在1.1节中代码开头&lt;iostream&gt;是c++语言的一个标准库，提供IO机制。</p>
-</blockquote>
-<p>​	IO库包含两个基础类型：</p>
+<p>​	通常注释用于解释代码的功能或者代码即将要做的功能，编译时编译器会忽略注释。<font color='red'>	错误的注释比没有注释更加糟糕！</font>因此更新代码时，确保注释也得到对应的更新。</p>
+<p>c++语言的注释：</p>
 <table>
 <thead>
 <tr>
-<th>名称</th>
-<th>含义</th>
+<th>注释方法</th>
+<th>解释</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>istream</td>
-<td>输入流</td>
+<td>// 注释内容</td>
+<td>单行注释</td>
 </tr>
 <tr>
-<td>ostream</td>
-<td>输出流</td>
+<td>/* 注释内容 */</td>
+<td>界定符注释</td>
 </tr>
 </tbody>
 </table>
-<p>流的含义：一个流就是一个字符序列，随着时间的推移，字符是顺序生成或消耗的。</p>
-<h2 id="标准输入输出对象">标准输入输出对象</h2>
-<p>标准库定义了4个IO对象。</p>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>cin</td>
-<td>标准输入</td>
-</tr>
-<tr>
-<td>cout</td>
-<td>标准输出</td>
-</tr>
-<tr>
-<td>cerr</td>
-<td>输出警告信息</td>
-</tr>
-<tr>
-<td>clog</td>
-<td>输出日志打印信息</td>
-</tr>
-</tbody>
-</table>
-<p>[^书上是这么说，但是在窗口使用cout\cerr\clog，看起来没什么区别。]:</p>
-<p>上述四个关键字是在std命名空间下的，使用要加命名空间在前面，如std::cout。</p>
-<h2 id="如何使用输入输出流">如何使用输入输出流：</h2>
+<p>界定符注释可以放置任何允许放置制表符、空格符、换行符。还可以跨行。</p>
 <pre><code class="lang-c++">#include &lt;iostream&gt;
+/*
+* 完成一个整数加法功能
+*
+*/
 
 int main()
 {
-    std::cout &lt;&lt; &quot;input two numbers: &quot; &lt;&lt; std::endl;
+    std::cout &lt;&lt; &quot;input two numbers: &quot; &lt;&lt; std::endl; // 提示信息
     int v1, v2;
     std::cin &gt;&gt; v1 &gt;&gt; v2;
     std::cout &lt;&lt; &quot;v1 add v2 equals &quot; &lt;&lt; v1 + v2 &lt;&lt; std::endl;
     return 0;
 }
 </code></pre>
-<p>运行结果：</p>
-<p><em>input two numbers:</em></p>
-<p><em>5 6</em></p>
-<p><em>v1 add v2 equals 11</em></p>
-<h2 id="向流写入数据">向流写入数据</h2>
-<p>先熟悉两个运算符：</p>
-<table>
-<thead>
-<tr>
-<th>运算符</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>&lt;&lt;</td>
-<td>输出运算符</td>
-</tr>
-<tr>
-<td>&gt;&gt;</td>
-<td>输入运算符</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>std::cout &lt;&lt; &quot;input two numbers: &quot; &lt;&lt; std::endl;</p>
-</blockquote>
-<p><font color='red'><strong>&lt;&lt;</strong></font>运算符接受两个运算对象，左侧运算对象必须是ostream对象，右侧运算对象是要打印的值。<font color='red'><strong>&lt;&lt;</strong></font>运算符的结果是返回左侧的运算对象，因此可以连续使用两次<font color='red'><strong>&lt;&lt;</strong></font>。</p>
-<p>endl关键字是结束当前行，与设备关联的缓冲区中的内容全部刷到设备中。确保关联的缓冲中所有内容输出出来。</p>
-<h2 id="从流读取数据">从流读取数据</h2>
-<blockquote>
-<p>std::cin&gt;&gt;v1&gt;&gt;v2;</p>
-</blockquote>
-<p>和&lt;&lt;运算符类似。</p>
+<h2 id="界定符注释不能嵌套">界定符注释不能嵌套</h2>
+<pre><code> /*
+    * 注释对/**/
+    * 
+    */
+</code></pre>
+<p>这个注释就是个错误的示范。</p>
 </article>
           </div>
           
@@ -176,7 +120,7 @@ int main()
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter1/1.2_IOstream.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter1/1.3_Comments_Intro.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

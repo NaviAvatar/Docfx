@@ -2,3 +2,9 @@
   href: intro.md
 - name: 1.2 输入输出
   href: 1.2_IOstream.md
+- name: 1.3 注释简介
+  href: 1.3_Comments_Intro.md
+- name: 1.4 控制流
+  href: 1.4_Control_Stream.md
+- name: 1.5 类
+  href: 1.5_Class_Intro.md

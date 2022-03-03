@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>&#31867;&#31616;&#20171; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="&#31867;&#31616;&#20171; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="类简介">类简介</h1>
+
+<p>类是对具有相同属性的事物的抽象，是一种数据结构。一个类定义了一个类型，以及与其相关的一组操作(方法)。类机制是C++最重要的特性之一。C++设计最初的一个初衷就是能定义使用上像内置类型一样自然的类类型。</p>
+<p>类一般定义在头文件中。</p>
+<h2 id="定义一个sales_item类">定义一个Sales_Item类</h2>
+<blockquote>
+<p>从https://www.informit.com/store/c-plus-plus-primer-9780321714114网站摘抄，本人在此去掉代码前面的作者署名的大量注释。</p>
+</blockquote>
+<pre><code class="lang-c++">/*
+ * This file contains code from &quot;C++ Primer, Fifth Edition&quot;, by Stanley B.
+ * Lippman, Josee Lajoie, and Barbara E. Moo, and is covered under the
+ * copyright and warranty notices given in that book:
+ * 
+ * &quot;Copyright (c) 2013 by Objectwrite, Inc., Josee Lajoie, and Barbara E. Moo.&quot;
+ */
+
+#ifndef SALESITEM_H
+// we're here only if SALESITEM_H has not yet been defined 
+#define SALESITEM_H
+
+// Definition of Sales_item class and related functions goes here
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+class Sales_item {
+// these declarations are explained section 7.2.1, p. 270 
+// and in chapter 14, pages 557, 558, 561
+friend std::istream&amp; operator&gt;&gt;(std::istream&amp;, Sales_item&amp;);
+friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp;, const Sales_item&amp;);
+friend bool operator&lt;(const Sales_item&amp;, const Sales_item&amp;);
+friend bool 
+operator==(const Sales_item&amp;, const Sales_item&amp;);
+public:
+    // constructors are explained in section 7.1.4, pages 262 - 265
+    // default constructor needed to initialize members of built-in type
+#if defined(IN_CLASS_INITS) &amp;&amp; defined(DEFAULT_FCNS)
+    Sales_item() = default;
+#else
+    Sales_item(): units_sold(0), revenue(0.0) { }
+#endif
+    Sales_item(const std::string &amp;book):
+              bookNo(book), units_sold(0), revenue(0.0) { }
+    Sales_item(std::istream &amp;is) { is &gt;&gt; *this; }
+public:
+    // operations on Sales_item objects
+    // member binary operator: left-hand operand bound to implicit this pointer
+    Sales_item&amp; operator+=(const Sales_item&amp;);
+    
+    // operations on Sales_item objects
+    std::string isbn() const { return bookNo; }
+    double avg_price() const;
+// private members as before
+private:
+    std::string bookNo;      // implicitly initialized to the empty string
+#ifdef IN_CLASS_INITS
+    unsigned units_sold = 0; // explicitly initialized
+    double revenue = 0.0;
+#else
+    unsigned units_sold;  // 一条销售记录的售卖书本数量
+    double revenue;       // 一条销售记录的收入
+#endif
+};
+
+// used in chapter 10
+inline
+bool compareIsbn(const Sales_item &amp;lhs, const Sales_item &amp;rhs) 
+{ return lhs.isbn() == rhs.isbn(); }
+
+// nonmember binary operator: must declare a parameter for each operand
+Sales_item operator+(const Sales_item&amp;, const Sales_item&amp;);
+
+inline bool 
+operator==(const Sales_item &amp;lhs, const Sales_item &amp;rhs)
+{
+    // must be made a friend of Sales_item
+    return lhs.units_sold == rhs.units_sold &amp;&amp;
+           lhs.revenue == rhs.revenue &amp;&amp;
+           lhs.isbn() == rhs.isbn();
+}
+
+inline bool 
+operator!=(const Sales_item &amp;lhs, const Sales_item &amp;rhs)
+{
+    return !(lhs == rhs); // != defined in terms of operator==
+}
+
+// assumes that both objects refer to the same ISBN
+Sales_item&amp; Sales_item::operator+=(const Sales_item&amp; rhs) 
+{
+    units_sold += rhs.units_sold; 
+    revenue += rhs.revenue; 
+    return *this;
+}
+
+// assumes that both objects refer to the same ISBN
+Sales_item 
+operator+(const Sales_item&amp; lhs, const Sales_item&amp; rhs) 
+{
+    Sales_item ret(lhs);  // copy (|lhs|) into a local object that we'll return
+    ret += rhs;           // add in the contents of (|rhs|) 
+    return ret;           // return (|ret|) by value
+}
+
+// 对&gt;&gt;运算符进行重写，输入书本条目时，需要输入isbn号、多少本书、单本书籍价格
+std::istream&amp; 
+operator&gt;&gt;(std::istream&amp; in, Sales_item&amp; s)
+{
+    double price;
+    in &gt;&gt; s.bookNo &gt;&gt; s.units_sold &gt;&gt; price;
+    // check that the inputs succeeded
+    if (in)
+        s.revenue = s.units_sold * price;
+    else 
+        s = Sales_item();  // input failed: reset object to default state
+    return in;
+}
+
+// 对 &lt;&lt;运算符进行重写，输出销售记录的isbn号，销售数量，销售数量，销售收入，每本书的平均价格
+std::ostream&amp; 
+operator&lt;&lt;(std::ostream&amp; out, const Sales_item&amp; s)
+{
+    out &lt;&lt; s.isbn() &lt;&lt; &quot; &quot; &lt;&lt; s.units_sold &lt;&lt; &quot; &quot;
+        &lt;&lt; s.revenue &lt;&lt; &quot; &quot; &lt;&lt; s.avg_price();
+    return out;
+}
+
+// 计算书的平均价格
+double Sales_item::avg_price() const
+{
+    if (units_sold) 
+        return revenue/units_sold; 
+    else 
+        return 0;
+}
+#endif
+
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter1/1.5_Class_Intro.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
