@@ -1,6 +1,6 @@
 {
   "homepages": [],
-  "source_base_path": "D:/Docfx/docfx_project",
+  "source_base_path": "D:/Docfx/docfx_project/Docfx",
   "xrefmap": "xrefmap.yml",
   "files": [
     {
@@ -77,14 +77,38 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "Languages/intro.md",
+      "source_relative_path": "Languages/Chapter1/1.2_IOstream.md",
       "output": {
         ".html": {
-          "relative_path": "Languages/intro.html",
-          "hash": "MuTRgJ3JtRieYADDUbTCkseesvfew++Lr0jJrnVOi9g="
+          "relative_path": "Languages/Chapter1/1.2_IOstream.html",
+          "hash": "zezZOR8ac2vXa17/F/aJYa/CwjoApZBUakKLf9k4BsI="
         }
       },
       "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter1/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter1/intro.html",
+          "hash": "9Ol5ioBn9XeDcIw/i1DYnYU3TwJfUH9NqqO98iaZ0i4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter2/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter2/intro.html",
+          "hash": "Zuc1LZeROvfKXHHQRt97uUPhedpe0eqz9O2fUyfqdkg="
+        }
+      },
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -93,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "Languages/toc.html",
-          "hash": "w/KU1upI3y2QvN4bjjVzvgqANpda2Mgwp+ltWne7Ji4="
+          "hash": "3ANu8WUrPFyi+f7Iz7UW2ZYKDk6khYka17B4zJg7WWM="
         }
       },
       "is_incremental": false,
@@ -101,11 +125,11 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "OperatingSystem/index.md",
+      "source_relative_path": "OperatingSystem/intro.md",
       "output": {
         ".html": {
-          "relative_path": "OperatingSystem/index.html",
-          "hash": "Q9vXd1phAY4rOJmHECu0U+PS++hqvmxrJCsbZkPEwSQ="
+          "relative_path": "OperatingSystem/intro.html",
+          "hash": "ydV2IA1/W3pGADz+9h86zCzAo3+jdAGi2l7yVAavzjY="
         }
       },
       "is_incremental": true,
@@ -117,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "OperatingSystem/toc.html",
-          "hash": "53cDPdjyKTmYSaPMwcMYYJO/bYpeY21eGi/JWyVQBqE="
+          "hash": "4D7GUH1y46QlOIEn3dxdlYC4UNCvfKZpueyJm00MPBA="
         }
       },
       "is_incremental": false,
@@ -132,7 +156,7 @@
           "hash": "Yox7wBEv7VVv7zGb5SP0Nu4tQpbqQOse/zwRb88twrI="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -141,7 +165,7 @@
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "DZfesqZBYFYtZN5NJ27NEBBC4dWbc5uqTqYgt8QKe2Y="
+          "hash": "VpH+3kLzOdKgc+EaBLgWQDaRDbdzMGKV/4aJF+JnDi0="
         }
       },
       "is_incremental": false,
@@ -160,8 +184,8 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 6,
-          "skipped_file_count": 5
+          "total_file_count": 8,
+          "skipped_file_count": 7
         },
         "TocDocumentProcessor": {
           "can_incremental": false,

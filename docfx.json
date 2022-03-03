@@ -3,8 +3,10 @@
     "content": [
       {
         "files": [
-          "OperatingSystem/**.yml",
-          "OperatingSystem/index.md"
+          "OperatingSystem/**.md",
+          "OperatingSystem/toc.yml",
+          "toc.yml",
+          "*.md"
         ]
       },
       {
