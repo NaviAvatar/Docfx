@@ -117,10 +117,10 @@
       "output": {
         ".html": {
           "relative_path": "Languages/Chapter1/1.5_Class_Intro.html",
-          "hash": "IHDkCDw3Eg+ns2RgIfnRXuwLMMZsiouuTfsSUdW7y4g="
+          "hash": "GSVbetm17M55URUwWr1+ChvtXacdyQ9V5NUFz95TCgM="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -133,6 +133,17 @@
         }
       },
       "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Languages/Chapter1/pictures/1.5.1.png",
+      "output": {
+        "resource": {
+          "relative_path": "Languages/Chapter1/pictures/1.5.1.png"
+        }
+      },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -221,7 +232,14 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 11,
-          "skipped_file_count": 11
+          "skipped_file_count": 10
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
         },
         "TocDocumentProcessor": {
           "can_incremental": false,
