@@ -1,4 +1,4 @@
-- name: 第一章
+- name: 第一章 基础入门
   href: Chapter1/toc.yml
-- name: 第二章
+- name: 第二章 变量和基本类型
   href: Chapter2/toc.yml
