@@ -117,10 +117,10 @@
       "output": {
         ".html": {
           "relative_path": "Languages/Chapter1/1.5_Class_Intro.html",
-          "hash": "GSVbetm17M55URUwWr1+ChvtXacdyQ9V5NUFz95TCgM="
+          "hash": "YJbauOAmeul1pmSHai/9XzZgnXYEuOMhYUUPvPDtbTg="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -148,11 +148,23 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "Languages/Chapter2/intro.md",
+      "source_relative_path": "Languages/Chapter2/2.1.md",
       "output": {
         ".html": {
-          "relative_path": "Languages/Chapter2/intro.html",
-          "hash": "Zuc1LZeROvfKXHHQRt97uUPhedpe0eqz9O2fUyfqdkg="
+          "relative_path": "Languages/Chapter2/2.1.html",
+          "hash": "uH796pQPvUERkesTw3L+LgqtBWD3SCApizPzIsMjVvU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter2/2.2.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter2/2.2.html",
+          "hash": "eKJnQOybf5Em4r74mcXBhGRxi5TkLL/6H12l5MiQ3Uo="
         }
       },
       "is_incremental": true,
@@ -164,7 +176,7 @@
       "output": {
         ".html": {
           "relative_path": "Languages/toc.html",
-          "hash": "mfsk9SVxiMCNAnhnf2W/8VNCKURS2/pbXEVgFVqAKG0="
+          "hash": "IOXwu/C1dcyqKQngfMLWEyG04YJnyT9flS21cMfIwBs="
         }
       },
       "is_incremental": false,
@@ -231,8 +243,8 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 11,
-          "skipped_file_count": 10
+          "total_file_count": 12,
+          "skipped_file_count": 11
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

@@ -1,0 +1,329 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>2.1 &#22522;&#26412;&#20869;&#32622;&#31867;&#22411; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="2.1 &#22522;&#26412;&#20869;&#32622;&#31867;&#22411; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="21-基本内置类型">2.1 基本内置类型</h1>
+
+<h2 id="211-算术类型">2.1.1 算术类型</h2>
+<p>c++定义了一套基本算术类型，包括算术类型和空类型。</p>
+<table>
+<thead>
+<tr>
+<th>算术类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>字符</td>
+</tr>
+<tr>
+<td>整型数</td>
+</tr>
+<tr>
+<td>浮点数</td>
+</tr>
+<tr>
+<td>布尔值</td>
+</tr>
+</tbody>
+</table>
+<p>还有一个空类型，常见用于当函数不返回任何值时使用。</p>
+<p>常见的算术类型如下表：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>含义</th>
+<th>最小尺寸</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bool</td>
+<td>布尔类型</td>
+<td>未定义</td>
+</tr>
+<tr>
+<td>char</td>
+<td>字符</td>
+<td>8位</td>
+</tr>
+<tr>
+<td>wchar_t</td>
+<td>宽字符</td>
+<td>16位</td>
+</tr>
+<tr>
+<td>char16_t</td>
+<td>Unicode字符</td>
+<td>16位</td>
+</tr>
+<tr>
+<td>char32_t</td>
+<td>Unicode字符</td>
+<td>32位</td>
+</tr>
+<tr>
+<td>short</td>
+<td>短整型</td>
+<td>16位</td>
+</tr>
+<tr>
+<td>int</td>
+<td>整型</td>
+<td>16位</td>
+</tr>
+<tr>
+<td>long</td>
+<td>长整型</td>
+<td>32位</td>
+</tr>
+<tr>
+<td>long long</td>
+<td>长整型</td>
+<td>64位</td>
+</tr>
+<tr>
+<td>float</td>
+<td>单精度浮点数</td>
+<td>6位有效数字</td>
+</tr>
+<tr>
+<td>double</td>
+<td>双精度浮点数</td>
+<td>10位有效数字</td>
+</tr>
+<tr>
+<td>long double</td>
+<td>扩展精度浮点数</td>
+<td>10位有效数字</td>
+</tr>
+</tbody>
+</table>
+<p>支持国际化的基本的字符类型是 <code>char</code> ，一个<code>char</code> 类型的大小和机器字节大小一样。</p>
+<p>​	<code>c++</code> 规定一个<code>int</code> 至少和一个 <code>short</code> 一样大，一个<code>long</code> 至少和一个<code>int</code> 一样大，一个 <code>long long</code> 至少和一个<code>long</code> 一样大。</p>
+<p>浮点数可表示单精度、双精度和扩展精度值。<code>c++</code> 标准只是指定了一个浮点数有效位数的最小值，大多数编译器都实现了更高的精度。通常，<code>float</code> 以1个字（32比特）来表示，<code>double</code> 以2个字（64比特）来表示，<code>long double</code> 以3个或4个字来表示。（这依赖于编译器和机器）。类型 <code>float</code> 和 <code>double</code> 分别有7和16位个有效位；类型<code>long double</code></p>
+<h3 id="带符号类型和无符号类型"><strong>带符号类型和无符号类型</strong></h3>
+<p>​	除了布尔型和扩展的字符型，其他整型可以分为带符号的和无符号的。带符号类型可以表示正数、零和负数，无符号仅能表示大于等于0的数值。</p>
+<table>
+<thead>
+<tr>
+<th>带符号类型</th>
+<th>无符号类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int</td>
+<td>unsigned int</td>
+</tr>
+<tr>
+<td>short</td>
+<td>unsigned short</td>
+</tr>
+<tr>
+<td>long</td>
+<td>unsigned long</td>
+</tr>
+<tr>
+<td>long long</td>
+<td>unsigned long long</td>
+</tr>
+</tbody>
+</table>
+<p>字符型比较特殊，被分为三种：<code>char</code>、<code>signed char</code>、<code>unsigned char</code>。<code>char</code> 和 <code>signed char</code>不一定一样，取决于编译器，char可能是<code>signed char</code>，也可能是 <code>unsigned char</code>。</p>
+<p>无符号类型中，所有的数据比特都用于表示存储值，有符号类型则用一个比特表示符号，即<code>0</code>表示<code>+</code>，<code>1</code>表示<code>-</code>。</p>
+<h3 id="如何选择类型"><strong>如何选择类型</strong></h3>
+<ul>
+<li>当明确知道数值不可能为负数时，选用无符号类型。</li>
+<li>使用<code>int</code> 执行整数运算。现实中<code>short</code> 太小而<code>long</code> 一般和<code>int</code> 一样，如果<code>int</code> 范围不够，则用 <code>long long</code>。</li>
+<li>在算术表达式中不要使用 <code>char</code> 和 <code>bool</code> ,只有在存放字符或布尔值时才使用它们。因为<code>char</code> 在一些机器上是有符号，在一些机器上是无符号。</li>
+<li>执行浮点数运算使用<code>double</code> ，因为 <code>float</code>往往精度不够而且双精度浮点数和单精度浮点数的计算代价相差无几。对某些机器，<code>double</code> 的运算比 <code>float</code> 还要快。而 <code>long double</code> 在一般情况下没必要，且计算代价高。</li>
+</ul>
+<h3 id="练习">练习</h3>
+<p><strong>练习2.1</strong> 类型 <code>int</code> 、<code>long</code> 、<code>long long</code> 和 <code>short</code> 的区别是什么？无符号类型和带符号类型的区别是什么？<code>float</code> 和 <code>double</code> 的区别是什么？</p>
+<p><code>int</code> 、<code>long</code> 、<code>long long</code> 和 <code>short</code> 都表示整形，在C++标准中，这四个类型定义的最小尺寸不一样。<code>short</code> 短整形的最小尺寸是16位，<code>int</code> 整形的最小尺寸是16位，<code>long</code> 长整形的最小尺寸是32位，<code>long long</code> 长整形的最小尺寸是64位。一个<code>int</code> 至少和一个 <code>short</code> 一样大，一个<code>long</code> 至少和一个 <code>int</code> 一样大，一个 <code>long long </code> 至少和一个 <code>long</code> 一样大。<code>float</code> 和 <code>double</code> 都表示浮点数，<code>float</code> 用一个字表示，<code>double</code> 用两个字表示，<code>float</code> 有效为为7位，<code>double</code> 有效位为16位。</p>
+<p><strong>练习2.2</strong> 计算按揭贷款，对于利率、本金和付款分别选择何种数据类型？说明你的理由。</p>
+<p>应选择double类型，执行浮点数运算使用<code>double</code> ，因为 <code>float</code>往往精度不够而且双精度浮点数和单精度浮点数的计算代价相差无几。对某些机器，<code>double</code> 的运算比 <code>float</code> 还要快。而 <code>long double</code> 在一般情况下没必要，且计算代价高。</p>
+<h2 id="212-类型转换">2.1.2 类型转换</h2>
+<p>类型转换就是将对象从一种给定的类型转换为另一种相关类型。</p>
+<pre><code class="lang-c++">bool b = 42; // b 为真
+int i = b; // i 的值为1
+i = 3.14; // i的值为3
+double pi = i; // pi的值为3.0
+unsigned char c = -1; // 假设 char占8比特，c的值为255
+signed char c2 = 256; // 假设 char占8比特，c2的值时未定义的
+</code></pre>
+<ul>
+<li>把一个非布尔类型的算术值赋值给布尔类型时，初始值为0则结果为 <code>false</code> ，否则结果为 <code>true</code>。</li>
+<li>把一个布尔值赋给非布尔类型时，初始值为 <code>false</code> 则结果为0，初始值为 <code>true</code> 则结果为1。</li>
+<li>把一个浮点数赋给整型类型时，进行了近似处理。结果值将仅保留浮点数中小数点之前的部分。</li>
+<li>当把一个整数值赋值给浮点类型时，小数部分记为0。如果整数所占空间超过浮点类型的容量，精度可能有损失。</li>
+<li>当赋给无符号类型一个超过它表示范围的值时，结果是初始值对无符号类型表示数值总数取模后的余数。如8比特大小的 <code>unsigned char</code> 可以表示0至255区间的值，如果给我们赋一个区间以外的值，则实际结果该值对256取模后所得的余数。比如把-1赋给8比特大小的 <code>unsigned char</code> 所得结果是255。</li>
+</ul>
+<p><code>一般不在算术表达式中使用布尔类型，因为布尔类型转换为整形后非零即一。</code></p>
+<h3 id="含有无符号类型的表达式">含有无符号类型的表达式</h3>
+<p>当一个表达式中含有无符号和 <code>int</code> 类型变量值时，<code>int</code> 值就会转换成无符号数。</p>
+<pre><code>unsigned u =10;
+int i = -42;
+cout &lt;&lt; i + i &lt;&lt; endl;  // 输出-84
+cout &lt;&lt; u + i &lt;&lt; endl;  // 输出 4294967264
+</code></pre>
+<p>这是因为32位的<code>unsigned int</code> 类型的u值为10的机器码表示为 (0000 0000 0000 0000  0000 0000 0000 1010）(二进制)，而<code>int</code> 类型的i值为-42的机器码表示为(1111 1111 1111 1111 1111 1111 1101 0110 )（负数的机器码为真值的原码取反加1，高位为1），相加后得到的机器码为(1111 1111 1111 1111 1111 1111 1110 0000)，是一个<code>unsigned int</code> 类型，所以打印输出时结果为 4294967264。</p>
+<pre><code class="lang-c++">// 错误示范：这个循环会是个死循环，因为u不可能小于0。
+for(unsigned u =10; u&gt;=0;u--)
+{
+	cout &lt;&lt; u &lt;&lt; endl;
+}
+</code></pre>
+<p>因此不要在计算表达式中混用带符号类型的变量和无符号类型的变量。</p>
+<h3 id="练习-1">练习</h3>
+<p><strong>练习2.3</strong> 读程序写结果：</p>
+<pre><code class="lang-c++">unsigned u =10, u2 = 42;
+cout &lt;&lt; u2 - u &lt;&lt; endl;
+cout &lt;&lt; u - u2 &lt;&lt; endl;
+
+int i = 10, i2 =42;
+cout &lt;&lt; i2 - i &lt;&lt; endl;
+cout &lt;&lt; i - i2 &lt;&lt; endl;
+cout &lt;&lt; i - u &lt;&lt; endl;
+cout &lt;&lt; u - i &lt;&lt; endl;
+</code></pre>
+<p><code>unsigned int</code> 和 <code>int</code> 是32位的机器上的类型。</p>
+<table>
+<thead>
+<tr>
+<th>真值</th>
+<th>机器码（补码）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td><code>0000 0000 0000 0000 0000 0000 0000 1010</code></td>
+</tr>
+<tr>
+<td>42</td>
+<td><code>0000 0000 0000 0000 0000 0000 0010 1010</code></td>
+</tr>
+<tr>
+<td>-10</td>
+<td><code>1111 1111 1111 1111 1111 1111 1111 0110 </code></td>
+</tr>
+<tr>
+<td>-42</td>
+<td><code>1111 1111 1111 1111 1111 1111 1101 0110 </code></td>
+</tr>
+</tbody>
+</table>
+<p><code>u2 - u</code>， 的结果是<code>0000 0000 0000 0000 0000 0000 0010 0000</code>  ，类型时<code>unsigned int</code> ，打印结果为32。</p>
+<p><code>u - u2</code>， 相当于10的机器码加上 -42的机器码，返回的类型时 <code>unsigned int</code> 类型。相加后的值为 <code>1111 1111 1111 1111 1111 1111 1110 0000</code> ，打印值就是 4294967264。</p>
+<p><code>i2 - i</code> , 就是42的机器码加上-10的机器码，返回类型时<code>int</code> 类型。相加后的值为 <code>0000 0000 0000 0000 0000 0000 0010 0000</code>，打印值就是32。</p>
+<p><code>i - i2</code>，就是10的机器码加上-42的机器码，返回类型时 <code>int</code> 类型。相加后的值为<code>1111 1111 1111 1111 1111 1111 1110 0000</code>，打印后的值为 -32。</p>
+<p><code>i - u</code> ，就是10的机器码加上 - 10的机器码，返回的是 <code>unsigned int 类型</code>，相加后的值为 <code>0000 0000 0000 0000 0000 0000 0000 0000</code>。打印结果就是0。</p>
+<p><code>u - i</code> ，就是10的机器码加上-10的机器码，返回的是<code>unsigend int </code> 类型，相加后的值为 <code>0000 0000 0000 0000 0000 0000 0010 0000</code> ,打印结果就是0。</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter2/2.1.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
