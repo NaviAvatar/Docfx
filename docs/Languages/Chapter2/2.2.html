@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title> </title>
+    <title>2.2 &#21464;&#37327; </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content=" ">
+    <meta name="title" content="2.2 &#21464;&#37327; ">
     <meta name="generator" content="docfx 2.59.0.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
@@ -67,8 +67,251 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
+<h1 id="22-变量">2.2 变量</h1>
 
-<p>2.2</p>
+<p>​	变量提供一个具名的、可供程序操作的存储空间。c++中每个变量都有其数据类型，数据类型决定着变量所占内存空间大小和布局方式、该空间能存储的值的范围，以及变量能参与的运算。</p>
+<h2 id="221-变量定义">2.2.1 变量定义</h2>
+<p>基本形式：类型说明符，随后紧跟由一个或多个变量名组成的列表，其中变量名以逗号分隔，最后以分号结束。</p>
+<pre><code class="lang-c++">int sum = 0, value, units_sold = 0; // 其中sum 和 units_sold 初始值为0
+Sales_item item; // item的类型是 Sales_item
+std::string book(&quot;0-201-78345-X&quot;); // book 通过一个string  字面值初始化
+</code></pre>
+<p>当对象在创建时获得一个特定的值，就做对象初始化。</p>
+<h3 id="列表初始化">列表初始化</h3>
+<p>初始化的形式有几种，如下，是给int类型变量进行初始化。</p>
+<pre><code class="lang-c++">int units_sold = 0; // 常用
+int units_Sold = {0};
+int units_sold{0};
+int units_sold(0);
+</code></pre>
+<p>用花括号来初始化变量，作为C++11新标准的一部分，已经得到全面应用，过去这种花括号初始化仅限在某些场合下使用。<font color='red'>使用花括号初始化存在丢失精度的风险时，编译器会报错。</font></p>
+<pre><code>long double ld = 3.1415926536;
+int a{ld}, b = {ld};  	// 错误，转换为执行，因为存在丢失精度的风险
+int c(ld), d =ld; 		// 正确，转换执行，且确实存在丢失了部分值
+</code></pre>
+<p>去掉上述第二行代码，加上两行打印代码运行，编译器会报警：<code>警告	C4244	“初始化”: 从“long double”转换到“int”，可能丢失数据	1.1.cpp	12	</code> ，并且打印的值为 3，3。</p>
+<pre><code class="lang-c++">cout &lt;&lt; &quot;c: &quot; &lt;&lt; c &lt;&lt; endl;
+cout &lt;&lt; &quot;d: &quot; &lt;&lt; d &lt;&lt; endl;
+</code></pre>
+<h3 id="默认初始化">默认初始化</h3>
+<p>​	定义变量时没有指定初值，则变量被&lt;font color=<code>blue</code> &gt;默认初始化，此时变量被赋予默认值。默认值到底是什么取决于变量类型，同时定义变量的位置也会对此有影响。</p>
+<p>​	如果是内置类型的变量被显示初始化，它的值由定义的位置决定。定义于任何函数体之外的变量被初始化为0。定义在函数体内部的内置类型变量将不会被初始化。<font color='red'>一个未被初始化的内置类型变量的值是未定义的，试图拷贝或者以其他形式访问该类值将会引发错误。</font></p>
+<p>​	每个类各自决定其初始化对象的方式。是否允许不经初始化就定义对象也由类自己决定。如果类允许这种行为，它将决定对象的初始值到底是什么。</p>
+<p>​	绝大多数类都支持无需显式初始化而定义对象，这样的类提供了一个合适的默认值。比如std::string 类型，默认初始化为一个空串。自定义类Sales_item类也有其默认构造函数初始化。</p>
+<h3 id="练习">练习</h3>
+<p><strong>练习2.9</strong> 解释下列定义的含义。对于非法的定义，请说明在何处并将其改正。</p>
+<p>(a) std::cin &gt;&gt; int input_value;	(b) int i = {3.14};</p>
+<p>(c) double salary = wage = 9999.99; 	(d) int i = 3.14;</p>
+<p>答：(a) cin右侧紧跟的是已经定义的对象。此处应改为：</p>
+<pre><code class="lang-c++">int input_value;	std::cin &gt;&gt; input_value;
+</code></pre>
+<p>(b) 花括号初始化，如果存在精度丢失风险，编译器会报错。此处应改为：</p>
+<pre><code class="lang-c++">int i =3.14; // 或者 double i = {3.14};
+</code></pre>
+<p>(c) 定义double类型变量salary和wage，并显示初始化9999.99。定义形式错误，应该用逗号</p>
+<p>隔开。此处应改为：</p>
+<pre><code class="lang-c++">double salary = 9999.99, wage = 9999.99;
+</code></pre>
+<p>(d)定义一个int变量并初始化3.14，存在精度丢失，但是编译器允许编译通过。</p>
+<p><strong>练习2.10</strong> 下列变量的初值分别是什么？</p>
+<pre><code class="lang-c++">std::string global_str;
+int global_int;
+int main()
+{
+ 	int local_int;
+    std::string local_str;
+}
+</code></pre>
+<p>global_str初始化为一个空串；global_int初始化为0；local_int未执行初始化，因为定义在函数体内部，编译报错！</p>
+<p>local_str初始化为一个空窜，即使在函数体内部定义了并没初始化，编译时也会通过。</p>
+<p><font color='red'>因此，应当都每一个内置类型变量进行初始化，虽然不是必须，但是不这样做，可能存在访问时对时错的风险。</font></p>
+<h2 id="222-变量声明和定义的关系">2.2.2 变量声明和定义的关系</h2>
+<p>​	c++支持分离式编译机制，这个机制允许将程序分为若干文件，每个文件可被独立编译。<font color='blue'>声明</font>使得名字为程序所知，一个文件如果想使用别处定义的名字则必须包含对那个名字的声明。而&lt;font color=<code>blue</code>&gt;定义负责创建与名字关联的实体。</p>
+<p>​	变量声明规定了变量的类型和名字。定义也规定了变量的类型和名字，但是还要申请存储空间，也可能进行初始化。</p>
+<p>​	如果仅仅是声明一个变量而不是定义它，那么在变量名前面添加关键字<font color='blue'>extern</font>，而且不要显示初始化变量。</p>
+<pre><code class="lang-c++">extern int i;	// 声明i 而非定义i
+int j;			// 声明并定义 j
+</code></pre>
+<p>​	任何包含了显示初始化的声明即称为定义。<font color='red'>在函数体内部，试图初始化一个由<font color='blue'>extern</font>关键字标记的变量，将会引发错误。</font></p>
+<p><font color='red'>变量能且只能被定义一次，但是可以被多次声明。</font></p>
+<p>​	如果在多个文件中使用同一个变量，就必须将声明和定义分离。变量的定义必须出现且只能出现在一个文件中，而其他用到该变量的文件必须对其进行声明，却绝对不能重复定义。</p>
+<h3 id="练习-1">练习</h3>
+<p><strong>练习2.11</strong> 指出下面的语句是声明还是定义。</p>
+<pre><code class="lang-c++">(a) extern int ix = 1024;
+(b) int iy;
+(c) extern int iz;
+    
+</code></pre>
+<p>（a)是定义。(b)是声明。(c)是声明。</p>
+<h2 id="223-标识符">2.2.3 标识符</h2>
+<p>C++的标识符由字母、数字和下划线组成，其中必须以字母或下划线开头。标识符的长度没有限制，但是大小写敏感。</p>
+<p><strong>C++关键字</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alignas</td>
+<td>continue</td>
+<td>friend</td>
+<td>register</td>
+<td>true</td>
+</tr>
+<tr>
+<td>alignof</td>
+<td>decltype</td>
+<td>goto</td>
+<td>reinterpret_cast</td>
+<td>try</td>
+</tr>
+<tr>
+<td>asm</td>
+<td>default</td>
+<td>if</td>
+<td>return</td>
+<td>typedef</td>
+</tr>
+<tr>
+<td>auto</td>
+<td>delete</td>
+<td>inline</td>
+<td>short</td>
+<td>typeid</td>
+</tr>
+<tr>
+<td>bool</td>
+<td>do</td>
+<td>int</td>
+<td>signed</td>
+<td>typename</td>
+</tr>
+<tr>
+<td>break</td>
+<td>double</td>
+<td>long</td>
+<td>sizeof</td>
+<td>union</td>
+</tr>
+<tr>
+<td>case</td>
+<td>dynamic_cast</td>
+<td>mutable</td>
+<td>static</td>
+<td>unsigned</td>
+</tr>
+<tr>
+<td>catch</td>
+<td>else</td>
+<td>namespace</td>
+<td>static_assert</td>
+<td>using</td>
+</tr>
+<tr>
+<td>char</td>
+<td>enum</td>
+<td>new</td>
+<td>static_cast</td>
+<td>virtual</td>
+</tr>
+<tr>
+<td>char16_t</td>
+<td>explicit</td>
+<td>noexcept</td>
+<td>struct</td>
+<td>void</td>
+</tr>
+<tr>
+<td>char32_t</td>
+<td>export</td>
+<td>nullptr</td>
+<td>switch</td>
+<td>volatile</td>
+</tr>
+<tr>
+<td>class</td>
+<td>extern</td>
+<td>operator</td>
+<td>template</td>
+<td>wchar_t</td>
+</tr>
+<tr>
+<td>const</td>
+<td>false</td>
+<td>private</td>
+<td>this</td>
+<td>while</td>
+</tr>
+<tr>
+<td>constexpr</td>
+<td>float</td>
+<td>protected</td>
+<td>thread_local</td>
+<td></td>
+</tr>
+<tr>
+<td>const_cast</td>
+<td>for</td>
+<td>public</td>
+<td>throw</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>C++操作符代替名</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>and</td>
+<td>bitand</td>
+<td>compl</td>
+<td>not_eq</td>
+<td>or_eq</td>
+</tr>
+<tr>
+<td>xor_eq</td>
+<td>and_eq</td>
+<td>bitor</td>
+<td>not</td>
+<td>or</td>
+</tr>
+<tr>
+<td>xor</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>上述两个表格的关键字不能用作标识符。</p>
+<h3 id="练习-2">练习</h3>
+<p><strong>练习2.12</strong> 请指出下面的名字中哪些是非法的？</p>
+<p>(a) int double = 3.14;	(b) int _;	(c) int catch-32;	(d) int 1_or_2 =1;	(e) double Double = 3.14;</p>
+<p>(a)显然非法，变量名的位关键字double。</p>
+<p>(b)编译通过，但是一般不会这样命名，命名要准守一定的规范外最好做到<font color='blue'>见名知意</font>。</p>
+<p>(c)非法，变量名不能有“-”符号。</p>
+<p>(d) 非法，必须以下划线开头或者字母开头。</p>
+<p>(e)编译通过，变量名字是大小写敏感的，Double首字母大写，与double关键字不冲突。</p>
+<h2 id="224-名字作用域">2.2.4 名字作用域</h2>
+<p>代码中同一个名字如果出现在程序的不同位置，也可能指向的是不同实体。</p>
+<p>作用域是程序的一部分，在其中名字有其特定的含义。c++语言中大多数作用域都以花括号分隔。</p>
+<p>同一个名字在不同的作用域中可能指向不同的实体。名字的有效区域始于名字的声明语句，以声明语句所在的作用域末端为结束。</p>
 </article>
           </div>
           
