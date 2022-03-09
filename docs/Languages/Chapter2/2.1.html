@@ -281,12 +281,252 @@ cout &lt;&lt; u - i &lt;&lt; endl;
 </tr>
 </tbody>
 </table>
-<p><code>u2 - u</code>， 的结果是<code>0000 0000 0000 0000 0000 0000 0010 0000</code>  ，类型时<code>unsigned int</code> ，打印结果为32。</p>
-<p><code>u - u2</code>， 相当于10的机器码加上 -42的机器码，返回的类型时 <code>unsigned int</code> 类型。相加后的值为 <code>1111 1111 1111 1111 1111 1111 1110 0000</code> ，打印值就是 4294967264。</p>
-<p><code>i2 - i</code> , 就是42的机器码加上-10的机器码，返回类型时<code>int</code> 类型。相加后的值为 <code>0000 0000 0000 0000 0000 0000 0010 0000</code>，打印值就是32。</p>
-<p><code>i - i2</code>，就是10的机器码加上-42的机器码，返回类型时 <code>int</code> 类型。相加后的值为<code>1111 1111 1111 1111 1111 1111 1110 0000</code>，打印后的值为 -32。</p>
-<p><code>i - u</code> ，就是10的机器码加上 - 10的机器码，返回的是 <code>unsigned int 类型</code>，相加后的值为 <code>0000 0000 0000 0000 0000 0000 0000 0000</code>。打印结果就是0。</p>
-<p><code>u - i</code> ，就是10的机器码加上-10的机器码，返回的是<code>unsigend int </code> 类型，相加后的值为 <code>0000 0000 0000 0000 0000 0000 0010 0000</code> ,打印结果就是0。</p>
+<p><code>u2 - u</code>， 的结果是<code>0000 0000 0000 0000 0000 0000 0010 0000</code>  ，类型是<code>unsigned int</code> ，打印的值为32。</p>
+<p><code>u - u2</code>， 相当于10的机器码加上 -42的机器码，返回的类型是 <code>unsigned int</code> 类型。相加后的值为 <code>1111 1111 1111 1111 1111 1111 1110 0000</code> ，打印得值为 4294967264。</p>
+<p><code>i2 - i</code> , 就是42的机器码加上-10的机器码，返回类型是<code>int</code> 类型。相加后的值为 <code>0000 0000 0000 0000 0000 0000 0010 0000</code>，打印的值为32。</p>
+<p><code>i - i2</code>，就是10的机器码加上-42的机器码，返回类型是 <code>int</code> 类型。相加后的值为<code>1111 1111 1111 1111 1111 1111 1110 0000</code>，打印的值为 -32。</p>
+<p><code>i - u</code> ，就是10的机器码加上 - 10的机器码，返回的是 <code>unsigned int 类型</code>，相加后的值为 <code>0000 0000 0000 0000 0000 0000 0000 0000</code>。打印的值为0。</p>
+<p><code>u - i</code> ，就是10的机器码加上-10的机器码，返回的是<code>unsigend int </code> 类型，相加后的值为 <code>0000 0000 0000 0000 0000 0000 0010 0000</code> ,打印的值为0。</p>
+<h2 id="213-字面值常量">2.1.3 字面值常量</h2>
+<p>如“42”，”A“，这样的值，一望而知，称为字面值常量，每个字面值常量对应一种数据类型。</p>
+<h3 id="整型和浮点型字面值">整型和浮点型字面值</h3>
+<p><strong>整型字面值</strong></p>
+<table>
+<thead>
+<tr>
+<th>十进制</th>
+<th>八进制</th>
+<th>十六进制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>20</td>
+<td>024</td>
+<td>0x14</td>
+</tr>
+<tr>
+<td></td>
+<td>以0开头</td>
+<td>以0x或0X开头</td>
+</tr>
+</tbody>
+</table>
+<p><strong>浮点型字面值</strong></p>
+<p>3.14159	3.14E1	.001</p>
+<h3 id="字符和字符串字面值"><strong>字符和字符串字面值</strong></h3>
+<table>
+<thead>
+<tr>
+<th>字符字面值</th>
+<th>字符串字面值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>'a'</td>
+<td>&quot;hello world&quot;</td>
+</tr>
+</tbody>
+</table>
+<p><font color='red'>字符串由常量字符构成数组，编译器在每个字符串的结尾处添加一个空字符('\0')，因此，字符串字面值的实际长度要比它的内容多1。</font></p>
+<p>两个字符串字面值位置紧邻且仅有空格、缩进和换行符分隔，则实际上它们是个整体。</p>
+<pre><code class="lang-c++">// 一行写不下，可以换行
+cout &lt;&lt; &quot;a really, really long string literal &quot;
+		&quot;that spans two lines&quot; &lt;&lt;endl;
+// 相当于 &quot;a really, really long string literal that spans two lines&quot;
+</code></pre>
+<h3 id="转义序列">转义序列</h3>
+<p>两类字符程序员不能直接使用：一类是不可打印的字符，如退格或其他控制字符，因为它们没有可视的图符；另一类是c++语言中有特殊含义的字符。需要转义序列，转义序列均以反斜线开始。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>换行符</td>
+<td>\n</td>
+</tr>
+<tr>
+<td>纵向制表符</td>
+<td>\v</td>
+</tr>
+<tr>
+<td>反斜线</td>
+<td>\\</td>
+</tr>
+<tr>
+<td>回车符</td>
+<td>\r</td>
+</tr>
+<tr>
+<td>横向制表符</td>
+<td>\t</td>
+</tr>
+<tr>
+<td>退格符</td>
+<td>\b</td>
+</tr>
+<tr>
+<td>问号</td>
+<td>?</td>
+</tr>
+<tr>
+<td>进纸符</td>
+<td>\f</td>
+</tr>
+<tr>
+<td>报警符</td>
+<td>\a</td>
+</tr>
+<tr>
+<td>双引号</td>
+<td>\&quot;</td>
+</tr>
+<tr>
+<td>单引号</td>
+<td>\'</td>
+</tr>
+</tbody>
+</table>
+<p>泛化的转义序列，形式是\x后紧跟1个或多个十六进制数字，或\后紧跟1个或2个或3个八进制数字，其中数字部分表示的是字符对应的数值。因此，<font color='red'>反斜线\后面紧跟着的八进制数字超过3个，只有前3个数字与\构成转义序列。如“\1234”表示两个字符，“\123”和“4”。</font></p>
+<h3 id="指定字面值的类型">指定字面值的类型</h3>
+<p><strong>字符和字符串字面值</strong></p>
+<table>
+<thead>
+<tr>
+<th>前缀</th>
+<th>含义</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>u</td>
+<td>Unicode16字符</td>
+<td>char16_t</td>
+</tr>
+<tr>
+<td>U</td>
+<td>Unicode32字符</td>
+<td>char32_t</td>
+</tr>
+<tr>
+<td>L</td>
+<td>宽字符</td>
+<td>wchar_t</td>
+</tr>
+<tr>
+<td>u8</td>
+<td>UTF-8</td>
+<td>char</td>
+</tr>
+</tbody>
+</table>
+<p><strong>整型字面值</strong></p>
+<table>
+<thead>
+<tr>
+<th>后缀</th>
+<th>最小匹配类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>u 或 U</td>
+<td>unsigned</td>
+</tr>
+<tr>
+<td>l 或 L</td>
+<td>long</td>
+</tr>
+<tr>
+<td>ll 或 LL</td>
+<td>long long</td>
+</tr>
+</tbody>
+</table>
+<p><strong>浮点型字面值</strong></p>
+<table>
+<thead>
+<tr>
+<th>后缀</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>f 或 F</td>
+<td>float</td>
+</tr>
+<tr>
+<td>l 或 L</td>
+<td>long double</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-c++">L'a'		// 宽字符类型字面值，类型是 wchar_t
+u8 &quot;hi!&quot; 	// utf-8字符串字面值(utf-8用8位编码一个unicode字符)
+42ULL		// 无符号整数字面值，类型是unsigned long long 
+1E-3F		// 单精度浮点型字面值，类型是float
+3.14159L	// 扩展精度浮点型字面值，类型是 long double
+</code></pre>
+<p><strong>布尔字面值和指针字面值</strong></p>
+<table>
+<thead>
+<tr>
+<th>布尔字面值</th>
+<th>指针字面值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>true和false。</td>
+<td>nullptr</td>
+</tr>
+</tbody>
+</table>
+<h3 id="练习-2">练习</h3>
+<p><strong>练习2.5</strong> 指出下述字面值的数据类型并说明每一组内几种字面值的区别：</p>
+<p>(a) 'a'，L'a'，“a”，L&quot;a&quot;</p>
+<p>(b) 10, 10u, 10L，10uL，012，0xC</p>
+<p>(c) 3.14，3.14f，3.14L</p>
+<p>(d) 10，10u，10.，10e-2</p>
+<p>答：</p>
+<p>​	(a)组，'a'是<code>char</code> 类型，内存占用1个字节。L'a'是 <code>wchar_t</code> 类型，内存占2个字节。“a”是字符串，存储串尾部还有一个'\0'，编码格式为ASCIII编码格式。L&quot;a&quot;编码格式为<code>Unicode</code> 编码格式，每个字符占用两个字节，因为串尾部结束符'\0'也占两个字节，故该串占用4个字节。</p>
+<p>(b)组，<code>10</code> 是int类型常量，默认为有符号整型，最小尺寸为16位。<code>10u</code> 是<code>unsigned int</code> 类型，最小尺寸为16位。<code>10L</code> 是 <code>Long</code> 类型，最小尺寸为32位。<code>10uL</code> 是 <code>unsigned long</code> 类型，无符号长整型，最小尺寸为32位。012 是八进制的int类型常量，表示数值10（十进制）。0xC表示十六进制的int类型，数值为10。</p>
+<p>(c)组，3.14表示双精度浮点数，类型为double，最小尺寸为10位有效数字。3.14f为单精度浮点数，类型为float，最小尺寸为6位有效数字.3.14L，表示 <code>long double</code> 类型，最小尺寸为10位有效数字。</p>
+<p>(d)组，10表示int类型。10u表示<code>unsigned int</code> 类型。10.表示双精度浮点数类型double。10e-2，用科学计数法表示的浮点数0.1。</p>
+<p><strong>练习2.6</strong> 下面两组定义是否有区别，如果有，请叙述之。</p>
+<pre><code class="lang-c++">int month = 9,day = 7;
+int month = 09, day =07;
+</code></pre>
+<p>有区别，第一行是用十进制表示month和day，值分别为9和7。第二行用八进制表示month和day，但是month的值为无效字符，八进制的位不能大于7，是错误的，编译时不通过。</p>
+<p><strong>练习2.7</strong> 下述字面值表示何种含义？它们各自的数据类型是什么？</p>
+<p>(a) &quot;who goes with F\145rgus?\012&quot;、</p>
+<p>(b) 3.14e1L	（c）1024f	(d) 3.14L</p>
+<p>(a) \145表示小写字母e，\012表示换行符。为字符串类型，因此表示字符串为</p>
+<pre><code class="lang-c++">who goes with Fergus?
+
+</code></pre>
+<p>(b) 3.14e1L表示类型为 <code>Long double</code> 类型，值为31.4。</p>
+<p>(c) 表示类型为 <code>float</code> 类型值为1024。</p>
+<p>(d) <code>long double</code> 类型的3.14。</p>
+<p><strong>练习2.8</strong></p>
+<p>请利用转义序列编写一段程序，要求先输出2M，然后转到新一行。修改程序使其先输出2，然后输出制表符，再输出M，最后转到新一行。</p>
+<pre><code class="lang-c++">#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+    cout &lt;&lt; &quot;2\115\012&quot; &lt;&lt; endl; // 输出2M和换行
+    cout &lt;&lt; &quot;2\t\115\012&quot; &lt;&lt; endl; // 输出2 制表符 M 换行
+    return 0; 
+}
+</code></pre>
 </article>
           </div>
           

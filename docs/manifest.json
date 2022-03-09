@@ -152,10 +152,10 @@
       "output": {
         ".html": {
           "relative_path": "Languages/Chapter2/2.1.html",
-          "hash": "uH796pQPvUERkesTw3L+LgqtBWD3SCApizPzIsMjVvU="
+          "hash": "LhE2kH6Qwf8Hz8hG+WQo0tXpfcjVjuAGkI4hFVvwZnU="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -244,7 +244,7 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 12,
-          "skipped_file_count": 11
+          "skipped_file_count": 12
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
