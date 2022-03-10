@@ -312,6 +312,64 @@ int j;			// 声明并定义 j
 <p>代码中同一个名字如果出现在程序的不同位置，也可能指向的是不同实体。</p>
 <p>作用域是程序的一部分，在其中名字有其特定的含义。c++语言中大多数作用域都以花括号分隔。</p>
 <p>同一个名字在不同的作用域中可能指向不同的实体。名字的有效区域始于名字的声明语句，以声明语句所在的作用域末端为结束。</p>
+<pre><code class="lang-c++">#include &lt;iostream&gt;
+using namespace std;
+
+int _testData;
+std::string global_str;
+int global_int;
+
+int main()
+{
+    double local_data = 3.14;
+    cout &lt;&lt; local_data &lt;&lt; endl;
+    
+    {
+        int block_data = 10;
+        cout &lt;&lt; block_data &lt;&lt; endl;
+    }
+    
+    int data = block_data;  // 访问block_data失败
+    return 0;
+}
+</code></pre>
+<p>代码中，<code>_testData</code>，<code>global_str</code> 的作用域是<font color='blue'>全局作用域</font>，在整个程序代码中都能访问到，而像 <code>local_data</code> 的作用域是<font color='blue'>块作用域</font>，在声明之后的代码都能访问到，但是离开<code>main</code> 函数再去访问 <code>local_data</code> ，就访问不到。而 <code>block_data</code> 这样的变量，定义在一个花括号括起来的块，出了块之后就不能再访问到。</p>
+<p><strong>嵌套作用域</strong></p>
+<p>作用域能包含彼此，被包含的作用域称为内层作用域，包含着别的作用域的作用域称为外层作用域。作用域一旦声明了某个名字，它所嵌套着的所有作用域都能访问该名字。同时，允许在内层作用域中重新定义外层作用域已有的名字。</p>
+<pre><code class="lang-c++">#include &lt;iostream&gt;
+using namespace std;
+
+int _testData = 10; // _testData 为全局作用域
+
+int main()
+{
+    cout &lt;&lt; _testData &lt;&lt; endl; // 输出 10
+    double local_data = 3.14;
+    double _testdata = 5;
+    cout &lt;&lt; _testdata &lt;&lt; endl; // 优先使用距离代码最近的作用域，即输出 5
+    return 0;
+}
+</code></pre>
+<p><font color='red'>因此，当函数内部某个地方使用到全局变量，就不应该再定义一个同名的局部变量</font>。</p>
+<h3 id="练习-3">练习</h3>
+<p><strong>练习 2.13</strong> 下面程序中j的值是多少？</p>
+<pre><code class="lang-c++">int i =42;
+int main()
+{
+	int i = 100;
+	int j = i;
+}
+</code></pre>
+<p>j的值为100，给j赋值的i优先使用内部作用域。</p>
+<p><strong>练习2.14</strong> 下面的程序合法吗？如果合法，它将输出什么？</p>
+<pre><code class="lang-c++">int i = 100, sum = 0;
+for(int i =0; i != 10; ++i)
+{
+    sum+=i;
+}
+std::cout &lt;&lt; i &lt;&lt; &quot; &quot;&lt;&lt; sum &lt;&lt;std::endl;
+</code></pre>
+<p>合法，输出：100 45</p>
 </article>
           </div>
           
