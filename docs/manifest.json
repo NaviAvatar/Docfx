@@ -167,6 +167,18 @@
           "hash": "NryHUBGxnwOu1ChiY2cfviuEwPLa0phIl/wV+qfvtu0="
         }
       },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter2/2.3.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter2/2.3.html",
+          "hash": "exYGpxFsn7hMZiD73kN7SsXoNjp370Z15J5LZLDxVBQ="
+        }
+      },
       "is_incremental": false,
       "version": ""
     },
@@ -176,7 +188,7 @@
       "output": {
         ".html": {
           "relative_path": "Languages/toc.html",
-          "hash": "lNTrPKJwl1J02CRf/HbI/IlsTAZw8jR6tV0ipXzKSWo="
+          "hash": "ZMJQOCU59RZm62RET6RFvjb8xRx9vWGra62+K1iEeDg="
         }
       },
       "is_incremental": false,
@@ -243,8 +255,8 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 12,
-          "skipped_file_count": 11
+          "total_file_count": 13,
+          "skipped_file_count": 12
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
