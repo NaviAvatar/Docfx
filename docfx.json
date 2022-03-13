@@ -46,7 +46,8 @@
       {
         "files": [
           "images/**",
-          "Languages/**.png"
+          "Languages/**.png",
+          "Algorithm/**.png"
         ]
       }
     ],
