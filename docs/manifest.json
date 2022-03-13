@@ -179,6 +179,18 @@
           "hash": "exYGpxFsn7hMZiD73kN7SsXoNjp370Z15J5LZLDxVBQ="
         }
       },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter2/2.4.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter2/2.4.html",
+          "hash": "Hfix7U5c6NSfFktuLBc+7gu/3MhZrIOhrYXjQd9C/9I="
+        }
+      },
       "is_incremental": false,
       "version": ""
     },
@@ -188,7 +200,7 @@
       "output": {
         ".html": {
           "relative_path": "Languages/toc.html",
-          "hash": "ZMJQOCU59RZm62RET6RFvjb8xRx9vWGra62+K1iEeDg="
+          "hash": "7AEn3UzJ3DMJ6lMWZ3jt4KfjUvd/gdekMeacpiF8MTs="
         }
       },
       "is_incremental": false,
@@ -200,7 +212,7 @@
       "output": {
         ".html": {
           "relative_path": "OperatingSystem/intro.html",
-          "hash": "ydV2IA1/W3pGADz+9h86zCzAo3+jdAGi2l7yVAavzjY="
+          "hash": "PciBoQjsRluhSG768KDzW1KwDOq/gW2KNZDwKggJC7I="
         }
       },
       "is_incremental": true,
@@ -255,8 +267,8 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 13,
-          "skipped_file_count": 12
+          "total_file_count": 14,
+          "skipped_file_count": 13
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

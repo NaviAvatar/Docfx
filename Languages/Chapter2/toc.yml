@@ -4,3 +4,5 @@
   href: 2.2.md
 - name: 2.3 复合类型
   href: 2.3.md
+- name: 2.4 const 限定符
+  href: 2.4.md
