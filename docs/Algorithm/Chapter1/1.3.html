@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>&#32451;&#20064; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="&#32451;&#20064; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="练习">练习</h1>
+
+<p><strong>1.以下算法时间复杂度为：</strong></p>
+<pre><code class="lang-c++">void fun(const int n) {
+    int i = 1;
+    while (i &lt;= n) {
+        i = i*2;
+    }
+}
+</code></pre>
+<p>这里主要是算出<font color='red'>“i = i*2;”</font>语句的执行次数和n规模之间的关系。</p>
+<p>通过计算等比数列求和公式知：</p>
+<p><img src="pictures/formula1.png" alt="f1"></p>
+<p>其中x是运行次数。x即为所求的算法复杂度。所以算法复杂度为：</p>
+<p><img src="pictures/formula2.png" alt="f1"></p>
+<p><strong>2.求以下算法时间复杂度：</strong></p>
+<pre><code class="lang-c++">x = 2;
+while(x &lt; n/2)
+{
+    x=2*x;
+}
+</code></pre>
+<p>循环语句<font color='red'>x=2*x;</font>执行次数i和n规模的关系为:</p>
+<p><img src="pictures/formula3.png" alt="f3"></p>
+<p>所以算法复杂度为：</p>
+<p><img src="pictures/formula2.png" alt="f3"></p>
+<p><strong>3.求整数n的阶乘的算法如下，计算时间复杂度：</strong></p>
+<pre><code class="lang-c++">int fact(int n)
+{
+    if(n &lt;= 1){
+      return 1;  
+    } 
+    return n*fact(n-1);
+}
+</code></pre>
+<p>这是个递归方法计算n的阶乘。显然一共调用fact函数n次，故其算法时间复杂度为O(n);</p>
+<p><strong>4.下列程序段的时间复杂度是？</strong></p>
+<pre><code class="lang-c++">count = 0;
+for(k = 1; k &lt;= n;k *= 2)
+	for(j = 1; j &lt;= n; j++)
+        count++;
+</code></pre>
+<p>第一层for循环执行了<img src="pictures/formula2.png" alt="">次，第二层for循环每次执行n次，故算法时间复杂度为：<img src="pictures/formula4.png" alt=""></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Algorithm/Chapter1/1.3.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

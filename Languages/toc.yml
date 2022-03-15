@@ -2,3 +2,5 @@
   href: Chapter1/toc.yml
 - name: 第二章 变量和基本类型
   href: Chapter2/toc.yml
+- name: 第三章 字符串、向量和数组
+  href: Chapter3/toc.yml

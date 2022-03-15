@@ -1,2 +1,4 @@
 - name: 第一章 基本知识
   href: Chapter1/toc.yml
+- name: 第二章 线性表
+  href: Chapter2/toc.yml

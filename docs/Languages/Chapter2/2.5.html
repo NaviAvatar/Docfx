@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>2.5 &#22788;&#29702;&#31867;&#22411; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="2.5 &#22788;&#29702;&#31867;&#22411; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="25-处理类型">2.5 处理类型</h1>
+
+<p>​	程序越是复杂，程序用到的类型也越复杂。一些类型难于拼写，名字难记容易拼错，程序员不能望明知意，有时不清楚需要定义什么类型，得联系程序的上下文。</p>
+<h2 id="251-类型别名">2.5.1 类型别名</h2>
+<p>​	类型别名是一个名字，它是某种类型的同义词。使用类型别名有很多好处，它让复杂名字变得简单明了，易于理解和使用，还有助于程序员清楚地知道使用该类型的真实目的。</p>
+<p>​	两种方法定义类型别名。传统方法是使用关键字typedef:</p>
+<pre><code class="lang-c++">typedef double wages;	// wages 是double的同义词
+typedef wages base, *p; // base 是double的同义词，p是double*的同义词
+</code></pre>
+<p>含有typedef关键字的声明语句定义的不再是变量而是类型别名。</p>
+<p>新标准规定了一种新的方法，使用别名声明类定义类型的别名：</p>
+<pre><code class="lang-c++">using SI = Sales_item;	// SI 是Sales_item的别名
+</code></pre>
+<h3 id="如何使用类型别名">如何使用类型别名</h3>
+<p>​	相当于类型别名就是绑定的类型的一个别名，就当一种类型使用即可。事实上，编译器编译的时候就是把使用wages的地方替换成double。</p>
+<pre><code class="lang-c++">wages mike = 5000;	// 相当于 double mike = 5000;
+</code></pre>
+<h3 id="指针常量和类型别名">指针、常量和类型别名</h3>
+<p>​	如果某个类型别名指代的是复合类型或常量，那么把它用到声明语句里就会产生一些意想不到的后果。</p>
+<pre><code class="lang-c++">typedef char *pstring;	// 是类型char*的别名
+const pstring cstr = 0;	// cstr 是指向char的常量指针
+const pstring *ps;	// ps 是一个指针，它的对象是指向char的常量指针。
+</code></pre>
+<p>​	因为<code>pstring</code>是指向<code>char</code>的指针，<code>const pstring</code> 就是指向char类型的常量指针，意味着cstr一旦初始化之后，就不能再次更改其所指向的地址。因此不能把<code>const pstring cstr = 0</code>等同于<code>const char* cstr = 0</code>。</p>
+<h2 id="252-auto类型说明符">2.5.2 auto类型说明符</h2>
+<p>​	编程时常常需要把表达式的值赋给变量，这就要求在声明变量的时候清楚地知道表达式的类型。然而要做到这一点并非容易，有时甚至根本做不到。为了解决这个问题，C++11新标准引进auto类型说明符，用它就能让编译器替我们去分析表达式所属的类型。auto让编译器通过初始值来推算变量的类型，显然，auto定义的变量必须知道初始值。</p>
+<pre><code class="lang-c++">auto item = val1 + val2;	// item的类型通过val1和val2相加的结果推算出来
+</code></pre>
+<p>​	同时也要注意，在一条语句声明多个变量中，变量的初始值要确保类型相同。</p>
+<pre><code class="lang-c++">auto i = 0, * p = &amp;i;	// 正确，auto为int类型
+auto sz = 0, pi = 3.14;	// 错误，sz为int，而pi为double
+</code></pre>
+<h3 id="复合类型常量和auto">复合类型、常量和auto</h3>
+<p>​	编译器推断出来的auto类型有时候和初始值的类型并不完全一样，编译器会适当地改变结果类型使其更符合初始化规则。</p>
+<p>​	auto一般会忽略掉顶层const，保留底层const。</p>
+<pre><code class="lang-c++">const int ci = i, &amp;cr = ci;
+auto b = ci;	// b 是个int类型，而不是const int
+auto c = cr;	// c 是个int类型，而不是const int
+auto d = &amp;i;	// d 是个整型指针
+auto e = &amp;ci;   // e 是个指向整数常量的指针
+</code></pre>
+<p>因此如果希望推断出的auto类型是个顶层const，需要显示定义出来。</p>
+<pre><code class="lang-c++">const auto f = ci;	// ci 推演出int类型，则f是const int
+</code></pre>
+<p>和引用结合：</p>
+<pre><code class="lang-c++">auto &amp;g = ci;	// g是一个整型常量引用，绑定ci
+auto &amp;h = 42;	// 错误，不能为非常量引用绑定字面值
+const auto &amp;j = 42; // 正确
+</code></pre>
+<h3 id="练习">练习</h3>
+<p><strong>练习 2.33</strong>  判断下列语句的运行结果</p>
+<pre><code class="lang-c++">a = 42; b = 42; c = 42;
+d = 42; e = 42; g = 42;
+</code></pre>
+<p>a是int类型，可再次赋值，运行正确。</p>
+<p>b是int类型，可再次赋值，运行正确。</p>
+<p>c是int类型，可再次赋值，运行正确。</p>
+<p>d是整型指针，赋值42是错误的行为。</p>
+<p>e是一个指向整数常数的指针，赋值42是错误行为。</p>
+<p>g是一个整型常量引用，不可再次赋值。错误行为。</p>
+<p><strong>练习2.34</strong> 略</p>
+<p><strong>练习2.35</strong> 判断下列定义推断出的类型是什么，然后编写程序进行验证。</p>
+<pre><code class="lang-c++">const int i = 42;
+auto j = i; const auto &amp;k = i; auto *p = &amp;i;
+const auto j2 = i, &amp;k2 = i;
+</code></pre>
+<p>j是int类型变量；</p>
+<p>k是对i对象的const int类型引用。</p>
+<p>p是指向常量int的指针。</p>
+<p>j2是常量int类型变量。</p>
+<p>k2是对i对象的常量引用。</p>
+<h2 id="253-decltype-类型指示符">2.5.3 decltype 类型指示符</h2>
+<p>​	希望从表达式的类型推断出要定义的变量的类型，但是不想用该表达式的值初始化变量。C++11新标准引入第二种类型说明符<font color='blue'>decltype</font>，其作用是选择并返回操作数的数据类型。在编译过程中，编译器分析表达式并得到其类型，却不实际计算表达式的值。</p>
+<pre><code class="lang-c++">decltype(f()) sum = x;	// sum类型就是函数f的返回类型
+</code></pre>
+<p>编译器并不实际调用函数f，而是使用当调用发生时f的返回值类型作为sum的类型。</p>
+<p>​	decltype处理顶层const和引用的方式与auto有些许不同。如果decltype使用表达式是一个变量，则decltype返回该变量的类型。</p>
+<pre><code class="lang-c++">const int ci = 0, &amp;cj = ci;
+decltype(ci) x = 0;		// x 的类型是const int
+decltype(cj) y = x;		// y 的类型是const int&amp;,y绑定到变量x
+decltype(cj) z;			// 错误，z是一个引用，必须初始化
+</code></pre>
+<h3 id="decltype和引用">decltype和引用</h3>
+<p>​	如果decltype使用的表达式不是一个变量，则decltype返回表达式结果对应的类型。</p>
+<pre><code class="lang-c++">// decltype 的结果可以是引用类型
+int i = 42, *p = &amp;i, &amp;r = i;
+decltype(r+0) b; // 正确，加法结果是int类型，所以b是一个int类型变量
+decltype(*p) c;	 // 错误，c是int&amp;, 必须初始化
+</code></pre>
+<p>如果表达式的内容是解引用操作，decltype将得到引用类型。</p>
+<p>​	decltype与auto的一个重要区别是，decltype的结果类型与表达式形式密切相关。有一种情况需要特别注意：对于decltype所用的表达式来说，如果变量名加上了一对括号，则得到的类型与不加括号时会有所不同。如果decltype使用的是一个不加括号的变量，则得到的结果就是该变量的类型。如果给变脸加上一层或多层括号，编译器就会把它当成一个表达式。变量时一种可以作为赋值语句左值的特殊表达式。</p>
+<pre><code class="lang-c++">// decltype的表达式如果是加了括号的变量，结果将是引用
+decltype((i)) d;	// 错误，d是int&amp;，必须初始化
+decltype(*p) c;		// 正确，e是一个int
+</code></pre>
+<p><font color='red'>decltype((variable))（双层括号）的结果永远是引用，而decltype(variable)结果是只有当variable本身就是一个引用时才是引用。</font></p>
+<h3 id="练习-1">练习</h3>
+<p><strong>练习 2.36</strong> 请指出每一个变量的类型以及程序结束时它们各自的值。</p>
+<pre><code class="lang-c++">int a = 3, b = 4;
+decltype(a) c = a;
+decltype((b)) d = a;
+++c;
+++d;
+</code></pre>
+<p>a是int类型变量；</p>
+<p>b是int类型变量；</p>
+<p>c是int类型变量；</p>
+<p>d是int&amp;类型变量，是对a的引用；</p>
+<p>程序结束时，a的值为4；b是4；c是4；d是4；</p>
+<p><strong>练习2.37</strong> 赋值是会产生引用的一类典型表达式，引用的类型就是左值的类型。也就是说，如果i是int类型，则表达式i=x的类型是int&amp;。根据这一特点，指出下面代码中每一个变量的类型和值。</p>
+<pre><code class="lang-c++">int a = 3, b = 4;
+decltype(a) c = a;
+decltype(a = b) d = a;	// 这里d的类型是int&amp;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>类型</th>
+<th>程序运行结束时的值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a</td>
+<td>int</td>
+<td>3</td>
+</tr>
+<tr>
+<td>b</td>
+<td>int</td>
+<td>4</td>
+</tr>
+<tr>
+<td>c</td>
+<td>int3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>d</td>
+<td>int</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p><strong>练习2.38</strong> 说明decltype指定类型和由auto指定类型有何区别。</p>
+<pre><code class="lang-c++">// case1:
+int i = 10；
+auto x = i; // x是int类型
+decltype(i) v = i; // v是int类型
+
+//case2:
+const int i = 10;
+auto x = i; // x 是int类型
+decltype(i) v = i; // v是const int类型
+
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter2/2.5.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
