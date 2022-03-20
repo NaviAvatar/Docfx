@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title> </title>
+    <title>3.3 &#26631;&#20934;&#24211;&#31867;&#22411; vector </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content=" ">
+    <meta name="title" content="3.3 &#26631;&#20934;&#24211;&#31867;&#22411; vector ">
     <meta name="generator" content="docfx 2.59.0.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
@@ -67,10 +67,310 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
+<h1 id="33-标准库类型-vector">3.3 标准库类型 vector</h1>
 
-<p>$$
-Log_2N
-$$</p>
+<p>​	标准类型库 <strong>vector</strong> 表示对象的集合，其中所有对象的类型都相同。集合中的每个对象都有一个与之对应的索引，索引用于访问对象。也称为容器。使用 vector，必须包含头文件</p>
+<pre><code class="lang-c++">#include&lt;vector&gt;
+using std::vector;	// vector是一个类模板
+</code></pre>
+<p>vector能容纳绝大多数类型的对象作为其元素，但是因为引用不是对象，所以不包含引用的vector。组成vector的元素也可以是vector（有点像二维数组）。</p>
+<p>某些编译器可能需以老式声明语句处理元素为vector的vector对象，如<code>vector&lt;vector&lt;int&gt; &gt;</code>，而不是<code>vector&lt;vector&lt;int&gt;&gt;</code>。</p>
+<h2 id="331定义和初始化-vector-对象">3.3.1.定义和初始化 vector 对象</h2>
+<p>定义 vector 对象的常用方法。</p>
+<table>
+<thead>
+<tr>
+<th>定义</th>
+<th>释义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vector<t> v1</t></td>
+<td>v1 是一个空 vector，它潜在的元素T类型，执行默认初始化。</td>
+</tr>
+<tr>
+<td>vector<t> v2(v1)</t></td>
+<td>v2中包含有v1所有元素的副本。</td>
+</tr>
+<tr>
+<td>vector<t> v2=v1</t></td>
+<td>等价于v2(v1)。</td>
+</tr>
+<tr>
+<td>vector<t> v3(n, val)</t></td>
+<td>v3 包含了n个重复的元素，每个元素的值都是val。</td>
+</tr>
+<tr>
+<td>vector<t> v4(n)</t></td>
+<td>v4 包含了n个重复执行了值初始化的对象。</td>
+</tr>
+<tr>
+<td>vector<t> v5{a,b,c,d}</t></td>
+<td>v5 包含了初始值个数的元素，每个元素被赋予相应的初始值。</td>
+</tr>
+<tr>
+<td>vector<t> v5={a,b,c,d}</t></td>
+<td>等价于vector<t> v5{a,b,c,d}</t></td>
+</tr>
+</tbody>
+</table>
+<p>vector 拷贝需要注意两个vector对象类型必须相同：</p>
+<pre><code class="lang-c++">vector&lt;int&gt; ivec;
+vector&lt;int&gt; ivec2(ivec);
+vector&lt;int&gt; ivec3 = ivec2;
+vector&lt;string&gt; ivec4 = ivec2;	// 错误，类型不一样
+</code></pre>
+<h3 id="列表初始化-vector-对象">列表初始化 vector 对象</h3>
+<pre><code class="lang-c++">vector&lt;string&gt; articles = {&quot;a&quot;, &quot;an&quot;, &quot;the&quot;};
+</code></pre>
+<p>含三个元素，“a”、“an”、“the”。</p>
+<h3 id="创建指定数量的元素">创建指定数量的元素</h3>
+<pre><code class="lang-c++">vector&lt;int&gt; ivec(10,-1);	// 10 个int类型的元素，每个都被初始化为-1
+vector&lt;string&gt; svec(10,&quot;hi!&quot;);	// 10 个string类型的元素，每个都被初始化为 hi!
+</code></pre>
+<h3 id="值初始化">值初始化</h3>
+<p>只提供 vector 对象容纳的元素数量而略去初始值。此时库会创建一个值初始化的元素初值，并把它赋值给容器中的所有元素。这个初始值由vector对象中元素的类型决定。</p>
+<pre><code class="lang-c++">vector&lt;int&gt; ivec(10);	// 10个元素，每个都初始化为0
+vector&lt;string&gt; svec(10);	// 10个元素，每个都是空string对象
+</code></pre>
+<p>如果有些类要求必须明确地提供初始值，如果vector对象中元素的类型不支持默认初始化，我们就必须提供初始的元素值。</p>
+<p>如果只提供了元素数量而没有设定初始值，只能使用直接初始化。</p>
+<pre><code class="lang-c++">vector&lt;int&gt; vi = 10; // 错误
+</code></pre>
+<h3 id="圆括号和尖括号初始化的不同">圆括号和尖括号初始化的不同</h3>
+<pre><code class="lang-c++">vector&lt;int&gt; v1(10);	// v1有10个元素，每个元素值为0
+vector&lt;int&gt; v2{10};	// v2有1个元素，值为10
+vector&lt;int&gt; v3(10, 1);	// v3有10个元素，每个值为1
+vector&lt;int&gt; v4{10, 1};	// v4有两个元素，值分别为10,1
+
+vector&lt;string&gt; v5{&quot;hi&quot;};	// 列表初始化：v5只有一个元素
+vector&lt;string&gt; v6(&quot;hi&quot;);	// 错误
+vector&lt;string&gt; v7{10};		// v7有10个默认初始化的元素
+vector&lt;string&gt; v8{10, &quot;hi&quot;};	//	v8有10个值为hi的元素
+</code></pre>
+<h3 id="练习">练习</h3>
+<p><strong>练习3.12</strong>：下列vector对象的定义有不正确的吗？如果有，请指出来。对于正确的，描述其执行结果；对于不正确的，说明其错误的原因。</p>
+<pre><code class="lang-c++">(a) vector&lt;vector&lt;int&gt;&gt; ivec;
+(b) vector&lt;string&gt; svec= ivec;
+(c) vector&lt;string&gt; svec(10, &quot;null&quot;);
+</code></pre>
+<p>(a) 对c++11来说是正确的，老版c++不正确。</p>
+<p>(b) 不正确，svec和ivec类型不匹配。</p>
+<p>(c)  对。</p>
+<p><strong>练习3.13</strong>：下列的vector对象各包含多少个元素？这些元素的值分别是多少？</p>
+<pre><code>(a) vector&lt;int&gt; v1;	(b) vector&lt;int&gt; v2(10);
+(c) vector&lt;int&gt; v3(10, 42);	(d) vector&lt;int&gt; v4{10};
+(e) vector&lt;int&gt;	v5{10, 42};	(f) vector&lt;string&gt; v6{10};
+(g) vector&lt;string&gt; v7{10, &quot;hi&quot;};
+</code></pre>
+<p>(a) 包含0个元素。</p>
+<p>(b) 包含10个元素，每个元素值为0。</p>
+<p>(c) 包含10个元素，每个元素值为42。</p>
+<p>(d) 包含1个元素，值为10。</p>
+<p>(e) 包含2个元素，值分别为10和42。</p>
+<p>(f) 包含10个元素，值为空串。</p>
+<p>(g) 包含10个元素，每个值为“hi”。</p>
+<h2 id="332-向-vector-中添加元素">3.3.2 向 vector 中添加元素</h2>
+<p>push_back函数可以向vector函数中添加新的元素。新元素会被添加到vector尾部。</p>
+<pre><code class="lang-c++">vector&lt;int&gt; v2;
+for(int i =0; i &lt; 10; i++)
+{
+    v2.push_back(i);
+}
+
+// 将1-9一共10个int类型对象按序放到v2尾部
+</code></pre>
+<p>vector对象能高效增长。不需要初始化时指定vector的大小。指定大小了反而会导致动态添加元素时性能的降低。</p>
+<h3 id="练习-1">练习</h3>
+<p><strong>练习3.14</strong>：编写一段程序，用cin读入一组整数并把它们存入一个vector对象。</p>
+<pre><code class="lang-c++">int i;
+vector&lt;int&gt; ivec;
+while(cin&gt;i)
+{
+	ivec.push_back(i);
+}
+</code></pre>
+<p><strong>练习3.15</strong>：改写上题的程序，不过这次读入的是字符串。</p>
+<pre><code class="lang-c++">string word;
+vector&lt;string&gt; ivec;
+while(cin &gt; word)
+{
+	ivec.push_back(word);
+}
+</code></pre>
+<h2 id="333-vector-其他操作">3.3.3 vector 其他操作</h2>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>释义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v.empty()</td>
+<td>如果v不含有任何元素，返回true；否则返回false。</td>
+</tr>
+<tr>
+<td>v.size()</td>
+<td>返回v中元素的个数。</td>
+</tr>
+<tr>
+<td>v.push_back(t)</td>
+<td>向v的尾部添加一个值为t的元素。</td>
+</tr>
+<tr>
+<td>v[n]</td>
+<td>返回v中第n个位置上元素的引用。</td>
+</tr>
+<tr>
+<td>v1 = v2</td>
+<td>用v2中的元素拷贝替换v1中的元素</td>
+</tr>
+<tr>
+<td>v1 = {a, b, c, d}</td>
+<td>用列表中的元素拷贝替换v1中的元素v1</td>
+</tr>
+<tr>
+<td>v1 == v2</td>
+<td>v1 和 v2 相等当且仅当它们的元素数量相同且对应位置的元素值都相同</td>
+</tr>
+<tr>
+<td>v1 != v2</td>
+<td></td>
+</tr>
+<tr>
+<td>&lt;，&lt;=，&gt;，&gt;=</td>
+<td>以字典顺序比较。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="计算-vector-内对象的索引">计算 vector 内对象的索引</h3>
+<p>使用下标运算符能获取到指定的元素。vector 对象下标的起始是从0开始记起，下标对应的类型是size_type:</p>
+<pre><code class="lang-c++">vector&lt;int&gt;::size_type	// 正确
+vector::size_type		// 错误
+</code></pre>
+<pre><code class="lang-c++">// 以 10分为一个分数段统计成绩的数量：0-9,10-19，...，90-99，100
+vector&lt;unsigned&gt; scores(11, 0);	// 11个分数段，全都初始化为0
+unsigned grade;
+while(cin &gt;&gt; grade)	// 读入成绩
+{
+    if(grade &lt;= 100)	// 只处理有效的成绩
+        ++scores[grade/10]; // 将对应分数段的计数值+1
+}
+
+for(auto count: socres)
+{
+    cout &lt;&lt; count &lt;&lt; &quot; &quot;;
+}
+
+// 输入 42 65 95 100 39 67 95 76 88 76 83 92 76 93
+// 输出 0 0 0 1 1 0 2 3 2 4 1 	
+</code></pre>
+<h3 id="不能用下标形式添加元素">不能用下标形式添加元素</h3>
+<p>vector不能通过下标的方式添加vector集合中的元素。</p>
+<pre><code class="lang-c++">vector&lt;int&gt; ivec;
+for(decltype(ivec.size()) ix = 0; ix != 10; ++ix)
+{
+    ivec[ix] = ix; 	// 错误
+}
+// 可以理解为vector长度为0的数组，因此，不能通过下标的方式添加新元素
+
+-----------------------------------------------------------------
+vector&lt;int&gt; ivec(10);
+for(decltype(ivec.size()) ix = 0; ix != 10; ++ix)
+{
+    ivec[ix] = ix; 	// 正确
+}
+
+-----------------------------------------------------------------
+vector&lt;int&gt; ivec;
+for(decltype(ivec.size()) ix = 0; ix != 10; ++ix)
+{
+    ivec.push_back(ix); 	// 错误
+}
+</code></pre>
+<h3 id="练习-2">练习</h3>
+<p><strong>练习3.16</strong>：编写一段程序，把<strong>练习3.13</strong>中vector对象的容量和具体内容输出出来。检验你之前的回答是否正确。</p>
+<pre><code class="lang-c++">vector&lt;int&gt; v2;
+for(int i =0; i &lt; 10; i++)
+{
+    v2.push_back(i);
+}
+
+// 将1-9一共10个int类型对象按序放到v2尾部
+
+for(auto i : v2)
+{
+    cout &lt;&lt; i &lt;&lt; &quot; &quot;;
+}
+</code></pre>
+<p><strong>练习3.17</strong>：从 cin 读入一组词并把它们存入一个 vector 对象，然后设法把所有词都改为大写形式。输出改变后的结果，每个词占一行。</p>
+<pre><code class="lang-c++">string word;
+vector&lt;string&gt; svec;
+while (cin &gt;&gt; word)
+{
+    svec.push_back(word);
+}
+
+for (auto&amp; s : svec)
+{
+    for (auto&amp; c : s)
+    {
+        c = toupper(c);
+    }
+}
+
+for (auto s : svec)
+{
+    cout &lt;&lt; s &lt;&lt; endl;
+}
+return 0;
+</code></pre>
+<p><strong>练习3.18</strong>：下面的程序合法吗？如果不合法，你准备如何修改？</p>
+<pre><code class="lang-c++">vector&lt;int&gt; ivec;
+ivec[0]=42;
+</code></pre>
+<p>不合法，修改：</p>
+<pre><code class="lang-c++">vector&lt;int&gt; ivec;
+ivec.push_back(42);
+
+----------------------------------
+// 或者
+vector&lt;int&gt; ivec(1);
+ivec[0] = 42;
+</code></pre>
+<p><strong>练习3.19</strong>：</p>
+<p>如果想定义一个含有10个元素的vector对象，所有元素的值都是42，请列举三种不同的实现方法。哪种方法更好呢？为什么？</p>
+<pre><code class="lang-c++">// 方法一：
+vector&lt;int&gt; vec(10, 42);
+// 方法二：
+vector&lt;int&gt; vec{42, 42, 42, 42, 42, 42, 42, 42, 42, 42};
+// 方法三：
+vector&lt;int&gt; vec = {42, 42, 42, 42, 42, 42, 42, 42, 42, 42};
+</code></pre>
+<p>当然是第一种方法好，理由是代码更简洁。</p>
+<p><strong>练习3.20</strong>：读入一组整数并把它们存入一个vector对象，将每对相邻整数的和输出出来。改写你的程序，这次要求先输出第1个和最后1个元素的和，接着输出第2个和倒数第2个元素的和，以此类推。</p>
+<pre><code class="lang-c++">vector&lt;int&gt; vect = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14 };
+decltype(vect.size()) len = vect.size();
+
+// 从第一个和第二个元素开始计算，依次类推
+for (int i = 0; i &lt; len - 1; i++)
+{
+    cout &lt;&lt; (vect[i] + vect[i + 1]) &lt;&lt; endl;
+}
+</code></pre>
+<p>改写后：</p>
+<pre><code class="lang-c++">vector&lt;int&gt; vect = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14 };
+decltype(vect.size()) len = vect.size();
+
+// 奇数个数则不再计算中间的数
+for (int i = 0; i &lt; len / 2; i++)
+{
+    cout &lt;&lt; (vect[i] + vect[len -i -1]) &lt;&lt; endl;
+}
+</code></pre>
 </article>
           </div>
           

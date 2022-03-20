@@ -83,17 +83,17 @@ template&lt;class t&gt;
 class SqList{
 private:
     t* arr;      // 动态分配，当插入溢出时，方便扩容
-    int Maxsize; // 最大个数
-    int length;  // 当前个数
+    unsigned int Maxsize; // 最大个数
+    unsigned int length;  // 当前个数
 
 public:
-    SqList(int size = 1024);
+    SqList(unsigned int size = 1024);
     ~SqList();
     // ... 这里待加入增删改查
 };
 
 template&lt;class t&gt;
-SqList&lt;t&gt;::SqList(int size)
+SqList&lt;t&gt;::SqList(unsigned int size)
 {
     Maxsize = size;
 
@@ -116,6 +116,245 @@ SqList&lt;t&gt;::~SqList()
 </code></pre>
 <p>此处实现采用动态分配数组，是为了应对当插入新的数据时若数组已满，则可以通过动态的扩容，使得插入成功。</p>
 <p>顺序表的特点主要是可以随机访问，即通过首地址和元素序号可在时间O(1)内找到指定的元素，这是因为电脑的硬件设计支持这么做。顺序表的存储密度高，每个结点只存储数据元素。顺序表逻辑上相邻的元素物理上也相邻，所以插入和删除操作需要移动大量的元素，消耗大。</p>
+<h2 id="222-顺序表基本操作的实现">2.2.2 顺序表基本操作的实现</h2>
+<h3 id="插入操作">插入操作</h3>
+<p>​	在顺序表L的第i个位置插入新元素e。如i不合法，则返回false，插入失败。否则，将第i个元素及其后的所有元素依次往后移动一个位置，腾出一个空位置插入新元素e，表长+1，返回true。</p>
+<pre><code class="lang-c++">/// &lt;summary&gt;
+/// 插入数据
+/// &lt;/summary&gt;
+/// &lt;typeparam name=&quot;t&quot;&gt;类型&lt;/typeparam&gt;
+/// &lt;param name=&quot;index&quot;&gt;插入位置&lt;/param&gt;
+/// &lt;param name=&quot;e&quot;&gt;新插入的元素&lt;/param&gt;
+/// &lt;returns&gt;插入成功结果&lt;/returns&gt;
+template&lt;class t&gt;
+bool SqList&lt;t&gt;::ListInsert(unsigned int index, t e)
+{
+    if (index &lt; 1 || index &gt; length + 1)    // 插入位置超出链表所在位置
+    {
+        return false;
+    }
+    
+    if (length &gt;= Maxsize)   // 当前数组满了，扩容
+    {
+        Maxsize = Maxsize * 2; // 扩容为原来的两倍
+        t* temp = arr;
+        arr = new t[Maxsize];
+        for (unsigned int i = 0; i &lt; length; i++)    // 将原数组数据拷贝到新的数组中
+        {
+            arr[i] = temp[i];            
+        }
+
+        delete temp;    // 删除原数组空间
+        temp = nullptr;
+    }
+    for (unsigned int j = length; j &gt;= index; j--)
+    {
+        arr[j] = arr[j - 1]; // 数据后移
+    }
+
+    arr[index - 1] = e;     // 插入新元素
+    length++;               // 表长加一
+    return true;
+}
+</code></pre>
+<h3 id="删除操作">删除操作</h3>
+<p>删除顺序表L中第i个位置的元素，用引用变量e返回。如i不合法，则返回false，删除失败。否则，将第i+1个元素及其后的所有元素依次往前移动一个位置，表长-1，返回true。</p>
+<pre><code class="lang-c++">template&lt;class t&gt;
+bool SqList&lt;t&gt;::ListDelete(unsigned int index, t&amp; e)
+{
+    if (index&lt;1 &amp;&amp; index &gt;length)    // 判断index有效性
+    {
+        return false;
+    }
+    
+    e = arr[index - 1]; // 读取第index个数据元素
+    for (unsigned int i = index; i &lt; length; i++) // 第index后的数据元素往前移动
+    {
+        arr[i - 1] = arr[i];
+    }
+    
+    length--;   // 表长减一
+    return true;
+}
+</code></pre>
+<h3 id="按值查找">按值查找</h3>
+<pre><code class="lang-c++">/// &lt;summary&gt;
+/// 按值查找值等于e的元素的位置
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;e&quot;&gt;待查找值&lt;/param&gt;
+/// &lt;returns&gt;值为e的元素在顺序表中的位置；返回0表示返回失败&lt;/returns&gt;
+template&lt;class t&gt;
+unsigned int SqList&lt;t&gt;::LocateElem(t e)
+{
+    for (unsigned int i = 0; i &lt; length; i++)
+    {
+        if (arr[i] == e)
+        {
+            return i + 1;
+        }
+    }
+
+    return 0;   // 返回0表示查找失败
+}
+</code></pre>
+<h3 id="按位查找">按位查找</h3>
+<pre><code class="lang-c++">/// &lt;summary&gt;
+/// 按位取值
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;index&quot;&gt;第几个元素，输入0和输入超过表长的数将会抛出异常。&lt;/param&gt;
+/// &lt;returns&gt;返回表中第index位数据元素的副本&lt;/returns&gt;
+template&lt;class t&gt;
+t SqList&lt;t&gt;::GetElem(unsigned int index) 
+{
+    if (index &lt; 1 || index &gt; length + 1)
+    {
+        std::cout &lt;&lt; &quot;out of range in SqList&quot; &lt;&lt; std::endl;
+        throw exception ex;
+    }
+
+    t e = arr[index - 1];
+    return e;
+}
+</code></pre>
+<h3 id="获取表长">获取表长</h3>
+<pre><code class="lang-c++">template&lt;class t&gt;
+unsigned int SqList&lt;t&gt;::GetLength() 
+{
+    return length;
+}
+</code></pre>
+<h3 id="判空">判空</h3>
+<pre><code class="lang-c++">template&lt;class t&gt;
+bool SqList&lt;t&gt;::Empty()
+{
+    return length == 0;
+}
+</code></pre>
+<h2 id="223-练习题目">2.2.3 练习题目</h2>
+<h3 id="题目一-倒置数组">题目一 ：倒置数组</h3>
+<p><strong>设将n(n&gt;1)个整数存放到一维数组R中。设计一个在时间和空间两方面都尽可能高效的算法。将R中保存的序列循环左移p(0&lt;p&lt;n)个位置，即将R中的数据由(0，1，…，p，p+1，n-1)变换为(p，p+1，…，n-1，0，1，…，p-1)。给出算法的基本设计思想。说明算法时间复杂度和空间复杂度。</strong></p>
+<p>设计思路：</p>
+<p>1）创建一个大小为p的一维数组temp，将从下标从0到p-1的数据元素保存到赋值数组temp中。</p>
+<p>2）将R中下标为p到n-1的数据元素左移p个位置。</p>
+<p>3）将辅助数组temp中的数据依次拷贝到R中下标为n-p到n-1位置中。</p>
+<p>代码以int数组为示例。</p>
+<pre><code class="lang-c++">/// &lt;summary&gt;
+/// 在位置pos处倒置
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;arr&quot;&gt;数组地址&lt;/param&gt;
+/// &lt;param name=&quot;len&quot;&gt;数组长度&lt;/param&gt;
+/// &lt;param name=&quot;pos&quot;&gt;倒置的位置p&lt;/param&gt;
+void Reverse(int arr[], int len, int pos)
+{
+    if (pos &lt;= 0 || pos &gt;= len) // 保证 0&lt;p&lt;n
+        return;
+
+    int* temp = new int[pos];   // 辅助数组
+    
+    // 将下标0到pos-1的数组元素备份
+    for (int i = 0; i &lt; pos; i++)
+    {
+        temp[i] = arr[i];
+    }
+
+    // 下标 pos 到数组尾部数据左移pos个单位
+    for (int j = 0; j &lt; len - pos; j++)
+    {
+        arr[j] = arr[pos + j];
+    }
+
+    // 将辅助数组的数据拷贝回去
+    for (int k = 0; k &lt; pos; k++)
+    {
+        arr[len - pos + k] = temp[k];
+    }
+
+    delete [] temp;    // 释放辅助数组
+    temp = nullptr;
+}
+
+// 主函数调用
+int arr[10] = { 0,1,2,3,4,5,6,7,8,9 };
+Reverse(arr, 10, 6);
+</code></pre>
+<p>时间复杂度为O(n)；空间复杂度为O(p)。</p>
+<p>另外一种解法是：</p>
+<p>1）先倒置R中下标0到p-1的元素，倒置后序列为：（p-1，…，1,0，p，…，n-1）。</p>
+<p>2）倒置R中下标p到n-1的元素，倒置后序列为：（p-1，…，1,0，n-1，…，p）。</p>
+<p>3）倒置R中下标0到n-1的元素，倒置后序列为：（p，…，n-1，0，1，…，p-1）。</p>
+<pre><code class="lang-c++">/// &lt;summary&gt;
+/// 倒置数组
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;arr&quot;&gt;数组地址&lt;/param&gt;
+/// &lt;param name=&quot;from&quot;&gt;倒置起始下标&lt;/param&gt;
+/// &lt;param name=&quot;to&quot;&gt;倒置末尾下标&lt;/param&gt;
+void Reverse2(int arr[], int from, int to)
+{
+    int count = (to - from + 1) / 2;    // 循环次数
+    for (int i = 0; i &lt; count; i++)
+    {
+        int temp = arr[from + i];
+        arr[from + i] = arr[to - i];
+        arr[to - i] = temp;
+    }
+}
+
+// 主函数调用
+int arr[10] = { 0,1,2,3,4,5,6,7,8,9 };
+Reverse2(arr, 0, 6-1);
+Reverse2(arr, 6, 9);
+Reverse2(arr, 0, 9);
+</code></pre>
+<p>时间复杂度为O(n)；空间复杂度为O(1)。</p>
+<h3 id="题目二中位数">题目二：中位数</h3>
+<p>一个长度为L（L≥1）的生序序列S，处在第⌈L/2⌉个位置的数称为S的中位数。列如，若序列S1=(11,13,15,17,19)，则S1中的中位数是15，两个序列的中位数是含它们所有元素的生序序列的中位数。列如，若S2=(2,4,6,8,20)，则S1和S2的中位数是11。现在有两个等长升序序列A和B，试设计一个在时间和空间算法两方面都尽可能高效的算法，找出A和B的中位数。要求：给出算法设计的基本思路。说明算法时间复杂度和空间复杂度。</p>
+<p>设计思路：</p>
+<p>分别求两个升序序列A、B的中位数，设为a和b，求序列A、B的中位数过程如下：</p>
+<p>① 若a=b，则a或b即为所求中位数，程序结束。</p>
+<p>②若a&lt;b，则舍弃序列A中较小的一半，同时舍弃序列B中较大的一半，要求两次舍弃的长度相等。</p>
+<p>③若a&gt;b，则舍弃序列A中较大的一半，同时舍弃序列B中较小的一半，要求两次舍弃的长度相等。</p>
+<p>在保留的两个升序序列中，重复过程①②③，直到两个序列中均只有一个元素为止，较小者即为所求的中位数。</p>
+<pre><code class="lang-c++">int M_Search(int a[], int b[], int len)
+{
+    int aBegin = 0, aEnd = len - 1, bBegin = 0, bEnd = len - 1;
+    int aMin = (aBegin + aEnd) / 2, bMin = (bBegin + bEnd) / 2;   // aMin是a数组的中位数下标，bMin是b数组的中位数下标 
+    while ((aBegin != aEnd || bBegin != bEnd))
+    {
+        if (a[aMin] &lt; b[bMin])
+        {
+            if ((aBegin + aEnd) % 2 == 0) { // 元素个数为寄数个
+                aBegin = aMin;              // 舍弃序列A中间点以前部分，保留中间点
+                bEnd = bMin;                // 舍弃序列B中间点后面部分，保留中间点
+            }
+            else {                          // 元素个数为偶数个
+                aBegin = aMin + 1;          // 舍弃序列A中间点以前部分及中间点
+                bEnd = bMin;                // 舍弃序列B中间点后面部分且保留中间点
+            }
+            
+        }
+        else if(a[aMin] &gt; b[bMin])
+        {
+            if ((bBegin + bEnd) % 2 == 0)    // 元素个数为奇数个
+            {
+                aEnd = aMin;   // 舍弃序列A中间点后面部分，保留中间点 
+                bBegin = bMin; // 舍弃序列B中间点以前部分，保留中间点
+            }
+            else{
+                aEnd = aMin;   // 舍弃序列A中间点后面部分，保留中间点 
+                bBegin = bMin + 1; // 舍弃序列B中间点以前部分，保留中间点
+            }
+            
+        }
+        else    // 中位数相等
+        {
+            return a[aMin];
+        }
+        aMin = (aBegin + aEnd) / 2, bMin = (bBegin + bEnd) / 2; // 计算新序列的中位数下标
+    }
+
+    return a[aMin] &lt; b[bMin] ? a[aMin] : b[bMin];   // 当保留的序列只剩一个时，返回最小的那个数。
+}
+</code></pre>
 </article>
           </div>
           
