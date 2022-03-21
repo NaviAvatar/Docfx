@@ -340,7 +340,7 @@ else
     cout &lt;&lt; &quot;两个vector对象不等&quot; &lt;&lt; endl;
 }
 </code></pre>
-<h3 id="354-c-风格字符串">3.5.4 C 风格字符串</h3>
+<h2 id="354-c-风格字符串">3.5.4 C 风格字符串</h2>
 <p>字符串字面值是一种通用结构的实例，是C++继承C而来的C风格字符串。字符串存放在字符数组中以空字符（'\0'）结束。</p>
 <h3 id="c-标准库-string-函数">C 标准库 String 函数</h3>
 <p>cstring头文件提供了一组用于操作C风格字符串的函数。</p>
@@ -380,6 +380,199 @@ cout &lt;&lt; strlen(s1) &lt;&lt; endl;
 // 输出 48
 // strcat函数现在的编译器会报不安全，使用strcat_s函数，功能一样
 // 同理strcpy也由strcpy_s代替。 
+</code></pre>
+<p>对上述的函数，传入的数组必须要用空字符作为结束符。</p>
+<pre><code class="lang-c++">char ca[] = {'C', '+', '+'};	// 不以空字符结束
+cout &lt;&lt; strlen(ca) &lt;&lt; endl;		// 错误，ca没有以空字符结束
+</code></pre>
+<p>运行上述代码，因为strlen是以遇到'\0'作为结束标记，所以就一直沿着ca地址不断递增，知道遇到'\0'才结束，因此每次运行的结果不一定一样。</p>
+<h3 id="练习-3">练习</h3>
+<p><strong>练习3.37</strong>：下面的程序是何定义，程序的输出结果是什么？</p>
+<pre><code class="lang-c++">const char ca[] = {'h', 'e', 'l', 'l', 'o'};
+const char *cp = ca;
+while(*cp){
+    cout &lt;&lt; *cp &lt;&lt; endl;
+    ++cp;
+}
+</code></pre>
+<p>C风格字符串以空字符结束。必须指向以空字符作为结束。</p>
+<p>将数组ca的每个元素逐个打印出来；因为没有以'\0'结束，就一直沿着ca地址循环输出未知字符。</p>
+<p><strong>练习3.38</strong>：为何将两个指针相加没意义？</p>
+<p>一个地址加上另一个地址，对寻址内容来说毫无意义。</p>
+<p><strong>练习3.39</strong>：编写一段程序，比较两个string对象。再编写一段程序，比较两个C风格字符串的内容。</p>
+<pre><code class="lang-c++">string s1 = &quot;this is a string&quot;;
+string s2 = &quot;this is a string.&quot;;
+
+if (s1 == s2)
+{
+	cout &lt;&lt; &quot;s1 = s2&quot; &lt;&lt; endl;
+}
+else if(s1 &lt; s2)
+{
+	cout &lt;&lt; &quot;s1 &lt; s2&quot; &lt;&lt; endl;
+}
+else
+{
+	cout &lt;&lt; &quot;s1 &gt; s2&quot; &lt;&lt; endl;
+}
+</code></pre>
+<p>比较两个C风格字符串时：</p>
+<p>①如果长度相等，则逐个比较大小，一旦某个相同位置下出现大于或者小于，停止比较，否则就是相等。</p>
+<p>②如果长度不等，则在前L个位置比较（假设长度较短的数组长为L），如果出现大于或者小于的情况，停止比较。否则就是更长的那个数组大于更短的数组。</p>
+<pre><code class="lang-c++">char s1[] = &quot;this is a string&quot;;
+   char s2[] = &quot;this is a string&quot;;
+   int len1 = strlen(s1);
+   int len2 = strlen(s2);
+   int iseq = 0;   // 0：相等；1：大于；-1：小于
+
+    if (len1 == len2)
+    {
+        for (int i = 0; i &lt; len1; i++)
+        {
+            if (s1[i] &gt; s2[i])
+            {
+                iseq = 1;
+                break;
+            }
+            else if (s1[i] &lt; s2[i])
+            {
+                iseq = -1;
+                break;
+            }
+            else {
+                continue;
+            }
+        }
+    }
+    else if(len1 &lt; len2)
+    {
+        bool ishit = false;	// 是否在逐个字符比较中确定大于或小于
+        for (int i = 0; i &lt; len1; i++)
+        {
+            if (s1[i] &gt; s2[i])
+            {
+                ishit = true;
+                iseq = 1;
+                break;
+            }
+            else if (s1[i] &lt; s2[i])
+            {
+                ishit = true;
+                iseq = -1;
+                break;
+            }
+            else {
+                continue;
+            }
+        }
+
+        if (!ishit)	// s1 小于 s2
+        {
+            iseq = -1;
+        }
+    }
+    else
+    {
+        bool ishit = false; // 是否在逐个字符比较中确定大于或小于
+        for (int i = 0; i &lt; len2; i++)
+        {
+            if (s1[i] &gt; s2[i])
+            {
+                ishit = true;
+                iseq = 1;
+                break;
+            }
+            else if (s1[i] &lt; s2[i])
+            {
+                ishit = true;
+                iseq = -1;
+                break;
+            }
+            else {
+                continue;
+            }
+        }
+
+        if (!ishit)	// s1 大于 s2
+        {
+            iseq = 1;
+        }
+    }
+
+    switch (iseq)
+    {
+    case 0:
+        cout &lt;&lt; &quot;s1 = s2&quot; &lt;&lt; endl;
+        break;
+    case 1:
+        cout &lt;&lt; &quot;s1 &gt; s2&quot; &lt;&lt; endl;
+        break;
+    case -1:
+        cout &lt;&lt; &quot;s1 &lt; s2&quot; &lt;&lt; endl;
+        break;
+    }
+</code></pre>
+<p><strong>练习3.40</strong>：编写一段程序，定义两个字符数组并用字符串字面值初始化它们；接着再定义一个字符数组存放前两个数组连接后的结果。使用strcpy和strcat把前两个数组的内容拷贝到第三个数组中。</p>
+<pre><code class="lang-c++">char c1[100] = &quot;hello world!&quot;;
+char c2[100] = &quot;welcome to China!&quot;;
+char c3[100];
+strcat_s(c1, c2);	// 将c2 追加到 c1后面
+strcpy_s(c3, c1);	// 将c1 拷贝给 c3
+cout &lt;&lt; c3 &lt;&lt; endl;
+</code></pre>
+<h2 id="355-与旧代码的接口">3.5.5 与旧代码的接口</h2>
+<p>​	旧代码的来源是，有些老项目，没出现标准库vector、string之前就写好了。现在可能要重新维护功能，引入标准库之后如何去操作？</p>
+<h3 id="混用-string-对象和-c-风格字符串">混用 string 对象和 C 风格字符串</h3>
+<p>​	任何出现字符串字面值的地方都可以用以空字符结束的字符数组来替代。</p>
+<ul>
+<li>允许使用以空字符结束的字符数组来初始化 string 对象或为 string 对象赋值。</li>
+<li>在 string 对象的加法运算中允许使用以空字符结束的字符数组作为其中一个运算对象（不能两个运算对象都是数组）；在 string 对象的复合赋值运算中允许使用以空字符结束的字符数组作为右侧的运算对象。</li>
+</ul>
+<h3 id="string-转-const-char">string 转 const char</h3>
+<pre><code class="lang-c++">char *str = s;	// 错误
+const char *str = s.c_str();
+</code></pre>
+<p>c_str 函数的返回值是一个C风格的字符串。函数返回的结果是个指针，该指针指向一个以空字符结束的字符数组。这个数组所存的数据恰好与那个string对象的一样。无法通过str去改变字符数组的内容，但是如果改变了s的内容，那么str指向的内容也会变化。</p>
+<pre><code class="lang-c++">char c1[100] = &quot;hello world!&quot;;
+string s1 = &quot;welcome to China!&quot;;
+char c2[100] = &quot;hi&quot;;
+const char *s2 = s1.c_str();
+cout &lt;&lt; s2 &lt;&lt; endl;
+s1 = &quot;never give up&quot;;
+cout &lt;&lt; s2 &lt;&lt; endl;
+
+// 输出：welcome to China!
+//		never give up
+</code></pre>
+<p><strong>如果执行完c_str()函数后程序想一直都能使用其返回的内容，最后将该 数组内容拷贝一份。</strong></p>
+<h3 id="使用数组初始化-vector-对象">使用数组初始化 vector 对象</h3>
+<p>不允许使用一个数组为另一个内置类型的数组赋初值，也不允许使用 vector 对象初始化数组。但是允许使用数组来初始化 vector 对象。</p>
+<pre><code class="lang-c++">int int_arr[] = {0, 1, 2, 3, 4, 5};
+vector&lt;int&gt; ivec(begin(int_arr), end(int_arr)); 
+</code></pre>
+<h3 id="练习-4">练习</h3>
+<p><strong>练习3.41</strong>：编写一个程序，用整型数组初始化一个 vector 对象。</p>
+<pre><code class="lang-c++">char c1[] = &quot;hello world!&quot;;
+vector&lt;char&gt; cvect(begin(c1), end(c1));
+
+for (auto c : cvect)
+{
+    cout &lt;&lt; c &lt;&lt; endl;
+}
+</code></pre>
+<p><strong>练习3.42</strong>：编写一段程序，将含有整数元素的 vector 对象拷贝给一个数组。</p>
+<pre><code class="lang-c++">vector&lt;int&gt; cvect = { 1, 3, 4, 5, 6,7,8 };
+int arr[7];
+
+for(int i = 0; i &lt; 7; i++)
+{
+    arr[i] = cvect[i];
+}
+
+for (auto i : arr)
+{
+    cout &lt;&lt; i &lt;&lt; endl;
+}
 </code></pre>
 </article>
           </div>
