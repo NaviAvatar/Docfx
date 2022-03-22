@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>4.1 &#22522;&#30784; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="4.1 &#22522;&#30784; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="41-基础">4.1 基础</h1>
+
+<p>​	表达式由一个或多个运算对象组成，对表达式求值将得到一个结果。字面值和变量是最简单的表达式，其结果就是字面值和变量的值。把一个运算符和一个或多个运算对象组合起来可以生成较复杂的表达式。</p>
+<h2 id="411-基本概念">4.1.1 基本概念</h2>
+<p>​	C++定义了一元运算符和二元运算符。作用于一个运算对象的运算符是一元运算符，如取地址<code>&amp;</code>何解引用<code>*</code>；作用于两个运算对象的运算符是二元运算符，如相等<code>==</code>和乘法<code>*</code>；<code>?:</code>是三元运算符。</p>
+<h3 id="组合运算符和运算对象">组合运算符和运算对象</h3>
+<p>​	一条语句含有多个运算符，需要了解运算符的优先级、结合律以及运算对象的求值顺序。比如：</p>
+<pre><code class="lang-c++">5 + 10 * 20 / 2
+</code></pre>
+<p>这个表达式并不是从左到右计算的，而是先计算<code>10 * 20</code>，得200，原表达式等价于<code>5 + 200 / 2</code>，再计算<code>200 / 2</code>，得 100，等价于 <code>5 + 100</code>，结果为 105。</p>
+<h3 id="运算对象转换">运算对象转换</h3>
+<p>​	通常来说，二元运算符左右两边的对象要求是同类型的，但是运算对象常常由一种类型转换成另外一种类型。比如加法+左右两边可以是int和double相加。</p>
+<h3 id="重载运算符">重载运算符</h3>
+<p>​	C++语言定义了运算符作用于内置类型和复合类型的运算对象时所执行的操作。当运算符作用于类类型的运算对象时，用户可以自行定义其含义。这种自定义的过程事实上是为已存在的运算符赋予了另外的含义，故称重载运算符。</p>
+<p>​	使用重载运算符时，运算对象的类型和返回值，是由运算符定义的；但是运算对象的个数、运算符的优先级和结合律是无法改变的。</p>
+<h3 id="左值和右值">左值和右值</h3>
+<p>​	表达式要么左值要么右值。左值可以位于赋值语句的左侧，右值不可以。</p>
+<p>​	当一个对象被用作右值的时候，用的是对象的值；当对象被用作左值的时候，用的是对象的身份。</p>
+<ul>
+<li>赋值运算符需要一个（非常量）左值作为其左侧运算对象，得到的结果也仍然是一个左值。</li>
+<li>取地址符作用于一个左值运算对象，返回一个指向该运算对象的指针，这个指针是一个右值。</li>
+<li>内置解引用运算符、下标运算符、迭代器解引用运算符、string 和 vector的下标运算符的求值结果都是左值。</li>
+<li>内置类型和迭代器的递增递减运算符作用于左值运算对象，其前置版本所得的结果也是左值。</li>
+</ul>
+<h2 id="412-优先级和结合律">4.1.2 优先级和结合律</h2>
+<p>​	在复合表达式中，优先级和结合律决定了运算对象组合的方式。但是表达式中的括号无视优先级和结合律。</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter4/4.1.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>5.6 try &#35821;&#21477;&#22359;&#21644;&#24322;&#24120;&#22788;&#29702; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="5.6 try &#35821;&#21477;&#22359;&#21644;&#24322;&#24120;&#22788;&#29702; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="56-try-语句块和异常处理">5.6 try 语句块和异常处理</h1>
+
+<p>​	异常是指存在于运行时的返常行为，这些行为超出了函数正常功能的范围。典型的异常包括失去数据库连接以及遇到意外输入等。处理返常行为可能是设计所有系统最难的一部分。</p>
+<p>​	异常处理机制为程序中异常检测和异常处理这两部分的协作提供支持。在C++中，异常处理包括：</p>
+<ul>
+<li>throw 表达式，异常检测部分使用 throw 表达式来表示它遇到了无法处理的问题。</li>
+<li>try 语句块。异常处理部分使用try语句块处理异常。try 语句块以关键字 try 开始，并以一个或多个catch子句结束。</li>
+<li>一套异常类，用于在throw表达式和相关的catch子句之间传递异常的具体信息。</li>
+</ul>
+<h2 id="561-throw-表达式">5.6.1 throw 表达式</h2>
+<p>​	程序异常检测部分使用 throw 表达式引发一个异常。throw 表达式包含关键字 throw 和紧随其后的一个表达式，其中表达式的类型就是抛出的异常类型。throw 表达式后面通常紧跟一个分号，从而构成一条表达式语句。</p>
+<pre><code class="lang-c++">Sales_item item1, item2;
+cin &gt;&gt; item1 &gt;&gt; item2;
+// 首先检查 item1 和 item2 是否表示同一种书籍
+if(item1.isbn() == item2.isbn())
+{
+    cout &lt;&lt; item1 + item2 &lt;&lt; endl;
+    return 0;
+} else{
+    cerr &lt;&lt; &quot;data must refer to same ISBN&quot; &lt;&lt; endl;
+    return -1;
+}
+</code></pre>
+<p>应该把对象相加的代码和用户交互（输入数据）的代码分离出来。</p>
+<pre><code class="lang-c++">// 首先检查 item1 和 item2 是否表示同一种书籍
+if(item1.isbn() ！= item2.isbn())
+{
+    throw runtime_error(&quot;data must refer to same ISBN&quot;);
+}
+
+cout &lt;&lt; item1 + item2 &lt;&lt;endl;
+</code></pre>
+<h2 id="562-try-语句块">5.6.2 try 语句块</h2>
+<p>通用语法：</p>
+<pre><code class="lang-c++">try{
+    program-statements
+} catch (exception-declaration)
+{
+    handler-statements
+} catch (exception-declaration)
+{
+    handler-statements
+}
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter5/5.6.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

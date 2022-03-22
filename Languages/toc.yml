@@ -4,3 +4,7 @@
   href: Chapter2/toc.yml
 - name: 第三章 字符串、向量和数组
   href: Chapter3/toc.yml
+- name: 第四章 表达式
+  href: Chapter4/toc.yml
+- name: 第五章 语句
+  href: Chapter5/toc.yml

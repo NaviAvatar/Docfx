@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>5.3 &#26465;&#20214;&#35821;&#21477; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="5.3 &#26465;&#20214;&#35821;&#21477; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="53-条件语句">5.3 条件语句</h1>
+
+<pre><code>C++ 语言提供了两种按条件执行的语句。一种是 if 语句，它根据条件决定控制流；另外一种是 switch 语句，它计算一整个表达式的值，然后根据这个值从几条执行路径中选择一条。
+</code></pre>
+<h2 id="531-if-语句">5.3.1 if 语句</h2>
+<p>​	判断一个指定的条件是否为真。根据判断结果决定是否执行另外一条语句。</p>
+<p>condition 是能够转换为 bool 类型的表达式。如果 condition 为真，则执行 statement。</p>
+<pre><code class="lang-c++">if (condition)
+    statement;
+</code></pre>
+<p>带 else 的 if 语句。</p>
+<pre><code class="lang-c++">if (condition)
+    statement;
+else
+    statement2;
+
+// condition 为真，则执行statement；否则执行 statement2
+</code></pre>
+<p>else 搭配 if 遵循就近原则。但是花括号无视else 的就近原则。</p>
+<pre><code class="lang-c++">if (condition)
+	if(condition2)
+        statement1;
+else statement2;	// else 和 condition2的if搭配。
+
+if (condition)
+{
+    if(condition2)
+        statement1;
+}
+else	// 和condition的if搭配
+{
+	statement2;    
+}
+</code></pre>
+<h2 id="532-switch-语句">5.3.2 switch 语句</h2>
+<p>​	switch 语句提供了一条便利的途径使得我们能够在若干固定选项中做出选择。要注意case 后面加break。</p>
+<p>​	case 标签必须是整型常量表达式。</p>
+<pre><code class="lang-c++">unsigned aCnt = 0, eCnt = 0, iCnt = 0, oCnt = 0, uCnt = 0;
+char ch;
+while(cin &gt;&gt; ch)
+{
+    switch(ch){
+        case ‘a’:
+            ++aCnt;
+            break;
+        case 'e':
+            ++eCnt;
+            break;
+        case 'i':
+            ++iCnt;
+            break;
+        case 'o':
+            ++oCnt;
+            break;
+        case 'u':
+            ++uCnt;
+            break;
+        default:
+            ;
+    }
+}
+</code></pre>
+<pre><code class="lang-c++">char ch = getVal();
+int iVal = 42;
+switch(ch)
+{
+    case 3.14: // 错误，case标签不是一个整数
+    case ival: // 错误，case标签不是一个常量
+}
+</code></pre>
+<h3 id="switch-内部的控制流">switch 内部的控制流</h3>
+<p>​	某个 case 标签匹配成功，将从该标签开始往后顺序执行所有case分支，除非程序显式中断了这一过程，否则直到switch的结尾处才会停下来。中断过程用 break语句。</p>
+<pre><code class="lang-c++">int i = 0;
+switch (i) {
+    case 0:
+        cout &lt;&lt; 0 &lt;&lt; endl;
+    case 1:
+        cout &lt;&lt; 1 &lt;&lt; endl;
+    case 2:    
+        cout &lt;&lt; 2 &lt;&lt; endl;
+    case 3:
+        cout &lt;&lt; 3 &lt;&lt; endl;
+    default:
+        cout &lt;&lt; -1 &lt;&lt; endl;
+}
+
+// 输出 0
+//     1
+//     2
+//     3
+//     -1
+
+int i = 0;
+switch (i) {
+    case 0:
+        cout &lt;&lt; 0 &lt;&lt; endl; break;
+    case 1:
+        cout &lt;&lt; 1 &lt;&lt; endl; break;
+    case 2:    
+        cout &lt;&lt; 2 &lt;&lt; endl; break;
+    case 3:
+        cout &lt;&lt; 3 &lt;&lt; endl; break;
+    default:
+        cout &lt;&lt; -1 &lt;&lt; endl; break;
+}
+// 输出 0
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter5/5.3.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
