@@ -1,0 +1,577 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>6.2 &#21442;&#25968;&#20256;&#36882; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="6.2 &#21442;&#25968;&#20256;&#36882; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="62-参数传递">6.2 参数传递</h1>
+
+<p>每次调用函数时都会重新创建它的形参，并用传入的实参是对形参进行初始化。</p>
+<p>如果形参是引用类型，它将绑定到对应的实参上面；否则，将实参的值<strong>拷贝</strong>后赋给形参，这意味着要创建新的对象。</p>
+<p>当形参是引用类型时，它对应的实参被<strong>引用传递</strong>或者函数被<strong>传引用调用</strong>。和其他引用一样，引用形参也是它绑定的对象的别名；也就是说，引用形参是它对应的实参的别名。</p>
+<p>​	当实参的值被拷贝给形参时，形参和实参是两个相互独立的对象。这样的实参被<strong>值传递</strong>或者函数被<strong>传值调用</strong>。</p>
+<h2 id="621-传值参数">6.2.1 传值参数</h2>
+<p>当初始化一个非引用类型的变量时，初始值被拷贝给变量。在函数内部的改动不会影响函数外部传进来的变量的值。</p>
+<h3 id="指针形参">指针形参</h3>
+<p>​	当执行指针拷贝操作时，拷贝的是指针的值。拷贝之后，两个指针是不同的指针。因为指针使我们可以间接地访问它所指的对象，所以通过指针可以修改它所指对象的值。</p>
+<pre><code class="lang-c++">void reset(int* ip)
+{
+    *ip = 0;
+    ip =0;
+}
+
+int main()
+{
+    int i = 42;
+    reset(&amp;i);
+    cout &lt;&lt; &quot;i = &quot; &lt;&lt; i &lt;&lt; endl;	// 输出 i = 0
+}
+</code></pre>
+<h3 id="练习">练习</h3>
+<p><strong>练习6.10</strong>：编写一个函数，使用指针形参交换两个整数的值。在代码中调用该函数并输出交换后的结果，以此验证函数的正确性。</p>
+<pre><code class="lang-c++">void swap(int* x, int* y);
+int main(){    
+	int i1 = 10;
+    int i2 = 19;
+
+    cout &lt;&lt; &quot;i1 = &quot; &lt;&lt; i1 &lt;&lt; endl;
+    cout &lt;&lt; &quot;i2 = &quot; &lt;&lt; i2 &lt;&lt; endl;
+
+    swap(&amp;i1, &amp;i2);
+
+    cout &lt;&lt; &quot; after swap&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;i1 = &quot; &lt;&lt; i1 &lt;&lt; endl;
+    cout &lt;&lt; &quot;i2 = &quot; &lt;&lt; i2 &lt;&lt; endl;
+    return 0;
+}
+
+void swap(int* x, int* y)
+{
+    int* temp = y;
+    y = x;
+    x = temp;
+}
+
+// 输出：
+// i1 = 10
+// i2 = 19
+// after swap
+// i1 = 10
+// i2 = 19
+</code></pre>
+<p>在main函数外，i1指向了值为10的对象object1，i2指向了值为19的对象object2。到了swap函数内部，x原本指向object1，y原本指向object2。执行函数swap后，x指向了object2，y指向object1。控制权回到main函数时，i1还指向object1，i2还指向object2。</p>
+<pre><code class="lang-c++">void swap(int* x, int* y)
+{
+    auto temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+int main()
+{
+    int i1 = 10;
+    int i2 = 19;
+
+    cout &lt;&lt; &quot;i1 = &quot; &lt;&lt; i1 &lt;&lt; endl;
+    cout &lt;&lt; &quot;i2 = &quot; &lt;&lt; i2 &lt;&lt; endl;
+
+    swap(&amp;i1, &amp;i2);
+
+    cout &lt;&lt; &quot; after swap&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;i1 = &quot; &lt;&lt; i1 &lt;&lt; endl;
+    cout &lt;&lt; &quot;i2 = &quot; &lt;&lt; i2 &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<h2 id="622-传引用参数">6.2.2 传引用参数</h2>
+<p>引用形参允许函数改变一个或多个实参的值。</p>
+<p>下面代码中i仅仅只是j的别名。</p>
+<pre><code class="lang-c++">void reset(int &amp;i)
+{
+    i = 0;				// 实参的值被改变为0
+}
+
+int main()
+{
+    int j =42;
+    reset(j);	// j的值被改变成为0了
+    return 0;
+}
+</code></pre>
+<h3 id="使用引用避免拷贝">使用引用避免拷贝</h3>
+<p>​	拷贝大的类类型对象或者容器对象比较低效，甚至有的类类型不支持拷贝操作。当某种类型不支持拷贝操作时，函数只能通过引用形参访问该类型的对象。</p>
+<p>​	例如，比较两个字符串的长度大小，字符串很长，拷贝创建对象花销大，应该使用引用形参来避免这种情况。</p>
+<pre><code class="lang-c++">bool isShorter(const string &amp;s1, const string s2)
+{
+    return s1.size() &lt; s2.size();
+}
+</code></pre>
+<p>如果函数无须改变引用形参的值，最好将其声明为常量引用。</p>
+<h3 id="使用引用形参返回额外信息">使用引用形参返回额外信息</h3>
+<p>​	一个函数只能返回一个值，有时函数需要同时返回多个值，引用形参为我们一次返回多个结果提供了有效的途径。</p>
+<pre><code class="lang-c++">// 返回 s 中 c第一次出现的位置索引
+// 引用形参 occurs 负责统计 c 出现的总次数
+string::size_type find_char(const string &amp;s, char c, string::size_type &amp;occurs)
+{
+    auto ret = s.size();
+    occurs = 0;	// 设置表示出现次数的形参的值
+    for(decltype(ret) i = 0; i != s.size(); ++i)
+    {
+        if(s[i] == c)
+        {
+            if(ret == s.size())
+                ret = i;	// 记录c第一次出现的位置
+            occurs++;		// 将出现的次数加1
+        }
+    }
+    return ret;				// 返回出现的次数
+}
+
+int main()
+{
+    string s= &quot;hello world&quot;;
+    
+    string::size_type occurs = 0;
+    string::size_type firstoccur = 0;
+    firstoccur = find_char(s, 'o', occurs);
+    
+    return 0;
+}
+</code></pre>
+<h2 id="623-const-形参和实参">6.2.3 const 形参和实参</h2>
+<pre><code class="lang-c++">const int ci = 42;	// 不能改变ci，const是顶层
+int i = ci;			// 正确：当拷贝ci时，忽略了它的顶层 const
+int* const p = &amp;i;	// const是顶层的，不能给p赋值
+*p = 0;	// 正确，通过p改变对象的内容是允许的，现在i变成了0
+</code></pre>
+<p>当实参初始化型参时会忽略掉顶层 const。当形参有顶层 const 时，传给它常量对象或者非常量对象都是可以的。</p>
+<pre><code class="lang-c++">void fcn(const int i){/*不能对i进行写操作*/}
+void fcn(int i){/* ... */}	// 错误，重读定义了fcn(int)
+</code></pre>
+<h3 id="指针或引用形参与-const">指针或引用形参与 const</h3>
+<p>​	可以使用非常量初始化一个底层 const 对象，但是反过来不行；同时一个普通的引用必须用同类型的对象初始化。</p>
+<pre><code class="lang-c++">int i = 42;
+const int *cp = &amp;i;	// 正确，但是不能通过 cp 改变 i
+const int &amp;r = i;	// 正确，但是不能通过 r 改变 i
+const int &amp;r2 = 42;	// 正确
+int *p = cp;	// 错误，p的类型和cp的类型不匹配
+int &amp;r3 = r;	// 错误，r3的类型和r的类型不匹配
+int &amp;r4 = 42;	// 错误，不能用字面值初始化一个非常量引用
+</code></pre>
+<pre><code class="lang-c++">int i = 0;
+const int ci = i;
+string::size_type ctr = 0;
+reset(&amp;i);	// 调用形参类型是int*的reset函数
+reset(&amp;ci);	// 错误，不能用指向const int对象的指针初始化int*
+reset(i);	// 调用形参类型是int&amp;的reset函数
+reset(ci);	// 错误，不能把普通引用绑定到const对象ci上
+reset(42);	// 错误，不能把普通引用绑定到字面值上
+reset(ctr);	// 错误，类型不匹配，ctr是无符号类型
+</code></pre>
+<h3 id="尽量使用常量引用">尽量使用常量引用</h3>
+<p>如果 <code>find_char</code> 的接口像下面这样定义，在调用时容易出现各种不兼容的情况。</p>
+<pre><code class="lang-c++">string::size_type find_char(string &amp;s, char c, string::size_type &amp;occurs);
+</code></pre>
+<p>调用：</p>
+<pre><code class="lang-c++">find_char(&quot;Hello world&quot;, 'o', ctr);
+</code></pre>
+<p>在编译时发生错误。因为 “Hello world” 是字面值常量，而string &amp;s是非常量。</p>
+<p>如果被另一个函数包装起来，也不易察觉。</p>
+<pre><code class="lang-c++">bool is_sentence(const string &amp;s)
+{
+    //	如果在 s 的末尾有且只有一个句号，则 s 是一个句子
+    string::size_type ctr = 0;
+    return find_char(s, '.', ctr) == s.size() - 1 &amp;&amp; ctr == 1;	// 编译错误，s是const string &amp;类型
+}
+</code></pre>
+<h3 id="练习-1">练习</h3>
+<p><strong>练习6.16</strong>：下面的这个函数虽然合法，但是不算特别有用。指出它的局限性并设法改善。</p>
+<pre><code class="lang-c++">bool is_empty(string&amp; s){ return s.empty(); }
+</code></pre>
+<p>功能上来说，该函数仅仅是判断形参s是否为空串，没有对s进行写操作而定义形参为可读可写，调用传入的实参只能是string对象，对const string对象而言，不能调用这个函数。</p>
+<p>修改：</p>
+<pre><code class="lang-c++">bool is_empty(const string&amp; s){ return s.empty(); }
+</code></pre>
+<p><strong>练习6.17</strong>：编写一个函数，判断 string 对象中是否含有大写字母。编写另一个函数，把 string 对象全都改写成小写形式。在这两个函数中你使用的形参类型相同吗？为什么？</p>
+<pre><code class="lang-c++">// 判断 string 对象中是否含有大写字母
+bool IsContainUpper(const string&amp; s)
+{
+    for (auto c : s)
+    {
+        if (isupper(c))
+            return true;
+    }
+
+    return false;
+}
+
+// 将参数s全部小写字母改成大写字母
+void ToUpper(string&amp; s)
+{
+    for (auto&amp; c : s)
+    {
+        c = toupper(c);
+    }
+}
+</code></pre>
+<p>不同，因为 <code>IsContainUpper</code> 函数没有改参数的内容，所以最好定义长引用常量形参，<code>ToUpper</code> 函数改动了形参，所以不能定义为常量。</p>
+<p><strong>练习6.18</strong>：为下面的函数编写函数声明，从给定的名字中推测函数具备的功能。</p>
+<p>(a) 名为 compare 的函数，返回布尔值，两个参数都是matrix类的引用。</p>
+<p>(b) 名为 change_val 的函数，返回 <code>vector&lt;int&gt;</code> 的迭代器，有两个参数：一个是 int，另一个是 <code>vector&lt;int&gt;</code> 的迭代器。</p>
+<p>答：(a)是一个比较两个 matrix 类是否相同，如果相同返回 true；不同，返回 false。</p>
+<p>(b) 改变形参迭代器指向的地址的内容为 int 形参类型的值。</p>
+<p><strong>练习6.19</strong>：假定有如下声明，判断哪个调用合法、哪个调用不合法。对于不合法的函数调用，说明原因。</p>
+<pre><code class="lang-c++">double calc(double);
+int count(const string&amp;, char);
+int sum(vector&lt;int&gt;::iterator, vector&lt;int&gt;::iterator, int);
+vector&lt;int&gt; vec(10);
+
+(a) calc(23.4, 55.1);	(b) count(&quot;abcda&quot;, 'a');
+(c) calc(66);			(d) sum(vec.begin(), vec.end(), 3.8);
+</code></pre>
+<p>(a)不合法，参数个数不对。</p>
+<p>(b) 合法。</p>
+<p>(c)合法。</p>
+<p>(d)合法。</p>
+<p><strong>练习6.20</strong>：引用形参什么时候应该是常量引用？如果形参应该是常量引用，而我们将其设为了普通引用，会发生什么情况？</p>
+<p>当函数内部不会对形参进行写操作时，应该用常量引用。如果形参应该是常量引用，而我们将其设为了普通引用，可能会编译不通过，因为形参类型不同。</p>
+<h2 id="624-数组形参">6.2.4 数组形参</h2>
+<p>​	数组的两个特殊性质对我们定义和使用作用在数组上的函数有影响，不许拷贝数组以及使用数组时会将其转换成指针。因为无法拷贝数组，所以无法以值传递的方式使用数组参数。因为数组会被转换成指针，所以当我们为函数传递一个数组时，实际上传递的是指向数组首元素的指针。</p>
+<p>​	尽管不能以值传递的方式传递数组，但是可以把形参写成类似数组的形式：</p>
+<pre><code class="lang-c++">void print(const int*);
+void print(const int[]);
+void print(const int[10]);	// 这里规定了数组大小为10，但是实际传的还是数组首地址，传入的数组容量大于10也是可以的
+</code></pre>
+<p>尽管表现形式不同，但上面的三个函数是等价的。每个函数的唯一形参是 <code>const int*</code> 类型的。当编译器处理对 <code>print</code> 函数的调用时，只检查传入的参数是否是 <code>const int*</code> 类型。</p>
+<pre><code class="lang-c++">int i = 0, j[2] = {0, 1};
+print(&amp;i);	// 正确：&amp;i 的类型是int*
+print(j);	// 正确：j转换成 int* 并指向 j[10]
+</code></pre>
+<p>如果传给 print 函数的是一个数组，则实参自动地转换成指向数组首元素的指针，数组的大小对函数的调用没有影响。但是内部使用数组时，要人为确保不会越界。</p>
+<p>因为传入函数的数组只有首地址，函数不能通过首地址知道知道数组的大小尺寸，调用者应该提供一些额外的信息。</p>
+<h3 id="使用标记指定数组长度">使用标记指定数组长度</h3>
+<p>​	管理数组实参的一个方法是要求数组本身包含一个结束标记，使用这种方法的典型示例是C风格字符串。因为字符串最后一个字符后面跟着一个空字符。</p>
+<pre><code class="lang-c++">void print(const char *cp)
+{
+    if(cp)	// 若cp不是一个空指针
+    {
+        while(*cp)	// 只要指针所指的字符不是空字符
+            cout &lt;&lt; *cp++;	// 输出当前字符并将指针向前移动一个位置
+    }
+}
+</code></pre>
+<h3 id="使用标准库规范">使用标准库规范</h3>
+<p>管理数组实参的第二个方法是传递指向数组首元素和尾元素的指针。</p>
+<pre><code class="lang-c++">void print(const int* beg, const int* end)
+{
+    while(beg != end)
+        cout &lt;&lt; *beg++ &lt;&lt; endl;
+}
+</code></pre>
+<h3 id="显示传递一个表示数组大小的形参">显示传递一个表示数组大小的形参</h3>
+<p>第三种方法是专门定义一个表示数组大小的形参。</p>
+<pre><code class="lang-c++">void print(const int ia[], size_t size)
+{
+    for(size_t i = 0; i != size; ++i)
+    {
+        cout &lt;&lt; ia[i] &lt;&lt; endl;
+    }
+}
+
+int j[] = {0, 1};
+print(j,end(j) - begin(j));
+</code></pre>
+<h3 id="数组形参和-const">数组形参和 const</h3>
+<p>函数内部如果不改动数组元素时，尽可能使用 const。</p>
+<h3 id="数组引用形参">数组引用形参</h3>
+<p>​	C++ 语言允许将变量定义成数组的引用，基于同样的道理，形参也可以是数组的引用。</p>
+<pre><code class="lang-c++">void print(int (&amp;arr)[10])	// (&amp;arr) 两边的括号必不可少
+{
+    for (auto elem : arr)
+    {
+        cout &lt;&lt; elem &lt;&lt; endl;
+    }
+}
+</code></pre>
+<p>​	因为数组的大小是构成数组类型的一部分，所以只要不超过维度，在函数体内就可以放心地使用数组。但是，只能将函数作用于大小为10的数组。</p>
+<pre><code class="lang-c++">int i = 0, j[2] = {0, 1};
+int k[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+print(&amp;i);	// 错误：实参不是含有10个整数的数组
+print(j);	// 错误，实参不是含有10个整数的数组
+print(k);	// 正确，实参是含有10个整数的数组
+</code></pre>
+<h3 id="传递多维数组">传递多维数组</h3>
+<pre><code class="lang-c++">// matrix 指向数组的元素，该数组的元素是由 10 个整数构成的数组
+void print(int (*matrix)[10], int rowSize)
+{
+}
+</code></pre>
+<pre><code class="lang-c++">void print(int arr[][4])
+{
+    for (int row = 0; row &lt; 3; row++)
+    {
+        for (int list = 0; list &lt; 4; list++)
+            cout &lt;&lt; arr[row][list] &lt;&lt; &quot; &quot;;
+        cout &lt;&lt; endl;
+    }
+}
+
+int main()
+{
+    int arr[][4] = { {0,1,2,3},{4,5,6,7},{8,9,10,11} };
+    print(arr); 
+    return 0;
+}
+</code></pre>
+<p>和所有的数组一样，当将多维数组传递给函数时，真正传递的是指向数组首元素的指针。因为处理的是数组的数组，所以首元素本身就是一个数组，指针就是一个指向数组的指针。数组的第二维的大小都是数组类型的一部分，不能省略。</p>
+<pre><code class="lang-c++">int *matrix[10];	// 10个指针构成的数组
+int (*matrix)[10];	// 指向含有10个整数的数组的指针
+</code></pre>
+<p>也可以使用数组的语法定义函数，此时编译器会忽略掉第一个维度大小，所以最好不要把它包括在形参列表内。</p>
+<pre><code class="lang-c++">void print(int matrix[][10], int rowSize);
+</code></pre>
+<h3 id="练习-2">练习</h3>
+<p><strong>练习 6.21</strong>：编写一个函数，令其接受两个参数：一个是int型的数，另一个是int指针。函数比较int的值和指针所指的值，返回较大的那个。在该函数中指针的类型应该是什么？</p>
+<pre><code class="lang-c++">int compare(const int left,const int* right)
+{
+    return left &gt; *right ? left : *right;
+}
+</code></pre>
+<p>const int* 类型。</p>
+<p><strong>练习 6.22</strong>：编写一个函数，令其交换两个 int 指针。</p>
+<pre><code class="lang-c++">void swap(int* &amp;left,int* &amp;right)
+{
+    int* temp = right;
+    right = left;
+    left = temp;
+}
+
+int main()
+{
+    int left = 10; int right = 11;
+    int* pleft = &amp;left;
+    int* pright = &amp;right;
+    cout &lt;&lt; &quot;before swap&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;*pleft = &quot; &lt;&lt; *pleft &lt;&lt; endl;
+    cout &lt;&lt; &quot;*pright = &quot; &lt;&lt; *pright &lt;&lt; endl;
+    swap(pleft, pright);
+    cout &lt;&lt; &quot;after swap&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;*pleft = &quot; &lt;&lt; *pleft &lt;&lt; endl;
+    cout &lt;&lt; &quot;*pright = &quot; &lt;&lt; *pright &lt;&lt; endl;
+    return 0;
+}
+
+// before swap
+// *pleft = 10
+// *pright = 11
+// after swap
+// *pleft = 11
+// *pright = 10
+</code></pre>
+<p><strong>练习 6.23</strong>：参考本书介绍的几个 print 函数，根据理解编写你自己的版本。依次调用每个函数使其输入下面定义的 i 和 j：</p>
+<pre><code class="lang-c++">int i = 0, j[2] = {0, 1};
+</code></pre>
+<p>略。</p>
+<p><strong>练习 6.24</strong>：描述下面这个函数的行为。如果代码存在问题，请指出并改正。</p>
+<pre><code class="lang-c++">void print(const int ia[10])
+{
+    for(size_t i = 0; i != 10; ++i)
+    {
+        cout &lt;&lt; ia[i] &lt;&lt; endl;
+    }
+}
+</code></pre>
+<p>逐个输出打印数组中的数。</p>
+<p>问题，如果传入的数组长度小于10，就出现多余的数。</p>
+<h2 id="625-main-处理命令行选项">6.2.5 main: 处理命令行选项</h2>
+<p>有时需要给main传递实参，一种常见的情况是：有些exe，用命令行启动，但是又需要传递一些额外信息，就需要给main传参数。</p>
+<pre><code class="lang-c++">int main(int argc, char *argv[])
+{}
+</code></pre>
+<p>调用：</p>
+<pre><code class="lang-c++">1.1.exe prog -d -o ofile data0
+</code></pre>
+<p>当实参传给main函数之后，argv的第一个元素指向程序的名字或者一个空字符串，接下来的元素依次传递命令提供的实参。最后一个指针之后的元素值保证为0。</p>
+<pre><code class="lang-c++">argv[0] = &quot;prog&quot;;
+argv[1] = &quot;-d&quot;;
+argv[2] = &quot;-o&quot;;
+argv[3] = &quot;ofile&quot;;
+argv[4] = &quot;data0&quot;;
+argv[5] = 0;
+</code></pre>
+<h2 id="626-含有可变形参的函数">6.2.6 含有可变形参的函数</h2>
+<p>​	为了编写能处理不同数量实参的函数，C++11 新标准提供了两种主要的方法：如果所有的实参类型相同，可以传递一个名为 <code>initializer_list</code> 的标准库类型；如果实参的类型不同，可以编写一种特殊的函数，也就是所谓的可变参数模板，在知识点参考16.4节。</p>
+<p>​	C++还有一种特殊的形参类型，省略符，可以用它传递可变数量的实参。省略符一般只用于与C函数交互。</p>
+<h3 id="initializer_list-形参">initializer_list 形参</h3>
+<p>​	如果函数的参数数量未知但是全部实参的类型都相同，initializer_list 支持这种做法。它存在于头文件 <code>initializer_list</code> 中。</p>
+<p><code>initializer_list</code>提供的一些相关的操作：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>释义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>initializer_list<t> lst;</t></td>
+<td>默认初始化：T类型元素的空列表。</td>
+</tr>
+<tr>
+<td>initializer_list<t> lst{a,b,c...};</t></td>
+<td>lst 的元素数量和初始值一样多；lst 的元素是对应初始值的副本；列表中的元素是 const。</td>
+</tr>
+<tr>
+<td>lst2(lst)</td>
+<td>拷贝或赋值一个 <code>initializer_list</code> 对象不会拷贝列表中的元素；拷贝后，原始列表和副本共享元素。</td>
+</tr>
+<tr>
+<td>lst2 = lst</td>
+<td>同 lst2(lst)。</td>
+</tr>
+<tr>
+<td>lst.size()</td>
+<td>列表中的元素数量。</td>
+</tr>
+<tr>
+<td>lst.begin()</td>
+<td>返回指向 lst 中首元素的指针。</td>
+</tr>
+<tr>
+<td>lst.end()</td>
+<td>返回指向 lst 中尾元素的下一位置的指针。</td>
+</tr>
+</tbody>
+</table>
+<p><code>initializer_list</code> 是一种模板类型，定义 <code>intializer_list</code> 对象时，必须说明列表中所含元素的类型。</p>
+<pre><code class="lang-c++">initializer_list&lt;string&gt; ls;
+initializer_list&lt;int&gt; li;
+</code></pre>
+<p>initializer_list 对象中的元素永远是常量值。</p>
+<pre><code class="lang-c++">void error_msg(initializer_list&lt;string&gt; il)
+{
+    for(auto beg = il.begin(); beg != il.end(); ++beg)
+    {
+        cout &lt;&lt; *beg &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; endl;
+}
+
+int main()
+{
+    /* ... */
+    // expected 和 actual 是 string 对象
+    if (expected != actual)
+    {
+        error_msg({&quot;functionX&quot;, expected, actual});
+    }
+    else
+    {
+        error_msg({&quot;functionX&quot;, &quot;okay&quot;});
+    }
+}
+</code></pre>
+<p>​	如果想向 <code>initializer_list</code> 形参中传递一个值的序列，则必须把序列放在一对花括号内。</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter6/6.2.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -111,6 +111,66 @@ cout &lt;&lt; item1 + item2 &lt;&lt;endl;
     handler-statements
 }
 </code></pre>
+<h2 id="563-标准异常">5.6.3 标准异常</h2>
+<p>C++ 标准库定义了一组类，用于报告标准库函数遇到的问题。这些异常类也可以在用户编写的程序中使用，它们分别定义在4个头文件中：</p>
+<ul>
+<li>exception 头文件定义了最通用的异常类 exception。它只报告异常的发生，不提供任何额外信息。</li>
+<li>stdexcept 头文件定义了几种常用的异常类。</li>
+<li>new 头文件中定义了 bad_alloc 异常类型。</li>
+<li>type_info 头文件定义了 bad_cast 异常类型。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>释义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>exception</td>
+<td>常见的问题。</td>
+</tr>
+<tr>
+<td>runtime_error</td>
+<td>只有在运行时才能检测出的问题。</td>
+</tr>
+<tr>
+<td>range_error</td>
+<td>运行时错误，生成的结果超出了意义的值域范围。</td>
+</tr>
+<tr>
+<td>overflow_error</td>
+<td>运行时错误，计算上溢。</td>
+</tr>
+<tr>
+<td>underflow_error</td>
+<td>运行时错误，计算下溢。</td>
+</tr>
+<tr>
+<td>logic_error</td>
+<td>程序逻辑错误。</td>
+</tr>
+<tr>
+<td>domain_error</td>
+<td>逻辑错误，参数对应结果值不存在。</td>
+</tr>
+<tr>
+<td>invalid_argument</td>
+<td>逻辑错误，无效参数。</td>
+</tr>
+<tr>
+<td>length_error</td>
+<td>逻辑错误，试图创建一个超出该类型最大长度的对象。</td>
+</tr>
+<tr>
+<td>out_of_range</td>
+<td>逻辑错误，使用一个超出有效范围的值。</td>
+</tr>
+</tbody>
+</table>
+<p>只能以默认初始化的方式初始化 exception、bad_alloc 和 bad_cast 对象，不允许为这些对象提供初始值。</p>
+<p>异常类型只定义一个名为what的成员函数，该函数没有任何参数，返回值是一个指向C风格字符串的const char*。</p>
 </article>
           </div>
           

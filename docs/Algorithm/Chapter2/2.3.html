@@ -81,10 +81,148 @@ private :
     LNode data;     // 指针域
 };
 </code></pre>
-<p>​	单链表可以解决顺序表需要大量连续存储单元的缺点（数组并不需要为其下标开辟存储空间），但是单链表附加指针域，也存在浪费存储空间的缺点。单链表的元素离散分布在存储空间中，是非随机存取的存储结构。不能直接定位某个特定的结点，只能从表头沿着链域一个一个的遍历。</p>
+<p>单链表可以解决顺序表需要大量连续存储单元的缺点（数组并不需要为其下标开辟存储空间），但是单链表附加指针域，也存在浪费存储空间的缺点。单链表的元素离散分布在存储空间中，是非随机存取的存储结构。不能直接定位某个特定的结点，只能从表头沿着链域一个一个的遍历。</p>
 <p>带头结点：通常用头指针来标识一个链表，如单链表L，头指针为NULL时表示一个空表。为了操作上的方便，在单链表第一个结点之前附加一个结点，称为头结点，结点的data不存数据。</p>
+<h3 id="链表结构">链表结构</h3>
+<pre><code class="lang-c++">template&lt;class t&gt;
+class LinkList {
+
+private:
+    LNode&lt;t&gt;* phead; // 头指针
+    LNode&lt;t&gt;* ptail; // 尾指针
+
+public:
+    LinkList();	// 初始化
+   	void Insert(t e);
+    bool Insert(int i, t e);
+    LNode&lt;t&gt;* GetElem(int i);  // 按序号查找结点
+    LNode&lt;t&gt;* LocateElem(t e); // 按值查找结点
+    bool Delete(int i); // 按序号删除结点
+    size_t GetLength(); // 求表长
+};
+
+
+
+template&lt;class t&gt;
+inline LinkList&lt;t&gt;::LinkList()
+{
+    // 创建头结点，结点不存内容。
+    phead = new LNode&lt;t&gt;();
+    ptail = phead;  // 尾指针指向头结点
+}
+</code></pre>
 <h2 id="232-单链表上基本操作的实现">2.3.2 单链表上基本操作的实现</h2>
 <h3 id="插入操作">插入操作</h3>
+<pre><code class="lang-c++">/// &lt;summary&gt;
+/// 尾部插入新的结点
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;e&quot;&gt;数据&lt;/param&gt;
+template&lt;class t&gt;
+void LinkList&lt;t&gt;::Insert(t e)
+{
+    // ptail 永远不为空，因为有头结点
+    ptail = ptail-&gt;next;
+    ptail = new LNode&lt;t&gt;();
+    ptail-&gt;data = e;
+    ptail-&gt;next = nullptr;
+}
+</code></pre>
+<h3 id="查找操作">查找操作</h3>
+<h4 id="按序号查找结点值">按序号查找结点值</h4>
+<p>在单链表中从第一个结点出发，顺着指针 next 域逐个往下搜索，直到找到第i个结点为止，否则返回最后一个结点指针域NULL。</p>
+<pre><code class="lang-c++">template&lt;class t&gt;
+inline LNode&lt;t&gt;* LinkList&lt;t&gt;::GetElem(int i)
+{
+    int j = 1;
+    LNode&lt;t&gt;* temp = phead-&gt;next;   // 获取将头指针的next
+    if (i &lt; 1)  // i的值不能小于1
+        return nullptr;
+
+    // 沿着链找到对应位置的结点
+    while (temp &amp;&amp; j &lt; i)
+    {
+        temp = temp-&gt;next;
+        j++;
+    }
+
+    return temp;
+}
+</code></pre>
+<h4 id="按值查找表结点">按值查找表结点</h4>
+<p>从单链表的第一个结点开始，由前往后依次比较表中各结点数据域的值，若某结点数据域的值等于给定值e，则返回该节点的指针；若整个单链表中没有这样的结点，则返回NULL。</p>
+<pre><code class="lang-c++">template&lt;class t&gt;
+inline LNode&lt;t&gt;* LinkList&lt;t&gt;::LocateElem(t e)
+{
+    LNode&lt;t&gt;* temp = phead-&gt;next;
+    while (temp &amp;&amp; temp != e)
+    {
+        temp = temp-&gt;next;
+    }
+
+    return temp;
+}
+</code></pre>
+<h3 id="插入新结点">插入新结点</h3>
+<p>​	插入结点操作将值为x的新结点插入到链表的第i个位置上。先检查插入位置的合法性，然后找到待插入位置的前驱结点，即第 <code>i-1</code> 个结点，再在其后插入新结点。</p>
+<pre><code class="lang-c++">/// &lt;summary&gt;
+/// 按位置插入法。
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;i&quot;&gt;插入的位置&lt;/param&gt;
+/// &lt;param name=&quot;e&quot;&gt;插入的结点数据&lt;/param&gt;
+/// &lt;returns&gt;true，插入成功；false，插入失败&lt;/returns&gt;
+template&lt;class t&gt;
+inline bool LinkList&lt;t&gt;::Insert(int i, t e)
+{
+    if (i &lt; 1)
+        return false;
+    LNode&lt;t&gt;* p = GetElem(i - 1);
+    if (p)
+        return false;
+    LNode&lt;t&gt;* temp = new LNode&lt;t&gt;();
+    temp-&gt;data = e;
+    temp-&gt;next = p-&gt;next; // 原链表中第i个位置的元素，可能为空，由新元素的next指向
+    
+    p-&gt;next = temp;
+    if (temp-&gt;next == nullptr) // temp的next是空指针，则temp是个尾部结点
+        ptail = temp;
+}
+</code></pre>
+<h3 id="删除操作">删除操作</h3>
+<p>​	删除结点操作是将单链表的第i个结点删除。先检查删除位置的合法性，后查找表中第 <code>i-1</code> 个结点，即被删结点的前驱结点，再将其删除。</p>
+<pre><code class="lang-c++">template&lt;class t&gt;
+inline bool LinkList&lt;t&gt;::Delete(int i)
+{
+    LNode&lt;t&gt;* p = GetElem(i - 1);   // 找到第i-1个位置结点
+    if (p || p-&gt;next)    // 第i-1个位置的结点为空或者第i个位置结点为空，删除失败
+    {
+        return false;
+    }
+        
+    LNode&lt;t&gt;* pnext = p-&gt;next;
+    p-&gt;next = pnext-&gt;next;  // 将第i-1个结点的next域指向第i个结点的next域
+    delete pnext;
+
+    if (p-&gt;next == nullptr) // 删除的i结点时ptail，则需要修改ptail的指向
+        ptail = p;
+    return true;
+}
+</code></pre>
+<h3 id="求表长">求表长</h3>
+<p>​	求表长，不算头结点。</p>
+<pre><code class="lang-c++">template&lt;class t&gt;
+inline size_t LinkList&lt;t&gt;::GetLength()
+{
+    int len = 0;
+    auto current = phead;   // 获取头指针
+    while ( current &amp;&amp; ptail != current)
+    {
+        len++;
+        current = current-&gt;next;
+    }
+    return len;
+}
+</code></pre>
+<h2 id="233-双链表">2.3.3 双链表</h2>
 </article>
           </div>
           
