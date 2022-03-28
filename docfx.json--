@@ -52,15 +52,12 @@
       }
     ],
     "dest": "docs",
-    "globalMetadata": {
-      "_enableSearch": true
-      },
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
       "default"
     ],
-    "postProcessors": ["ExtractSearchIndex"],
+    "postProcessors": [],
     "markdownEngineName": "markdig",
     "noLangKeyword": false,
     "keepFileLink": false,
