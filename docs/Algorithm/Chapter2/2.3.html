@@ -76,13 +76,16 @@
 <h3 id="单链表结点代码结构">单链表结点代码结构</h3>
 <pre><code class="lang-c++">template&lt;class t&gt;
 class LNode {
-private :
+public:
     t data;         // 数据域
-    LNode data;     // 指针域
+    LNode&lt;t&gt; *next;     // 指针域
+    
+public:
+    LNode(t e):data(e), next(nullptr){}
 };
 </code></pre>
-<p>单链表可以解决顺序表需要大量连续存储单元的缺点（数组并不需要为其下标开辟存储空间），但是单链表附加指针域，也存在浪费存储空间的缺点。单链表的元素离散分布在存储空间中，是非随机存取的存储结构。不能直接定位某个特定的结点，只能从表头沿着链域一个一个的遍历。</p>
-<p>带头结点：通常用头指针来标识一个链表，如单链表L，头指针为NULL时表示一个空表。为了操作上的方便，在单链表第一个结点之前附加一个结点，称为头结点，结点的data不存数据。</p>
+<p>​	单链表可以解决顺序表需要大量连续存储单元的缺点（数组并不需要为其下标开辟存储空间），但是单链表附加指针域，也存在浪费存储空间的缺点。单链表的元素离散分布在存储空间中，是非随机存取的存储结构。不能直接定位某个特定的结点，只能从表头沿着链域一个一个的遍历。</p>
+<p>​	带头结点：通常用头指针来标识一个链表，如单链表L，头指针为NULL时表示一个空表。为了操作上的方便，在单链表第一个结点之前附加一个结点，称为头结点，结点的data不存数据。</p>
 <h3 id="链表结构">链表结构</h3>
 <pre><code class="lang-c++">template&lt;class t&gt;
 class LinkList {
@@ -129,15 +132,16 @@ void LinkList&lt;t&gt;::Insert(t e)
 </code></pre>
 <h3 id="查找操作">查找操作</h3>
 <h4 id="按序号查找结点值">按序号查找结点值</h4>
-<p>在单链表中从第一个结点出发，顺着指针 next 域逐个往下搜索，直到找到第i个结点为止，否则返回最后一个结点指针域NULL。</p>
+<p>​	在单链表中从第一个结点出发，顺着指针 next 域逐个往下搜索，直到找到第i个结点为止，否则返回最后一个结点指针域NULL。</p>
 <pre><code class="lang-c++">template&lt;class t&gt;
 inline LNode&lt;t&gt;* LinkList&lt;t&gt;::GetElem(int i)
 {
-    int j = 1;
-    LNode&lt;t&gt;* temp = phead-&gt;next;   // 获取将头指针的next
     if (i &lt; 1)  // i的值不能小于1
         return nullptr;
 
+    int j = 1;
+    LNode&lt;t&gt;* temp = phead-&gt;next;   // 获取将头指针的next
+    
     // 沿着链找到对应位置的结点
     while (temp &amp;&amp; j &lt; i)
     {
@@ -149,7 +153,7 @@ inline LNode&lt;t&gt;* LinkList&lt;t&gt;::GetElem(int i)
 }
 </code></pre>
 <h4 id="按值查找表结点">按值查找表结点</h4>
-<p>从单链表的第一个结点开始，由前往后依次比较表中各结点数据域的值，若某结点数据域的值等于给定值e，则返回该节点的指针；若整个单链表中没有这样的结点，则返回NULL。</p>
+<p>​	从单链表的第一个结点开始，由前往后依次比较表中各结点数据域的值，若某结点数据域的值等于给定值e，则返回该节点的指针；若整个单链表中没有这样的结点，则返回NULL。</p>
 <pre><code class="lang-c++">template&lt;class t&gt;
 inline LNode&lt;t&gt;* LinkList&lt;t&gt;::LocateElem(t e)
 {
@@ -223,6 +227,86 @@ inline size_t LinkList&lt;t&gt;::GetLength()
 }
 </code></pre>
 <h2 id="233-双链表">2.3.3 双链表</h2>
+<p>​	单链表结点中，只有一个指向其后继的指针，使得单链表只能从头结点依次顺序地向后遍历。要访问某个结点的前驱结点（插入、删除操作时），只能从头再遍历，访问后继结点的时间复杂度为O(1)，访问前驱结点的时间复杂度为O(n)。</p>
+<p>​	双链表结点中有两个指针 prior 和 next，分别指向其前驱结点和后继结点。</p>
+<p><img src="pictures/chapter2-dlin.png" alt=""></p>
+<h3 id="双链表结点代码结构">双链表结点代码结构</h3>
+<pre><code class="lang-c++">template&lt;class t&gt;
+class LNode {
+private :
+    t data;          // 数据域
+    LNode&lt;t&gt;* next;  // 后继结点的指针域
+    LNode&lt;t&gt;* pre;   // 前继结点的指针域 
+};
+</code></pre>
+<p>​	双链表在单链表道德结点中增加了一个指向其前驱的 prior 指针，因此双链表中的按值查找和按位查找的操作与单链表相同。不同的是在插入和删除操作上，需要额外对前继结点指针域进行操作。</p>
+<h3 id="双链表的插入操作">双链表的插入操作</h3>
+<h4 id="尾部插入">尾部插入</h4>
+<pre><code class="lang-c++">// 在链表尾部插入新结点
+template &lt;class t&gt;
+void LinkList&lt;t&gt;::Insert(t e)
+{
+    LNode&lt;t&gt;* temp = new LNode&lt;t&gt;(e);
+    temp-&gt;pre = ptail;	// 将新结点的前继指针指向原链表中的tail指向的结点
+    ptail-&gt;next = temp;	// 将链表原结点的尾结点的next指针指向新插入的结点
+    ptail = temp;		// 尾指针移到最后一个结点
+}
+</code></pre>
+<h4 id="按序号插入">按序号插入</h4>
+<pre><code class="lang-c++">/// &lt;summary&gt;
+/// 按位置插入法。
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;i&quot;&gt;插入的位置&lt;/param&gt;
+/// &lt;param name=&quot;e&quot;&gt;插入的结点数据&lt;/param&gt;
+/// &lt;returns&gt;true，插入成功；false，插入失败&lt;/returns&gt;
+bool LinkList&lt;t&gt;::Insert(int i, t e)
+{
+    if(i &lt; 1)	// 序号不能小于1
+        return false;
+    // 找到第 i-1个位置的结点
+    LNode&lt;t&gt;* pi = GetElem(i - 1);
+    if(pi)	// 如果第i-1个结点不存在，插入失败，
+        return false;
+    
+    LNode&lt;t&gt;* t = pi-&gt;next;	// 插入前第i个结点
+    LNode&lt;t&gt;* temp = new LNode&lt;t&gt;(e);	// 申请新结点
+    pi-&gt;next = temp;	// 将新结点插入链表
+    temp-&gt;pre = pi;
+    if(ptail == pi)	// 如果第i-1个结点时链表尾结点，则移动尾结点
+    {
+        ptail = temp;
+    }
+    else	// 第i-1个结点不是尾结点
+    {
+        t-&gt;pre = temp;
+        temp-&gt;next = t;
+    }
+    
+    return true;
+}
+</code></pre>
+<h3 id="删除结点">删除结点</h3>
+<pre><code class="lang-c++">// 按位删除结点
+template &lt;class t&gt;
+void Delete(int i)
+{
+    LNode&lt;t&gt;* pi = GetElem(i - 1);	// 获取第i-1个结点
+    if(!pi || !(pi-next))	//	第i-1个结点不存在或者第i个结点不存在，程序结束
+        return;
+    if(pi-&gt;next)
+        LNode&lt;t&gt;* t = pi-&gt;next-&gt;next;	// t 指向第 i+1个结点
+    delete pi-&gt;next;	// 释放第i个结点的空间
+    if(t == nullptr)	// 删除后第i+1个结点不存在，那第i-1个结点就成为了尾结点，需要将尾指针移动到对应的位置
+    {
+        ptail = pi;
+	}
+    else	
+    {
+        pi-&gt;next = t;
+        t-&gt;pre = pi;
+    }
+}
+</code></pre>
 </article>
           </div>
           

@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>6.5 &#29305;&#27530;&#29992;&#36884;&#35821;&#35328;&#29305;&#24615; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="6.5 &#29305;&#27530;&#29992;&#36884;&#35821;&#35328;&#29305;&#24615; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="65-特殊用途语言特性">6.5 特殊用途语言特性</h1>
+
+<h2 id="651-默认实参">6.5.1 默认实参</h2>
+<p>我们编写函数声明时，某些参数在调用时大多时候都是传入同一个值，但是也有特殊时候传入不同值，这个时候默认参数就起到一个作用。默认参数使得函数在调用时，可以接受默认参数值或者用户指定的值。调用含有默认实参的函数时，可以包含该实参，也可以省略该实参。一个某个形参被赋予了默认值，它后面的所有形参都必须有默认值。</p>
+<h3 id="使用默认实参调用函数">使用默认实参调用函数</h3>
+<p>如果我们想使用默认实参，只要在调用函数的时候省略该实参就可以了。</p>
+<h3 id="默认实参声明">默认实参声明</h3>
+<p>对于函数的声明来说，一般将其放在头文件中，并且一个函数只声明一次，但是多次声明同一个函数也是合法的。不过有一点需要注意，在给定的作用域中一个形参之恩能够被赋予一次默认实参。函数的后续声明只能为之前那些没有默认值的形参添加默认实参，而且该形参右侧的所有形参必须都有默认值。</p>
+<pre><code class="lang-c++">string screen(int len, int wid, char x= ' ')
+    
+string screen(int len, int wid, char x= '*')			// 错误，重复声明
+    
+string screen(int len = 24, int wid = 95, char x)		// 正确		
+</code></pre>
+<h3 id="默认实参初始值">默认实参初始值</h3>
+<p>局部变量不能作为默认实参。只要表达式的类型能转换成形参所需的类型，该表达式就能作为默认实参。</p>
+<pre><code class="lang-c++">// wd、def 和 ht 的声明必须出现在函数之外
+sz wd = 80;
+char def = ' ';
+sz ht();
+string screen(sz = ht(), sz = wd, char def);
+
+string window = screen();	// 调用screen(ht(), 80, ' ')
+</code></pre>
+<p>用作默认实参的名字在函数声明所在的作用域内解析，而这些名字的求值过程发生在函数调用时：</p>
+<pre><code class="lang-c++">void f2()
+{
+    def = &quot;*&quot;;			// 改变默认实参的值
+    sz wd = 100;		// 隐藏了外层定义的wd，但是不影响screen调用的默认wd还是80
+    window = screen();	// 调用 screen(ht(), 80, '*')
+}
+</code></pre>
+<h2 id="652-内联函数和-constexpr-函数">6.5.2 内联函数和 constexpr 函数</h2>
+<p>shorterString 函数的功能是比较两个 string 形参的长度并返回长度较小的 string 的引用。把这种规模较小得得得操作定义成函数有很多好处：</p>
+<ul>
+<li>易于阅读和理解函数执行的功能。</li>
+<li>使用函数可以确保行为的统一，每次相关操作都能保证按照同样的方式进行。</li>
+<li>如果需要修改计算过程，只需要在函数定义的地方修改，而不用在每个使用这样的功能地方做修改。</li>
+<li>函数可以被其他应用重复利用，省去重新编写代码的代价。</li>
+</ul>
+<p>但是调用函数一般比求等价表达式的值要慢一些。在大多数机器上，一次函数调用其实包含一系列的工作。调用前要先保存寄存器，并在返回时恢复；此外可能要进行参数拷贝赋值等。</p>
+<h3 id="内联函数可避免函数调用的开销">内联函数可避免函数调用的开销</h3>
+<p>将函数指定成内联函数，通常就是将它在每个调用点上“内联地”展开。</p>
+<pre><code class="lang-c++">// 内联版本：寻找两个 string 对象中较短的那个
+shorterString(const string&amp; s1, const string&amp; s2)
+{
+    return s1.size() &lt;= s2.size() ? s1 : s2;
+}
+</code></pre>
+<p>在某处使用了内联函数。</p>
+<pre><code class="lang-c++">cout &lt;&lt; shorterString(s1, s2) &lt;&lt; endl;
+</code></pre>
+<p>实际上编译器在编译过程中将代码等价于如下：</p>
+<pre><code class="lang-c++">cout &lt;&lt; (s1.size() &lt;= s2.size() ? s1 : s2) &lt;&lt; endl;
+</code></pre>
+<p><strong>内联说明只是向编译器发出的一个请求，编译器可以选择忽略请求。也就是说，是否在调用点直接代码展开，取决于编译器。</strong></p>
+<p>内联机制用于优化规模小、流程直接、频繁调用的函数。很多编译器都不支持内联递归函数，而且一个75行的函数也不大可能在调用点内联地展开。</p>
+<h3 id="constexpr-函数">constexpr 函数</h3>
+<p>​	<strong>constexpr 函数</strong>是指能用于常量表达式的函数。定义 constexpr 函数的方法与其他函数类型，不过要遵循约定：函数的返回类型及所有参数的类型都得是字面值类型，而且函数体重必须有且只有一句 return 语句。</p>
+<pre><code class="lang-c++">constexpr int new_sz() {return 42;}
+constexpr int foo = new_sz();	// 正确：foo是一个常量表达式
+</code></pre>
+<p>把 new_sz 定义成无参数的 constexpr 函数。因为编译器能在程序编译时验证 new_sz 函数返回的是常量表达式，所有可以用 new_sz 函数初始化 constexpr 类型的变量 foo。</p>
+<p>执行该初始化任务时，编译器把对 constexpr 函数的调用替换成其结果值。为了能在编译过程中随时展开， constexpr 函数被隐式地指定为内联函数。</p>
+<p>​	constepxr 函数体内也可以包含其他语句，只要这些语句在运行时不执行任何操作就行。</p>
+<p>​	允许 constexpr 函数的返回值并非一个常量。</p>
+<pre><code class="lang-c++">// 如果arg是常量表示式，则scale(arg)也是常量表达式
+constexpr size_t scale(size_t cnt) {return new_sz() * cnt;}
+</code></pre>
+<p>当 scale 的实参是常量表达式时，它的返回值也是常量表达式；反之则不然。</p>
+<pre><code class="lang-c++">int arr[scale(2)];	// 正确，scale(2)是常量表达式
+int i = 2;	// i 不是常量表达式
+int a2[scale(i)];	// 错误，scale(2)不是常量表达式
+
+size_t x = scale(2);	// 正确。
+</code></pre>
+<p>如果用一个非常量表达式调用 scale 函数；比如 int 类型的对象 i，则返回值是个非常量表达式。当把scale函数用在需要常量表达式的上下文中时，由编译器负责检查函数的结果是否符号要求。如果恰好不是常量表达式，编译器将发出错误信息。</p>
+<p><font color='red'>constexpr 函数不一定返回常量表达式。</font></p>
+<h3 id="把内联函数和-constexpr-函数放在头文件内">把内联函数和 constexpr 函数放在头文件内</h3>
+<p>和其他函数不一样，内联函数和 constexpr 函数可以在程序中多次定义。毕竟，编译器要想展开函数仅有函数声明是不够的，还需要函数的定义。</p>
+<h2 id="653-调试帮助">6.5.3 调试帮助</h2>
+<p>​	为了有选择地执行调试代码，程序可以包含一些用于调试代码，这些代码只在开发程序时使用。当应用程序编写完成准备发布时，要先屏蔽掉调试代码。这种方法用到两项预处理功能：assert 和 NDEBUG。</p>
+<h3 id="assert-预处理宏">assert 预处理宏</h3>
+<p>assert 是一种预处理宏。所谓预处理宏其实是一个预处理变量，它的行为有点类似于内联函数。</p>
+<pre><code class="lang-c++">assert(expr);
+</code></pre>
+<p>首先对 expr 求值，如果表达式为假，assert 输出信息并终止程序的执行。如果表达式为真，assert 什么也不做。</p>
+<p>​	assert 宏定义在 cassert 头文件中。预处理名字由预处理器而非编译器管理，因此我们可以直接使用预处理器名字而无须提供 using 声明。使用时不需要加域说明，即std::assert，也不用为 assert 提供 using 声明。</p>
+<p>​	和预处理变量一样，宏名字在程序内必须唯一。含有 cassert 头文件的程序不能再定义名为 assert 的变量、函数或者其他实体。assert 宏常用于检查 “不能发生” 的条件。</p>
+<pre><code class="lang-c++">assert(word.size() &gt; threshold);
+</code></pre>
+<h3 id="ndebug-预处理变量">NDEBUG 预处理变量</h3>
+<p>​	assert 的行为依赖于一个名为 NDEBUG 的预处理变量的状态。如果定义了 NDEBUG，则 assert 什么也不做。默认状态下没有定义 NDEBUG，此时 assert 将执行运行时检查。</p>
+<p>​	定义 NDEBUG 能避免检查各种条件所需的运行时开销，当然此时根本就不会执行运行时检查。assert 应该仅用于验证那些确实不可能发生的事情。可以把 assert 当成调试程序的一种辅助手段，但是不能用它代替真正的运行时逻辑检查，也不能代替程序本身应该包含的错误检查。</p>
+<p>​	除了用于 assert 外，也可以使用 NDEBUG 编写自己的条件调试代码。如果 NDEBUG 未定义，将执行 #ifndef 和 #ednif 之间的代码；如果定义了 NDEBUG，这些代码将被忽略掉。</p>
+<p><strong>现在的vs2019编译器：Release 版本是 NDEBUG 无效，assert 无效。debug 版本就是有效的。</strong></p>
+<pre><code class="lang-c++">void print(const int ia[], size_t size)
+{
+    #ifndef NDEBUG
+    // __func__是编译器定义的一个局部静态变量，用于存放函数的名字
+    cerr &lt;&lt; __func__ &lt;&lt; &quot;: array size is &quot; &lt;&lt; size &lt;&lt; endl;
+    #endif
+    // ...
+}
+</code></pre>
+<p>C++ 预处理器还定义了4个对于程序调试很有用的名字</p>
+<table>
+<thead>
+<tr>
+<th>变量名字</th>
+<th>释义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>__FILE__</td>
+<td>存放文件名的字符串字面值</td>
+</tr>
+<tr>
+<td>__LINE__</td>
+<td>存放当前行号的整型字面值</td>
+</tr>
+<tr>
+<td>__TIME__</td>
+<td>存放文件编译时间的字符串字面值</td>
+</tr>
+<tr>
+<td>__DATE__</td>
+<td>存放文件编译日期的字符串字面值</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-c++">if(word.size() &lt; threshold)
+    cerr &lt;&lt; &quot;Error&quot; &lt;&lt; __FILE__ &lt;&lt; &quot; : in function &quot; &lt;&lt; __func__
+    &lt;&lt; &quot; at line &quot; &lt;&lt; __LINE__ &lt;&lt; endl &lt;&lt; &quot;		Compiled on &quot; &lt;&lt; __DATE__ 
+    &lt;&lt; &quot; at &quot; &lt;&lt; __TIME__ &lt;&lt; endl &lt;&lt; &quot;		Word read was \&quot;&quot; &lt;&lt; word
+    &lt;&lt; &quot;\&quot;: Length too short&quot; &lt;&lt; endl;
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter6/6.5.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

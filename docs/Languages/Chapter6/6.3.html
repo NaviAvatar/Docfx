@@ -159,6 +159,178 @@ int main()
     else return 1;
 }
 </code></pre>
+<h3 id="练习">练习</h3>
+<p><strong>练习 6.32</strong>：下面函数合法吗？合法说明其功能，不合法，请改正。</p>
+<pre><code class="lang-c++">int&amp; get(int* array, int index)
+{
+    return array[index];
+}
+
+int main(int argc, char *argv[])
+{
+    int ia[10];
+    for (int i = 0; i != 10; ++i)
+    {
+        get(ia, i) = i;
+    }
+
+    for (auto i : ia)
+    {
+        cout &lt;&lt; i &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p>合法。get函数是返回 形参数组array的下标，返回结果可以作为赋值运算符的左值。</p>
+<p><strong>练习 6.33</strong>：编写一个递归函数，输出 vector 对象的内容。</p>
+<pre><code class="lang-c++">void print(vector&lt;int&gt; &amp;vect, int index) {
+    if (index &gt;= 0)
+    {
+        print(vect, index - 1);
+        cout &lt;&lt; vect[index] &lt;&lt; endl;
+    }
+}
+</code></pre>
+<p><strong>练习 6.34</strong>：如果 factorial 函数的停止条件如下所示，将发生什么情况？</p>
+<pre><code class="lang-c++">int factorial(int val)
+{
+    if(val != 0)
+    {
+        return factorial(val - 1) * val;
+    }
+    
+    return 1;
+}
+</code></pre>
+<p>输入正数就是求整数的阶乘，输入负数，则会陷入无限递归。</p>
+<p><strong>练习 6.35</strong>：在调用 factorial 函数时，为什么我们传入的值是 val -1 而非 val--?</p>
+<p>val 只是当前函数的局部变量，val--是先将val当前值传入，在进行自减1，显然不可取。要是换做--val是可以的。</p>
+<h2 id="633-返回数组指针">6.3.3 返回数组指针</h2>
+<p>​	因为数组不能被拷贝，所以函数不能返回数组，但是可以返回数组的指针或引用。</p>
+<pre><code class="lang-c++">typedef int arrT[10];	// arrT是一个类型别名，它表示的类型是含有10个整数的数组
+using arrT = int[10];	// arrT的等价声明
+arrT* func(int i);		// func 返回一个指向含有10个整数的数组的指针
+</code></pre>
+<h3 id="声明一个返回数组指针的函数">声明一个返回数组指针的函数</h3>
+<p>​	要想在声明 func 时不使用类型别名，必须牢记被定义的名字后面数组的维度：</p>
+<pre><code class="lang-c++">int arr[10];	// arr 是一个含有10个整数的数组
+int *p1[10];	// p1 是一个含有10个指针的数组
+int (*p2)[10];	// p2 是一个指针，它指向含有10个整数的数组
+</code></pre>
+<pre><code class="lang-c++">Type (*function(parameter_list))[dimension]
+</code></pre>
+<p>Type表示元素的类型，dimension 表示数组的大小。(*function(parameter_list))两端的括号必须存在，如果没有括号，函数的返回类型将是指针的数组。</p>
+<p>列子：</p>
+<pre><code class="lang-c++">int (*func(int i))[10];
+</code></pre>
+<ul>
+<li>func(int i) 表示调用func函数时需要一个int类型的实参。</li>
+<li>(*func(int i)) 意味着我们可以对函数调用的结果执行解引用操作。</li>
+<li>(*func(int i))[10] 表示解引用 func 的调用将得到一个大小是10的数组。</li>
+<li>int (*func(int i))[10] 表示数组中的元素是 int 类型。</li>
+</ul>
+<h3 id="使用尾置返回类型">使用尾置返回类型</h3>
+<p>​	在 C++11 新标准中还有一种可以简化上诉 func 声明的方法，就是使用尾置返回类型。任何函数的定义都能使用尾置返回，但是这种形式对于返回类型比较复杂的函数最有效，比如返回类型是数组的指针或者数组的引用。尾置返回类型跟在形参列表后面并以一个-&gt;符号开头。为了表示函数真正的返回类型跟在形参列表之后，我们在本应该出现返回类型的地方放置一个 auto。</p>
+<pre><code class="lang-c++">// func 接受一个int类型的实参，返回一个指针，该指针指向含有10个整数的数组
+auto func(int i) -&gt; int(*)[10];
+</code></pre>
+<h3 id="使用-decltype">使用 decltype</h3>
+<p>​	如果知道函数返回的指针将指向哪个数组，就可以使用 decltype 关键字声明返回类型。</p>
+<pre><code class="lang-c++">int odd[] = {1, 3, 5, 7, 9};
+int even[] = {0, 2, 4, 6, 8};
+
+// 返回一个指针，该指针指向含有5个整数的数组
+decltype(odd)* arrPtr(int i)
+{
+    return (i % 2) ? &amp;odd : &amp;even;	// 返回一个指向数组的指针。
+}
+</code></pre>
+<p>​	arrPtr 使用关键字 decltype 表示它的返回类型是个指针，并且该指针所指的对象与 odd 的类型一致。因为 odd 是数组，所以 arrPtr 返回一个指向含有5个整数的数组的指针。 decltype 并不负责把数组类型转换成对应的指针，所以 decltype 的结果是个数组，要想表示arrPtr 返回指针还必须在函数声明时加一个 * 符号。</p>
+<h3 id="练习-1">练习</h3>
+<p><strong>练习 6.36</strong>：编写一个函数的声明，使其返回数组的引用并且该数组包含10个string对象。不要使用位置返回类型、decltyoe 或者类型别名。</p>
+<pre><code class="lang-c++">string (&amp;func())[10]; 
+string arr[10] = { &quot;q&quot;,&quot;w&quot;,&quot;e&quot;,&quot;r&quot;,&quot;t&quot;,&quot;y&quot;,&quot;u&quot;,&quot;i&quot;,&quot;o&quot;,&quot;2&quot; };
+int main(int argc, char *argv[])
+{
+    for (auto s : func())
+    {
+        cout &lt;&lt; s &lt;&lt; endl;
+    }
+    return 0;
+}
+
+string(&amp;func())[10]
+{
+    return arr;
+    // TODO: 在此处插入 return 语句
+}
+</code></pre>
+<p><strong>练习 6.37</strong>：为上一题的函数 再写三个声明，一个使用类型别名，另一个使用尾置返回类型，最后一个使用decltype关键字。</p>
+<p>类型别名：</p>
+<pre><code class="lang-c++">int arr[10] = {99,2,3,5,4,68,7,9,9,10};
+
+using arrT = int[10];
+
+arrT* func() {
+    return &amp;arr;
+}
+
+int main(int argc, char *argv[])
+{
+    auto a = func();
+    for(int i =0; i &lt; 10; i++)
+        cout &lt;&lt; (*a)[i] &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p>尾置返回类型：</p>
+<pre><code class="lang-c++">int arr[10] = {99,2,3,5,4,68,7,9,9,10};
+
+auto func() -&gt; int(*)[10]
+{
+    return &amp;arr;
+}
+
+int main(int argc, char *argv[])
+{  
+    auto a = func();
+    for (int i = 0; i &lt; 10; i++)
+        cout &lt;&lt; (*a)[i] &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p>decltype 关键字：</p>
+<pre><code class="lang-c++">int arr[10] = {99,2,3,5,4,68,7,9,9,10};
+
+decltype(arr)* func()
+{
+    return &amp;arr;
+}
+
+int main(int argc, char *argv[])
+{  
+    auto a = func();
+    for (int i = 0; i &lt; 10; i++)
+        cout &lt;&lt; (*a)[i] &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p><strong>练习 6.38</strong>：修改 arrPtr 函数，使其返回数组的引用。</p>
+<pre><code class="lang-c++">int odd[] = { 1, 3, 5, 7, 9 };
+int even[] = { 0, 2, 4, 6, 8 };
+
+// 返回一个指针，该指针指向含有5个整数的数组
+decltype(odd)&amp; arrPtr(int i)
+{
+    return (i % 2) ? odd : even;	// 返回一个指向数组的指针。
+}
+int main(int argc, char* argv[])
+{
+    cout &lt;&lt; arrPtr(2)[4] &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
 </article>
           </div>
           

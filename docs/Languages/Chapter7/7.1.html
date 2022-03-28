@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>&#21453;&#36716;&#38142;&#34920; </title>
+    <title> </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="&#21453;&#36716;&#38142;&#34920; ">
+    <meta name="title" content=" ">
     <meta name="generator" content="docfx 2.59.0.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
@@ -67,86 +67,7 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="反转链表">反转链表</h1>
 
-<p>来源：牛客网 <strong>NC78</strong> <strong>反转链表</strong></p>
-<p><img src="pictures/1.1.png" alt="1.1"></p>
-<p>翻转，可以利用栈的知识去解决，先把链表从表头到表尾的顺序按序入栈。然后再出栈，按照先出栈的结点顺序串起来的链表便是目标要求的新链表。但是如果用栈，空间复杂度就是O(n)，所以用指针来解决。</p>
-<p>以四个结点为例：</p>
-<p>第一轮循环：</p>
-<p><img src="pictures/1.1.1.png" alt="1.1.1"></p>
-<p>第一轮循环结束后：</p>
-<p><img src="pictures/1.1.2.png" alt="1.1.2"></p>
-<p>第二轮循环结束后：</p>
-<p><img src="pictures/1.1.3.png" alt="1.1.3"></p>
-<p>第三轮循环结束后：</p>
-<p><img src="pictures/1.1.4.png" alt="1.1.4"></p>
-<p>跳出 while 循环后，将新链表的末尾结点的next域指向nullptr。</p>
-<p><img src="pictures/1.1.5.png" alt="1.1.5"></p>
-<pre><code class="lang-c++">struct ListNode {
-    int val;
-    struct ListNode *next;
-    ListNode(int x) :
-            val(x), next(NULL) {
-    }
-};
-
-class Solution {
-public:
-    ListNode* ReverseList(ListNode* pHead) {
-        if (pHead == nullptr)
-            return pHead;
-
-        ListNode* pNewHead = pHead; // 新链的链头
-        ListNode* nextNode = pHead-&gt;next; // 下一下待翻转结点
-        ListNode* curList;  // 当前待翻转链表链头
-        while (nextNode != nullptr)
-        {
-            curList = nextNode-&gt;next;
-            nextNode-&gt;next = pNewHead;
-            pNewHead = nextNode;
-            nextNode = curList;
-        }
-
-        pHead-&gt;next = nullptr;    // 令新链表的尾部元素的next域指向空指针
-        return pNewHead;
-    }
-
-    void Print(ListNode* pHead)
-    {
-        while (pHead != nullptr)
-        {
-            cout &lt;&lt; pHead-&gt;val &lt;&lt; &quot; &quot;;
-            pHead = pHead-&gt;next;
-        }
-    }
-};
-
-int main(int argc, char *argv[])
-{
-
-    Solution s;
-    ListNode* pHead = new ListNode(1);
-    ListNode* p = pHead; 
-    for (int i = 2; i &lt; 10; i++)
-    {
-        p-&gt;next = new ListNode(i);
-        p = p-&gt;next;
-    }
-    cout &lt;&lt; &quot;before ReverseList: &quot; &lt;&lt; endl;
-    s.Print(pHead);
-    pHead = s.ReverseList(pHead);
-    cout &lt;&lt; &quot;\nafter ReverseList: &quot; &lt;&lt; endl;
-    s.Print(pHead);
-    return 0;
-}
-</code></pre>
-<p>输出：</p>
-<pre><code class="lang-c++">before ReverseList:
-1 2 3 4 5 6 7 8 9
-after ReverseList:
-9 8 7 6 5 4 3 2 1
-</code></pre>
 </article>
           </div>
           
@@ -154,9 +75,6 @@ after ReverseList:
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Algorithm/Popular/1.1.md/#L1" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

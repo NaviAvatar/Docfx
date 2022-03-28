@@ -4,3 +4,11 @@
   href: 6.2.md
 - name: 6.3 返回类型和 return 语句
   href: 6.3.md
+- name: 6.4 函数重载
+  href: 6.4.md
+- name: 6.5 特殊用途语言特性
+  href: 6.5.md
+- name: 6.6 函数匹配
+  href: 6.6.md
+- name: 6.7 函数指针
+  href: 6.7.md

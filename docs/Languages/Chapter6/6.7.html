@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>6.7 &#20989;&#25968;&#25351;&#38024; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="6.7 &#20989;&#25968;&#25351;&#38024; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="67-函数指针">6.7 函数指针</h1>
+
+<p>​	函数指针指向的是函数而非对象。和其他指针一样，函数指针指向某种特定类型。函数的类型由它的返回类型和形参类型共同决定，与函数名无关。</p>
+<pre><code class="lang-c++">// 比较两个 string 对象的长度
+bool lengthCompare(const string&amp;, const tring&amp;);
+</code></pre>
+<p>该函数的类型是 bool(const string&amp;, const string&amp;)。要声明一个指向该函数的指针，只需要用指针替换函数名即可。</p>
+<pre><code class="lang-c++">// pf 指向一个函数，该函数的参数是两个 const string 的引用，返回值是 bool 类型
+bool (*pf)(const string&amp;, const string&amp;);	// 未初始化
+</code></pre>
+<p>*pf的两端括号必不可少。不然就变成了声明一个返回  bool* 类型的函数 pf。</p>
+<h3 id="使用函数指针">使用函数指针</h3>
+<pre><code class="lang-c++">pf = lengthCompare;	//  pf 指向名为 lengthCompare的函数
+pf = &amp;lengthCompare; // 等价语句，取地址符是可选的
+</code></pre>
+<p>可以直接使用指向函数的指针调用函数，无需提前解引用指针。</p>
+<pre><code class="lang-c++">bool b1 = pf(&quot;hello&quot;, &quot;goodbye&quot;);	// 调用 lengthCompare 函数
+bool b2 = (*pf)(&quot;hello&quot;, &quot;goodbye&quot;);	// 一个等价的调用
+bool b3 = lengthCompare(&quot;hello&quot;, &quot;goodbye&quot;);	// 另一个等价的调用
+</code></pre>
+<p>在指向不同函数类型的指针间不存在转换规则。可以为函数指针赋 nullptr 或值为0的整型常量表达式，表示该指针没有指向任何一个函数：</p>
+<pre><code class="lang-c++">string::size_type sumLength(const string&amp;, const string&amp;);
+bool cstringCompare(const char*, const char*);
+pf = 0;	// 正确，pf不指向任何函数
+pf = sumLength;	// 错误，返回类型不匹配
+
+pf = cstringCompare;	// 错误，形参类型不匹配
+pf = lengthCompare;		// 正确，函数和指针的类型精确匹配
+</code></pre>
+<h3 id="重载函数的指针">重载函数的指针</h3>
+<p>​	当我们使用重载函数时，上下文必须清晰地界定到底应该选用哪个函数。如果定义了指向重载函数的指针</p>
+<pre><code class="lang-c++">void ff(int*);
+void ff(unsigned int);
+
+void (*pf1)(unsigned int) = ff;	// pf1 指向 ff(unsigned int)
+</code></pre>
+<p>编译器通过指针类型决定选用哪个函数，指针类型必须与重载函数中的某一个精确匹配</p>
+<pre><code class="lang-c++">void (*pf2)(int) = ff;	// 错误，没有任何一个 ff 与该形参列表匹配
+double (*pf3)(int*) = ff; // 错误，ff 和 pf3的返回类型不匹配
+</code></pre>
+<h3 id="函数指针形参">函数指针形参</h3>
+<p>​	虽然不能定义函数类型的形参，但是形参可以是指向函数的指针。此时，形参看起来是函数类型，实际上却是当成指针使用：</p>
+<pre><code class="lang-c++">void useBigger(const string&amp; s1, const string&amp; s2, bool pf(const string&amp;, const string&amp;));
+
+// 等价声明
+void useBigger(const string&amp; s1, const string&amp; s2, bool (*pf)(const string&amp;, const string&amp;));
+</code></pre>
+<p>可以直接把函数作为实参使用，此时它会自动转换成指针：</p>
+<pre><code class="lang-c++">// 自动将函数lengthCompare 转换成指向该函数的指针
+useBigger(s1, s2, lengthCompare);
+</code></pre>
+<p>可以使用 decltype 关键字使用函数指针的代码：</p>
+<pre><code class="lang-c++">// Func 和 Func2 是函数类型
+typedef bool Func(const string&amp;, const string&amp;);
+typedef decltype(lengthCompare) Func2;
+
+// FuncP 和 FuncP2是指向函数的指针
+typedef bool (*FuncP)(const string&amp;, const string&amp;);
+typedef decltype(lengthCompare) *FuncP2;	// 等价的类型
+</code></pre>
+<p>decltype 返回函数类型，此时不会将函数类型自动转换成指针类型。因为 decltype 的结果是函数类型，所以只有在结果前面加上*才能得到指针。</p>
+<pre><code class="lang-c++">// useBigger 的等价声明，其中使用了类型别名
+void useBigger(const string&amp;, const string&amp;, Func);
+void useBigger(const string&amp;, const string&amp;, funcP2);
+</code></pre>
+<p>这两个声明语句声明的是同一个函数，第一条语句中，编译器自动地将 Func 表示的函数类型转换成指针。</p>
+<h3 id="返回指向函数的指针">返回指向函数的指针</h3>
+<p>虽然不能返回一个函数，但是能返回指向函数类型的指针。然而，我们必须把返回类型写成指针形式，编译器不会自动地将函数返回类型当成对应的指针类型处理。</p>
+<pre><code class="lang-c++">// 使用类型别名
+using F = int(int*, int);	// F是函数类型，不是指针
+using PF = int(*)(int*, int);	// PF 是指针类型
+</code></pre>
+<p>其中我们使用类型别名将 F 定义成函数类型，将 PF 定义成指向函数类型的指针。必须时刻注意，和函数类型的形参不一样，返回类型不会自动地转换成指针。必须显示地将返回类型指定为指针：</p>
+<pre><code class="lang-c++">PF f1(int);	// 正确：PF 是指向函数的指针，f1 返回指向函数的指针
+F f1(int);	// 错误，F是函数类型，f1 不能返回一个函数
+F *f1(int);	// 正确，显示地指定返回类型是指向函数的指针
+</code></pre>
+<p>也能用下面的形式直接声明 f1：</p>
+<pre><code class="lang-c++">int (*f1(int))(int*, int);
+</code></pre>
+<p>按照由内向外的顺序阅读这条代码：f1有形参列表，f1是个函数；f1前面有 *，f1返回一个指针；指针的类型本身也包含形参列表，指针指向函数，该函数的返回类型是 int。</p>
+<p>也可以使用尾置返回类型的方式声明一个返回函数指针的函数。</p>
+<pre><code class="lang-c++">auto f1(int) -&gt; int(*)(int*, int);
+</code></pre>
+<h3 id="将-auto-和-decltype-用于函数指针类型">将 auto 和 decltype 用于函数指针类型</h3>
+<p>​	如果我们明确知道返回的函数是哪一个，就能使用 decltype 简化书写函数指针返回类型的过程。</p>
+<pre><code class="lang-c++">string::size_type sumLength(const string&amp;, const string&amp;);
+string::size_type largerLength(const string&amp;, const string&amp;);
+
+// 根据形参的取值，getFunc 函数返回指向sumLength 或者 largerLength的指针
+decltype(sumLength)* getFunc(const string&amp;);
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter6/6.7.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

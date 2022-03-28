@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>6.6 &#20989;&#25968;&#21305;&#37197; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="6.6 &#20989;&#25968;&#21305;&#37197; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="66-函数匹配">6.6 函数匹配</h1>
+
+<pre><code class="lang-c++">void f();
+void f(int);
+void f(int, int);
+void f(double, double = 3.14);
+f(5.6);	// 调用 void f(double, double);
+</code></pre>
+<p>当我们调用函数时，需要确定调用的是哪个重载函数。然而，当几个重载函数的形参数量相等以及某些形参的类型可以由其他类型转换得来时，就不容易确定到底是调用哪个重载函数了。</p>
+<h3 id="确定候选函数和可行函数">确定候选函数和可行函数</h3>
+<p>​	函数匹配的第一步是选定本次调用对应的重载函数集，集合中的函数称为<strong>候选函数</strong>。候选函数具备两个特征：一是被调用的函数同名，而是其声明在调用点可见。</p>
+<p>​	第二步考察本次调用提供的实参，然后从候选函数中选出能被这组实参调用的函数，这些新选出的函数称为<strong>可行函数</strong>。可行函数也有两个特征：一是其形参数量与本次调用提供的实参数量相等，二是每个实参的类型与对应的形参类型相同，或者能转换成形参的类型。</p>
+<p>​	在使用实参数量初步判别了候选函数后，接下来考察实参的类型是否与形参匹配。</p>
+<h3 id="寻找最佳匹配">寻找最佳匹配</h3>
+<p>​	函数匹配的第三步是从可行函数中选择与本次调用最匹配的函数。在这一过程中，逐一检查函数调用提供的实参，寻找形参类型与实参类型最匹配的那个可行函数。</p>
+<h2 id="661-实参类型转换">6.6.1 实参类型转换</h2>
+<p>​	为了确定最佳匹配，编译器将实参类型到形参类型的转换划分成几个等级，具体排序如下所示：</p>
+<ol>
+<li><p>精确匹配，包括以下情况：</p>
+<p>实参类型和形参类型相同。</p>
+<p>实参从数组类型或函数类型转换成对应的指针类型。</p>
+<p>想实参添加顶层 const 或从实参中删除顶层 const。</p>
+</li>
+<li><p>通过 const 转换实现的匹配。</p>
+</li>
+<li><p>通过类型提升实现的匹配。</p>
+</li>
+<li><p>通过算术类型转换或指针转换实现的匹配。</p>
+</li>
+<li><p>通过类类型转换实现的匹配。</p>
+</li>
+</ol>
+<h3 id="需要类型提升和算术类型转换的匹配">需要类型提升和算术类型转换的匹配</h3>
+<p>​	分析函数调用前，应该知道小整型一般都会提升到 int 类型或更大的整数类型。假设有两个函数，一个接受 int、另一个接受 short，则只有当调用提供的是 short 类型的值时，才会选择 short 版本的函数。有时候，即使实参是一个很小的整数值，也会直接将它提升成int类型；此时 short 版本反而会导致类型转换。</p>
+<pre><code class="lang-c++">void ff(int);
+void ff(short);
+ff('a');		// char 提升成int；调用ff(int)
+</code></pre>
+<p>​	所有算术类型转换的级别都一样。列如，从 int 向 unsigned int 的转换并不比从 int 向 double 的转换级别高。</p>
+<pre><code class="lang-c++">void mainp(long);
+void mainp(float);
+mainp(3.14);	// 错误，二义性使用
+</code></pre>
+<h3 id="函数匹配和-const-实参">函数匹配和 const 实参</h3>
+<p>​	如果重载函数的区别在于它们的引用类型的形参是否引用了 const，或者指针类型的形参是否指向 const，则当调用发生时编译器通过实参是否是常量来决定选择哪个函数。</p>
+<pre><code class="lang-c++">Record lookup(Account&amp;);
+Record lookup(const Account&amp;);
+
+const Account a;
+Account b;
+
+lookup(a);	// 调用 lookup(const Account&amp;)
+lookup(b);	// 调用 lookup(Account&amp;);
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter6/6.6.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
