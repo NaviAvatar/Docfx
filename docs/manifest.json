@@ -185,6 +185,30 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "Algorithm/Chapter4/4.1.md",
+      "output": {
+        ".html": {
+          "relative_path": "Algorithm/Chapter4/4.1.html",
+          "hash": "a5X6TO6G5WyuKtv7WYIel5tKKNLq2A2SI1tDxXpECX0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Algorithm/Chapter4/4.2.md",
+      "output": {
+        ".html": {
+          "relative_path": "Algorithm/Chapter4/4.2.html",
+          "hash": "AmN9g3jNOvNXusviXH//YJpT5C1XHP/CGO2MJzjh1Q4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "Algorithm/Popular/1.1.md",
       "output": {
         ".html": {
@@ -267,7 +291,7 @@
       "output": {
         ".html": {
           "relative_path": "Algorithm/toc.html",
-          "hash": "GwocsdH1E4Rt6rhVI519TMFccmX4iIBsYJA/YYYKZAc="
+          "hash": "3D2X46Fzdm2+kIkwFDSIWBdr38wWns7g4COE/CJW2Lo="
         }
       },
       "is_incremental": false,
@@ -434,7 +458,7 @@
       "output": {
         ".html": {
           "relative_path": "Languages/Chapter2/2.4.html",
-          "hash": "xtLbahjSq407FJHT5WsTxNUxUkYjolRMwvv2zXxLZ8Q="
+          "hash": "vTYRcwxjOQfpcnBr0ACOGdkolN9zi050dOB41e6tL78="
         }
       },
       "is_incremental": false,
@@ -638,7 +662,7 @@
       "output": {
         ".html": {
           "relative_path": "Languages/Chapter6/6.2.html",
-          "hash": "va3h/abNZzyYmId61Qs4AfCzacGkkDWqy5bqVjl/A6k="
+          "hash": "cLg4ED7c36Sp8SenrIOHMZUaoc3+0xJMDykIoBR7dT8="
         }
       },
       "is_incremental": false,
@@ -662,7 +686,7 @@
       "output": {
         ".html": {
           "relative_path": "Languages/Chapter6/6.4.html",
-          "hash": "E4IiamDLv3jqEWaYJKOKs89ZDQHcDAbZvUecsNfG31s="
+          "hash": "+VK5XLL39D97eQfwwIbYcOyWb/0bsKlcQsD7Rr91ays="
         }
       },
       "is_incremental": false,
@@ -674,7 +698,7 @@
       "output": {
         ".html": {
           "relative_path": "Languages/Chapter6/6.5.html",
-          "hash": "tV8/Q6V2rSdkGLHlR9aswWuCFaLr4+whm+c/aj5J0EI="
+          "hash": "nDeqjgdu3vjurt0iTpqL3QhL5iMJCWp2KSw0Q1BCra8="
         }
       },
       "is_incremental": false,
@@ -734,7 +758,7 @@
       "output": {
         ".html": {
           "relative_path": "OperatingSystem/Chapter1/1.1.html",
-          "hash": "UGq4saivwHz65WlfIKjVsprYFs6YdZUDoGJ2dmfZnzQ="
+          "hash": "XVB4cFc03hwe8JssUILkaTc7sYsQJlxkGf5A4Nn65OQ="
         }
       },
       "is_incremental": false,
@@ -789,8 +813,8 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 43,
-          "skipped_file_count": 43
+          "total_file_count": 45,
+          "skipped_file_count": 44
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

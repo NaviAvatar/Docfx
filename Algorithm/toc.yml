@@ -2,5 +2,7 @@
   href: Chapter1/toc.yml
 - name: 第二章 线性表
   href: Chapter2/toc.yml
+- name: 第四章 串
+  href: Chapter4/toc.yml
 - name: 算法题
   href: Popular/toc.yml

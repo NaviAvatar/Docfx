@@ -58,7 +58,8 @@
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
-      "default"
+      "default",
+      "templates/ExtractSearchIndex-zh"
     ],
     "postProcessors": ["ExtractSearchIndex"],
     "markdownEngineName": "markdig",

@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>4.1 &#20018;&#30340;&#23450;&#20041;&#21644;&#23454;&#29616; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="4.1 &#20018;&#30340;&#23450;&#20041;&#21644;&#23454;&#29616; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="41-串的定义和实现">4.1 串的定义和实现</h1>
+
+<p>​	字符串简称串，计算机上非数值处理的对象基本都是字符串数据。比如百度搜索，google搜索；一些商品网站，如淘宝，京东，都会有搜索框提供给用户进行商品的搜索，好不夸张的说，一些网站门户和 APP，均提供了搜索功能，甚至连一些黄色网站也提供了搜索功能。当然也有一些不走主流趋势的公司门户网站没有站内搜索，比如猿辅导。</p>
+<h2 id="411-串的定义">4.1.1 串的定义</h2>
+<p>​	串是由零个或多个字符组成的有限序列。记为：</p>
+<pre><code class="lang-c++">S='a1a2...an'(n&gt;=0)
+</code></pre>
+<p>串中任意多个连续的字符组成的子序列称为该串的<strong>子串</strong>，包含字串的串称为<strong>主串</strong>。某个字符在串中的序号称为该字符在串中的位置。字串在主串中的位置以子串的第一个字符在主串中的位置来表示。当两串的长度相等且对应每个位置的字符相等时，称这两个串相等。</p>
+<pre><code class="lang-c++">A=&quot;this is a string&quot;;
+B=&quot;is&quot;;
+C=&quot;string&quot;;
+</code></pre>
+<p>B 在 A 中的位置为 6；C 在 A 中的位置为 11。</p>
+<h2 id="412-串的存储结构">4.1.2 串的存储结构</h2>
+<h3 id="定长存储">定长存储</h3>
+<pre><code class="lang-c++">#define MAXLEN 255
+typedef struct{
+    char ch[MAXLEN];
+    int length;	// 串的实际长度
+} SString;
+</code></pre>
+<p>用一组地址连续的存储单元存储串值的字符序列。串有一个最大的长度。</p>
+<h3 id="堆存储">堆存储</h3>
+<pre><code class="lang-c++">typedef struct{
+    char *ch;	// 按串长分配存储区，ch是存储区的首地址
+    int length;	// 串的实际长度
+}SString;
+</code></pre>
+<p>这种存储结构比起定长存储又一点好处，就是不限制长度，当ch指向的数组不够长时，可以申请更长的数组。</p>
+<h3 id="块链存储">块链存储</h3>
+<p>借用链表，将字符存到节点中，每个结点有指向下一节点的指针。</p>
+<pre><code class="lang-c++">typedef struct{
+    char ch[5];
+    node* next;	// 指向下一个块的指针
+}node;
+
+typedef struct{
+    node* head;	// 首地址
+}
+</code></pre>
+<h2 id="413-串的基本操作">4.13 串的基本操作</h2>
+<table>
+<thead>
+<tr>
+<th>操作名</th>
+<th>释义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>StrAssign(&amp;T, chars)</td>
+<td>赋值操作。把串 T 赋值给 chars。</td>
+</tr>
+<tr>
+<td>StrCopy(&amp;T, S)</td>
+<td>复制操作。由串 S 复制得到串 T。</td>
+</tr>
+<tr>
+<td>StrEmpty(S)</td>
+<td>判空操作。S 串为空串，返回 true，否则返回 false。</td>
+</tr>
+<tr>
+<td>StrCompare(S, T)</td>
+<td>比较操作。若 S &gt; T，返回值 1；若 S = T，返回 0；若 S &lt; T，返回 0。</td>
+</tr>
+<tr>
+<td>StrLength(S)</td>
+<td>求串长。返回串 S 的元素个数。</td>
+</tr>
+<tr>
+<td>SubString(&amp;Sub, S, pos, len)</td>
+<td>求子串。用 Sub 返回串 S 的第 pos 个字符起长度为 len 的子串。</td>
+</tr>
+<tr>
+<td>Concat(&amp;T, S1, S2)</td>
+<td>串连接。用 T 返回由 S1 和 S2 联接而成的新串。</td>
+</tr>
+<tr>
+<td>Index(S, T)</td>
+<td>定位操作。若主串 S 中存在与串 T 值相同的子串，则返回它在主串 S 中第一次出现的位置；否则函数值为0。</td>
+</tr>
+<tr>
+<td>ClearString(&amp;S)</td>
+<td>清空操作。将 S 串清空。</td>
+</tr>
+<tr>
+<td>DestroyString(&amp;S)</td>
+<td>销毁串。将串 S 销毁。</td>
+</tr>
+</tbody>
+</table>
+<p>上述的接口仅是王道书给出的，我们应该向开源或者语言通用的接口靠近，比如 C++里的 string 类型的 substr，第一个字符的下标是从 0开始算起的。</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Algorithm/Chapter4/4.1.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
