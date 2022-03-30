@@ -4,5 +4,7 @@
   href: Chapter2/toc.yml
 - name: 第四章 串
   href: Chapter4/toc.yml
+- name: 二叉树
+  href: Chapter5/toc.yml
 - name: 算法题
   href: Popular/toc.yml

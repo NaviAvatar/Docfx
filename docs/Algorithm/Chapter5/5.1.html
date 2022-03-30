@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>5.1 &#20160;&#20040;&#26159;&#26641;&#65311; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="5.1 &#20160;&#20040;&#26159;&#26641;&#65311; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="51-什么是树">5.1 什么是树？</h1>
+
+<p>​	树是 n 个结点的有限集，n非负。当 n = 0 时，称为空树。任意非空树有以下特点：</p>
+<ul>
+<li>有且仅有一个特定的称为根的结点。</li>
+<li>n &gt; 1 时，其余结点可分为 m(m &gt; 0)个互不相交的有限集T1，T2，......，Tm。其中每个集合本身又是一颗树，称为根的子树。</li>
+<li>树的根结点没有前驱，除根结点外的所有结点有且只有一个前驱。</li>
+<li>树中所有结点可以有零个或多个后继。</li>
+</ul>
+<p><img src="pictures/chapter5-1.png" alt="5.1"></p>
+<p>如上图所示：</p>
+<p>A 为 E、F、G、H、I、J 的<strong>祖先</strong>。E、F、G、H、I、J 是 A 的<strong>子孙</strong>。</p>
+<p>A 是 B、C、D 的<strong>双亲</strong>，B、C、D 是 A 的<strong>孩子</strong>。</p>
+<p>B、C、D是<strong>兄弟</strong>，H、I也是兄弟。</p>
+<p>树中一个结点的孩子个数称为该结点的<strong>度</strong>。树中结点的最大度数称为<strong>树的度</strong>。A的度为3，C的度为0，D的度为2。</p>
+<p>度大于0的结点称为<strong>分支结点</strong>。度为0的结点称为<strong>叶子结点</strong>。</p>
+<p>结点的层次从树根开始定义，根结点第1层，它的子结点第2层，以此类推。上图的树为4层。双亲在同一层的结点称为<strong>堂兄弟</strong>。E、F、G、H、I 是堂兄弟。</p>
+<p>结点的深度：从根结点往下数，每下一层就+1。</p>
+<p>结点的高度：从当前结点网上数，没上去一层+1。</p>
+<p>数的高度就是有几层。图中为4。</p>
+<p>有序树：树结点的各子树从左到右有次序，不能互换，</p>
+<p>路径：树的路径指祖先到孙子（双亲到孩子）的路径，堂兄弟或者远亲的路径不算。</p>
+<p>路径长度：就是路径所含的边数。</p>
+<p>森林：n 颗互不相交的树。</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Algorithm/Chapter5/5.1.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
