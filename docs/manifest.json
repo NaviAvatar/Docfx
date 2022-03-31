@@ -846,7 +846,55 @@
       "output": {
         ".html": {
           "relative_path": "Languages/Chapter7/7.1.html",
-          "hash": "sT/HDOtYecduhjVyGcX4LziCvQRCmSQI1vDC1ImA6ck="
+          "hash": "XmeHpyen3yInOW0QUEjDMCWeS9UYhqovYNvr3SbP1to="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter7/7.2.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter7/7.2.html",
+          "hash": "EynB4gHNeLtPqGGav62qWE4wQBsNcAsaLZ9+AbH1GeU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter7/7.3.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter7/7.3.html",
+          "hash": "xHX58VHmlgrN/BczPgXOYCB9FFMVpgWt8OYik0wfZZI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter7/7.4.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter7/7.4.html",
+          "hash": "u8SngALd+ELfsux6p82mSEYCxuhLo/Z6aWZy6rQsUHA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter7/7.5.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter7/7.5.html",
+          "hash": "H5nInXy1NlkVTdPsCZpwIPcWRPK1bbf78J8lnLTM/uk="
         }
       },
       "is_incremental": false,
@@ -858,7 +906,7 @@
       "output": {
         ".html": {
           "relative_path": "Languages/toc.html",
-          "hash": "CCy0+Z4F5eY5RQ7AK20K4aZrV30R3YEPcOVC8bEL5TY="
+          "hash": "FgCn/j9TjDALBB8W1mTLAVVzMbnepjHyjr2EBkuxE5A="
         }
       },
       "is_incremental": false,
@@ -925,8 +973,8 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 47,
-          "skipped_file_count": 47
+          "total_file_count": 51,
+          "skipped_file_count": 46
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

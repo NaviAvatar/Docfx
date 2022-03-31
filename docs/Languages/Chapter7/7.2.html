@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>7.2 &#35775;&#38382;&#25511;&#21046;&#19982;&#23553;&#35013; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="7.2 &#35775;&#38382;&#25511;&#21046;&#19982;&#23553;&#35013; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="72-访问控制与封装">7.2 访问控制与封装</h1>
+
+<p>在之前的定义中，Sales_data 类内部并没有封装起来，任何外部的 Sales_data 对象（实例化）都可以直接访问内部的数据成员。可以使用<strong>访问说明符</strong> 加强类的封装性：</p>
+<ul>
+<li>定义在 public 说明符之后的成员在整个程序内可被访问，public 成员定义类的接口。</li>
+<li>定义在 private 说明符之后的成员可以被类的成员函数访问，但是不能被使用该类的代码访问， private 部分封装了类的实现细节。</li>
+</ul>
+<p>再定义 Sales_data 类：</p>
+<pre><code class="lang-c++">class Sales_data{
+public:
+    Sales_data() = default;	// c++11特性，等同于默认构造函数
+    Sales_data(const std::string&amp; s):bookNo(s){}
+    Sales_data(const std::string&amp; s, unsigned n, double p):bookNo(s), units_sold(n), revenue(p*n){}
+    Sales_data(std::istream&amp;);
+    
+    std::string isbn() const {return bookNo;}
+    Sales_data&amp; combine(const Sales_data&amp;);
+    
+private:
+    double avg_price() const;
+    std::string bookNo;
+    unsigned units_sold = 0;
+    double revenue = 0.0;
+}
+</code></pre>
+<h2 id="class-和-struct-关键字">class 和 struct 关键字</h2>
+<p>使用 class 关键字而非 struct 开始类的定义的区别是 struct 的默认访问权限是public，而类的默认访问权限是private。最好是都显示写出关键字来，一个是不耗费太多功夫，二是大家阅读访问。</p>
+<h2 id="721-友元">7.2.1 友元</h2>
+<p>​	如果将 Sales_data 类的数据成员定义成 private，那么 read、print、add等非函数成员也就无法访问类的数据成员。可以用友元来支持类外部的其他类或者函数来访问类内的私有成员。需要增加 <strong>friend</strong> 关键字。</p>
+<pre><code class="lang-c++">class Sales_data{
+    // 友元声明
+    friend Sales_data add(const Sales_data&amp;, const Sales_data&amp;);
+    friend std::istream&amp; read(std::istream&amp;, Sales_data&amp;);
+    friend std::ostream&amp; print(std::ostream&amp;, const Sales_data&amp;);
+    
+public:
+    Sales_data() = default;	// c++11特性，等同于默认构造函数
+    Sales_data(const std::string&amp; s):bookNo(s){}
+    Sales_data(const std::string&amp; s, unsigned n, double p):bookNo(s), units_sold(n), revenue(p*n){}
+    Sales_data(std::istream&amp;);
+    
+    std::string isbn() const {return bookNo;}
+    Sales_data&amp; combine(const Sales_data&amp;);
+    
+private:
+    double avg_price() const;
+    std::string bookNo;
+    unsigned units_sold = 0;
+    double revenue = 0.0;
+}
+
+// 返回一个两个对象相加后的副本
+Sales_data add(const Sales_data &amp;lhs, const Sales_data &amp;rhs)
+{
+    Sales_data sum = lhs;
+    sum.combine(rhs);
+    return sum;
+}
+
+// 负责读入数据
+istream&amp; read(istream&amp; is, Sales_data&amp; item)
+{
+    double price = 0;
+    is &gt;&gt; item.bookNo &gt;&gt; item.units_sold &gt;&gt; price;
+    item.revenue = price * item.units_sold;
+    return is;
+}
+
+// 负责输出数据
+ostream&amp; print(ostream&amp; os, const Sales_data&amp; item)
+{
+    os &lt;&lt; item.isbn() &lt;&lt; &quot; &quot; &lt;&lt; item.units_sold &lt;&lt; &quot; &quot; 
+       &lt;&lt; item.revenue &lt;&lt; item.avg_price();
+    return os;
+}
+</code></pre>
+<p>友元声明只能出现在类的内部。</p>
+<h3 id="封装的好处">封装的好处</h3>
+<ul>
+<li><p>确保用户代码不会无意间破坏封装对象的状态。</p>
+</li>
+<li><p>被封装的类的具体实现细节可以随时改变，而无须调整用户级别的代码。</p>
+</li>
+</ul>
+<p>一般友元函数放在和类声明的同一个文件，方便管理。</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter7/7.2.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

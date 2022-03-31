@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>7.5 &#26500;&#36896;&#20989;&#25968;&#20877;&#25506; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="7.5 &#26500;&#36896;&#20989;&#25968;&#20877;&#25506; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="75-构造函数再探">7.5 构造函数再探</h1>
+
+<h2 id="751-构造函数初始值列表">7.5.1 构造函数初始值列表</h2>
+<p>如果没有在构造函数的初始值列表中显式地初始化成员，则该成员将在构造函数体之前执行默认初始化。</p>
+<pre><code class="lang-c++">Sales_data::Sales_data(const string&amp; s, unsigned cnt, double price)
+{
+    bookNo = s;
+    units_sold = cnt;
+    revenue = cnt * price;
+}
+</code></pre>
+<h3 id="构造函数的初始值有时必不可少">构造函数的初始值有时必不可少</h3>
+<p>有的程序员在定义类时，忽略对数据成员初始化的重视程度。如果成员是 const 或者是 引用的，必须要初始化。</p>
+<pre><code class="lang-c++">class ConstRef{
+public:
+    ConstRef(int ii);
+    
+private:
+    int i;
+    const int ci;
+    int &amp;ri;
+}
+</code></pre>
+<p>成员 ci 和 ri 必须初始化。如果我们 没有为它们提供构造函数初始值的话将引发错误：</p>
+<pre><code class="lang-c++">// 错误，ci 和 ri 必须被初始化
+ConstRef::ConstRef(int ii)
+{
+	i = ii;
+    ci = ii;	// 错误
+    ri = i;		// 错误
+}
+</code></pre>
+<p>编译不通过，ConstRef(int ii) 是重载了默认构造函数，而const int 和 int&amp; 的类成员必须用初始值列表来初始化。</p>
+<pre><code class="lang-c++">// 正确
+class ConstRef {
+public:
+    ConstRef(int ii):i(ii),ci(ii),ri(i){}
+private:
+    int i;
+    const int ci;
+    int&amp; ri;
+};
+</code></pre>
+<p><strong>而且初始化和赋值是两回事，赋值是先初始化在赋值。初始化值比赋值高效。</strong></p>
+<h3 id="成员初始化的顺序">成员初始化的顺序</h3>
+<pre><code class="lang-c++">class X{
+    int i; 
+    int j;
+    public:
+    X(int val):j(val), i(j){}
+}
+</code></pre>
+<p>初始值列表的初始化顺序和成员定义的顺序有关，与初始值列表的变量排放顺序无关。比如上面这段代码，就是先初始化i，在初始化j的。显然上面这个代码有问题。</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter7/7.5.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

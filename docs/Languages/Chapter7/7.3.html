@@ -1,0 +1,430 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>7.3 &#31867;&#30340;&#20854;&#20182;&#29305;&#24615; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="7.3 &#31867;&#30340;&#20854;&#20182;&#29305;&#24615; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="73-类的其他特性">7.3 类的其他特性</h1>
+
+<p>Screen 和 Window_mgr 是一对相互关联的类。</p>
+<h2 id="731-类成员再探">7.3.1 类成员再探</h2>
+<h3 id="定义一个类型成员">定义一个类型成员</h3>
+<pre><code class="lang-c++">class Screen{
+public:
+	typedef std::string::size_type pos;	// 类型别名
+private:
+    pos cursor = 0;	// 光标位置
+    pos height = 0;	// 高
+    pos width = 0;	// 宽
+    std::string contents;
+};
+</code></pre>
+<p>这里在类的内部用了类型别名，意图在于不想让调用这个类的程序员知道类内部使用了 string::size_type 这种类型。</p>
+<p>定义类型的成员必须先定义后使用，像下面这样是不可以的：</p>
+<pre><code class="lang-c++">class Screen {
+// 先使用后定义
+private:
+    pos cursor = 0;	// 光标位置
+    pos height = 0;	// 高
+    pos width = 0;	// 宽
+    std::string contents;
+public:
+    typedef std::string::size_type pos;	// 类型别名
+};
+</code></pre>
+<h3 id="screen-类的成员函数">Screen 类的成员函数</h3>
+<p>因为 光标位置，宽，高定义成私有成员，用户访问不到，所以需要一个构造函数负责写入数据：</p>
+<pre><code class="lang-c++">class Screen{
+public:
+	typedef std::string::size_type pos;	// 类型别名
+    Screen() = default;
+    
+    // cursor 被其他类内初始值值初始化为0
+    Screen(pos ht, pos wd, char c):height(ht), width(wd), contents(ht * wd, c){}
+    char get() const{
+        return contents[cursor];
+    }
+    
+    inline char get(pos ht, pos wd) const;	// 显示内联
+    Screen &amp;move(pos r, pos c);				// 能在之后被设为内联
+private:
+    pos cursor = 0;	// 光标位置
+    pos height = 0;	// 高
+    pos width = 0;	// 宽
+    std::string contents;
+};
+</code></pre>
+<p>这里用到了类内的类型别名，之前说过类本身是一个作用域，那怎么使用类内的别名？</p>
+<pre><code class="lang-c++">类外部这样使用：Screen::pos
+类内部直接使用：pos
+</code></pre>
+<h3 id="令成员作为内联函数">令成员作为内联函数</h3>
+<p>在类外部用inline关键字修饰函数：</p>
+<pre><code class="lang-c++">inline Screen&amp; Screen::move(pos r, pos c)
+{
+    pos row = r * width;	// 计算行的位置
+    cursor = row + c;	// 在行内将光标移动到指定的列
+    return *this;		// 以左值的形式返回对象
+}
+
+char Screen::get(pos r, pos c) const
+{
+    pos row = r * width;		// 计算行的位置
+    return contents[row + c];	// 返回给定列的字符
+}
+</code></pre>
+<h3 id="可变数据成员-mutable">可变数据成员 mutable</h3>
+<p>某些特殊情况下，希望修改类的某个数据成员，就算在 const 成员函数内，也能修改。一个<strong>可变数据成员</strong>永远不会是 const，即使它是 const 对象的成员。</p>
+<pre><code class="lang-c++">class Screen{
+public:
+    void some_number() const;
+private:
+    mutable size_t access_ctr;	// 即使在一个 const 对象内也能被修改。
+}
+
+void Screen::some_number() const 
+{
+    ++access_ctr;
+}
+</code></pre>
+<h3 id="类数据成员的初始值">类数据成员的初始值</h3>
+<p>窗口管理类</p>
+<pre><code class="lang-c++">class Window_mgr{
+private:
+    // C++11新特性
+    // 这个window_mgr 追踪的Screen
+    // 默认情况下，一个window_mgr 包含一个标准尺寸的空白screen
+    std::vector&lt;Screen&gt; screens{Screen(24, 80, ' ')};
+}
+</code></pre>
+<h2 id="732-返回-this-的成员函数">7.3.2 返回 *this 的成员函数</h2>
+<pre><code class="lang-c++">class Screen{
+public:
+    Screen&amp; set(char);
+    Screen&amp; set(pos, pos, char);
+    // 这里其他函数省略不写
+};
+inline Screen&amp; Screen::set(char c)
+{
+    contents[cursor] = c;	// 设置当前光标所在位置
+    return *this;	// 将this 对象作为左值返回
+}
+
+inline Screen&amp; Screen::set(pos r, pos col, char ch)
+{
+    contents[r*width + col];
+    return *this;
+}
+</code></pre>
+<p>通过返回*this，返回引用的函数时左值的，set函数返回的是对象本身而非对象的副本。</p>
+<pre><code class="lang-c++">myScreen.move(4,0).set('#');
+
+// 等价于
+auto a = myScreen.move; // 这里的a指向myScreen
+a.set('#');
+</code></pre>
+<p>如果move返回的是 Screen 而不是 Screen&amp;，那么情况大不相同。</p>
+<pre><code class="lang-c++">myScreen.move(4,0).set('#');
+
+// 等价于
+auto temp = myScreen.move(4, 0);	// 对返回值进行拷贝
+temp.set('#');	// temp并非指向myScreen，而是一个副本
+</code></pre>
+<h3 id="从-const-成员函数返回-this">从 const 成员函数返回 *this</h3>
+<p>​	如果要添加一个打印函数 display，显然这个函数只读入数据，不会写入数据，所以给理应给 display 函数加上 const 限定符。这个 display 函数返回 *this。则返回的将是一个 const Screen&amp;类型。</p>
+<pre><code class="lang-c++">inline Screen&amp; Screen::display() const // 错误
+{
+    return *this;	
+    // TODO: 在此处插入 return 语句
+}
+</code></pre>
+<p>如果想上面这样定义，编译器会提示，限定符 const 被丢弃。意思是，你都是一个 const 函数了，返回的 *this，默认是 const 的。</p>
+<p>所以应该这样定义：</p>
+<pre><code class="lang-c++">inline const Screen&amp; Screen::display(ostream&amp; os) const
+{
+    // todo: 输出数据
+    return *this;
+}
+</code></pre>
+<p>那就不能够再通过display去左值调用set函数了。</p>
+<pre><code class="lang-c++">Screen myScreen;
+myScreen.display(cout).set('*');	// 错误，const左值不能调用set
+</code></pre>
+<h3 id="基于-const-的重载">基于 const 的重载</h3>
+<p>​	通过区分成员函数是否是 const 的，我们可以对其进行重载。</p>
+<pre><code class="lang-c++">class Screen{
+public:
+    Screen&amp; display(std::ostream&amp; os)
+    {
+        do_display(os);
+        return *this;
+    }
+    
+    const Screen&amp; display(std::ostream&amp; os) const
+    {
+        do_display(os);
+        return *this;
+    }
+    
+private:
+    void do_display(std::ostream&amp; os) const
+    {
+        os &lt;&lt; contents;
+    }
+}
+</code></pre>
+<p>这样，当对象调用display时，就会匹配最佳函数：</p>
+<pre><code class="lang-c++">Screen myScreen(5, 3);
+const Screen blank(5, 3);
+
+myScreen.set('#').display(cout);	// 调用非常量函数
+blank.display(cout);	// 调用常量函数
+</code></pre>
+<h2 id="733-类类型">7.3.3 类类型</h2>
+<pre><code class="lang-c++">struct First{
+    int memi;
+    int getMem();
+};
+
+struct Second{
+    int memi;
+    int getMem();
+};
+
+First obj1;
+Second sec = obj1;	// 错误，obj1 和 sec 的类型不同
+</code></pre>
+<p>即使两个类的成员列表完全一致，但是它们两个是不同的类型。</p>
+<p>可以把类名作为类型的名字使用，从而直接指向类类型。也可以把类名跟在关键字 class 或 struct 后面：</p>
+<pre><code class="lang-c++">Sales_data item1;
+class Sales_data item1;	// 等价 Sales_data item1;
+</code></pre>
+<h2 id="734-友元再探">7.3.4 友元再探</h2>
+<h3 id="友元类">友元类</h3>
+<p>Window_mgr 类功能上是管理 Screen 类的，可能某些函数需要访问 Screen 类的私有成员。比如 Window_mgr 有一个 clear 函数。作用是清除 Screen 对象的数据。这时候就需要用到<strong>友元类</strong>。</p>
+<pre><code class="lang-c++">class screen{
+    friend class Window_mgr;	// Window_mgr 可以访问 Screen 的私有成员
+}
+</code></pre>
+<pre><code class="lang-c++">class Window_mgr{
+public:
+    using ScreenIndex = std::vector&lt;Screen&gt;::size_type;
+    void clear(ScreenIndex);
+private:
+    std::vector&lt;Screen&gt; Screens{Screen(24, 80, ' ')};
+}
+
+void Window_mgr::Clear(ScreenIndex index)
+{
+    Screen&amp; s = Screens[index];
+    s.contents = string(s.height * s.width, ' ');
+}
+</code></pre>
+<p><strong>友元关系不存在传递性，每个类负责控制自己的友元类或者友元函数。</strong></p>
+<h3 id="令成员函数作为友元">令成员函数作为友元</h3>
+<p>除了令整个 Window_mgr 作为友元外，Screen 还能只为 Clear 函数提供访问权限。当把一个成员函数声明为友元时，我们必须明确指出该成员函数属于哪个类：</p>
+<pre><code class="lang-c++">class Screen{
+    // Window_mgr::Clear 必须在Screen类之前被声明；
+    friend void Window_mgr::Clear(ScreenIndex);
+    // ...
+}
+</code></pre>
+<p>要做到成员函数为友元，代码设计上需要：</p>
+<ul>
+<li>首先定义 Window_mgr 类，其中声明 Clear 函数，但是不能定义它。在 Clear 使用Screen 的成员之前必须先声明Screen。</li>
+<li>接下来定义 Screen，包括对 Clear 的友元声明。</li>
+<li>最后定义 Clear，此时它才可以使用 Screen 的成员。</li>
+</ul>
+<pre><code class="lang-c++">#pragma once
+#include&lt;string&gt;
+#include&lt;vector&gt;
+
+class Screen;
+class Window_mgr1 {
+public:
+    using ScreenIndex = std::vector&lt;Screen&gt;::size_type;
+    void Clear(ScreenIndex index); 
+public:
+    std::vector&lt;Screen&gt; Screens;
+};
+
+class Screen {
+    friend void Window_mgr1::Clear(ScreenIndex);
+
+public:
+    typedef std::string::size_type pos;	// 类型别名
+    Screen() = default;
+
+    // cursor 被其他类内初始值值初始化为0
+    Screen(pos ht, pos wd, char c) :height(ht), width(wd), contents(ht* wd, c) {}
+    char get() const {
+        return contents[cursor];
+    }
+
+    inline char get(pos ht, pos wd) const;	// 显示内联
+    Screen&amp; move(pos r, pos c);				// 能在之后被设为内联
+
+    const Screen&amp; display()const;
+private:
+    std::string::size_type cursor = 0;	// 光标位置
+    std::string::size_type height = 0;	// 高
+    std::string::size_type width = 0;	// 宽
+    std::string contents;
+};
+
+inline Screen&amp; Screen::move(pos r, pos c)
+{
+    pos row = r * width;	// 计算行的位置
+    cursor = row + c;	// 在行内将光标移动到指定的列
+    return *this;		// 以左值的形式返回对象
+}
+
+inline const Screen&amp; Screen::display() const
+{
+    std::cout &lt;&lt; contents &lt;&lt; std::endl;
+    return *this;
+    // TODO: 在此处插入 return 语句
+}
+
+char Screen::get(pos r, pos c) const
+{
+    pos row = r * width;		// 计算行的位置
+    return contents[row + c];	// 返回给定列的字符
+}
+ 
+void Window_mgr1::Clear(ScreenIndex index)
+{
+    Screen&amp; s = Screens[index];
+    s.contents = std::string(s.height * s.width, ' ');
+}
+</code></pre>
+<p>尽管可以这样做，但是会发现，原来 Screens 容器默认有一个数据，现在做不到了，这是因为在Window_mgr之前只是声明了Screen，并没有具体实现Screen带三个参数的构造函数。所以只能忍痛去掉。</p>
+<h3 id="函数重载和友元">函数重载和友元</h3>
+<p>​	尽管重载函数的名字相同，但是它们任然是不同的函数，如果一个类想把一组重载函数声明为它的友元，它需要对这组函数中的每一个分别声明。</p>
+<h3 id="友元声明和作用域">友元声明和作用域</h3>
+<p>​	类和非成员函数的声明不是必须在它们的友元声明之前。当一个名字第一次出现在一个友元声明中时，我们隐式地假定该名字在当前作用域中是可见的。然而友元本身不一定真的声明在当前的作用域中。</p>
+<p>​	甚至就算在类的内部定义该函数，我们也必须在类的外部提供相应的声明从而使得函数可见。</p>
+<pre><code class="lang-c++">struct x{
+    friend void f(){/* 友元函数可以定义在类的内部*/}
+    X(){f();}	// 错误，f还没有声明
+    void g();
+    void h();
+}
+
+void X::g(){return f();}	// 错误，f还没被声明
+void f();
+void X:h(){return f();}		//正确，f已经声明了
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter7/7.3.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

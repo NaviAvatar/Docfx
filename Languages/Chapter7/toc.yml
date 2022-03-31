@@ -1,2 +1,10 @@
 - name: 7.1 定义抽象数据类型
   href: 7.1.md
+- name: 7.2 访问控制与封装
+  href: 7.2.md
+- name: 7.3 类的其他特性
+  href: 7.3.md
+- name: 7.4 类的作用域
+  href: 7.4.md
+- name: 7.5 构造函数再探
+  href: 7.5.md

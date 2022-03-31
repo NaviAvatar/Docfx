@@ -200,6 +200,28 @@ Sales_data add(const Sales_data &amp;lhs, const Sales_data &amp;rhs)
     double revenue = 0.0;
 }
 </code></pre>
+<h3 id="构造函数初始值列表">构造函数初始值列表</h3>
+<p>像下面这个构造函数，在参数列表后面加上冒号，紧接着是类成员跟小括号加上参数，这等同于把s赋值给 bookNo，n 赋值给units_sold，p*n 赋值给 revenue。</p>
+<pre><code class="lang-c++"> Sales_data(const std::string&amp; s, unsigned n, double p):bookNo(s), units_sold(n), revenue(p*n){}
+</code></pre>
+<p>有趣的是如果在构造函数内部再给bookno赋值，和参数不同，最终bookno的值到底是和s一样呢，还是和构造函数体中赋值的一样呢？</p>
+<pre><code class="lang-c++"> Sales_data(const std::string&amp; s, unsigned n, double p):bookNo(s), units_sold(n), revenue(p*n)
+ {
+     bookNo = &quot;100101&quot;;
+ }
+
+// 调用Sales_data(&quot;111111&quot;, 5, 10);
+// 打印bookNo，得到的结果是100101
+// 这样看起来，是先执行构造函数初始值列表赋值，再执行函数体
+</code></pre>
+<h3 id="在类的外部定义构造函数">在类的外部定义构造函数</h3>
+<pre><code class="lang-c++">Sales_data(std::istream&amp; is)
+{
+    read(is, *this);
+}
+</code></pre>
+<h2 id="715-拷贝赋值和析构">7.1.5 拷贝、赋值和析构</h2>
+<p>略。</p>
 </article>
           </div>
           
