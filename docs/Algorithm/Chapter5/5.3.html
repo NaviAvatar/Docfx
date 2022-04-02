@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>5.3 &#20108;&#21449;&#26641;&#30340;&#36941;&#21382; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="5.3 &#20108;&#21449;&#26641;&#30340;&#36941;&#21382; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="53-二叉树的遍历">5.3 二叉树的遍历</h1>
+
+<p>​	二叉树的遍历是指按某条搜索路径访问树中每个结点，使得每个结点均被访问一次，且仅被访问一次。说白了，就是树是一种分叉结构，怎么想办法转换成线性结构。</p>
+<p>概念：根结点N，左孩子L，右孩子R。</p>
+<p>常见的遍历方法有<strong>先序遍历NLR</strong>，<strong>中序遍历LNR</strong>，<strong>后序遍历LRN</strong>。</p>
+<p><img src="pictures/chapter5-9.png" alt=""></p>
+<p>如果是先序遍历的话，就是先访问根结点，再访问左孩子结点，再访问右孩子结点：ABDEC。</p>
+<p>如果是中序遍历的话，就是先访问左孩子结点，再访问根结点，再访问右孩子结点：DBEAC。</p>
+<p>如果是先序遍历的话，就是先访问左孩子结点，再访问右孩子结点，再访问根结点：DEBCA。</p>
+<h3 id="先序遍历">先序遍历</h3>
+<h4 id="递归实现">递归实现</h4>
+<pre><code class="lang-c++">void PreOrder(TreeNode&lt;t&gt; root)
+{
+    if(root!=NULL)
+    {
+        visit(root);	// 直接访问当前结点
+        PreOrder(root-&gt;lChile);	// 递归左子树
+        PreOrder(root-&gt;rChild);	// 递归右子树
+    }
+}
+</code></pre>
+<h4 id="非递归实现">非递归实现</h4>
+<pre><code class="lang-c++">template &lt;class t&gt;
+void PreOrder2(TreeNode&lt;t&gt;* root)
+{
+    std::stack&lt;TreeNode&lt;t&gt;*&gt; st;	// 辅助栈
+    TreeNode&lt;t&gt;* current = root;
+    while (current != NULL || !st.empty())	// 当前遍历指针不为空或者栈不为空，则执行遍历
+    {
+        if (current != NULL)
+        {
+            visit(current);
+            st.push(current-&gt;rChild);	// 右孩子入栈
+            current = current-&gt;lChild;	// 指向当前结点的左孩子
+        }
+        else {
+            current = st.top(); 		// 出栈
+            st.pop();
+        }
+    }
+}
+</code></pre>
+<p>这里借助一个std域的栈类辅助。</p>
+<h3 id="中序遍历">中序遍历</h3>
+<h4 id="递归实现-1">递归实现</h4>
+<pre><code class="lang-c++">void InOrder(TreeNode T)
+{
+    if(T!=NULL)
+    {
+        InOrder(T-&gt;lChile);	// 递归左子树
+         visit(T);	// 直接访问当前结点
+        InOrder(T-&gt;rChild);	// 递归右子树
+    }
+}
+</code></pre>
+<h4 id="非递归实现-1">非递归实现</h4>
+<pre><code class="lang-c++">template&lt;class t&gt;
+void InOrder2(TreeNode&lt;t&gt;* root)
+{
+    std::stack&lt;TreeNode&lt;t&gt;*&gt; st;
+    TreeNode&lt;t&gt;* current = root;
+    
+    while (current != nullptr || !st.empty())
+    {
+        if (current != nullptr) // 一直往左字符下沉
+        {
+            st.push(current);	// 下沉过程中把遇到的结点入栈
+            current = current-&gt;lChild;
+        }
+        else
+        {
+            current = st.top();	// 出栈
+            st.pop();
+            visit(current);		// 访问结点
+            current = current-&gt;rChild;	// 指向右子树
+        }
+    }
+}
+</code></pre>
+<h3 id="后序遍历">后序遍历</h3>
+<h4 id="递归实现-2">递归实现</h4>
+<pre><code class="lang-c++">void PostOrder(TreeNode T)
+{
+    if(T!=NULL)
+    {
+        PostOrder(T-&gt;lChile);	// 递归左子树         
+        PostOrder(T-&gt;rChild);	// 递归右子树
+        visit(T);	// 直接访问当前结点
+    }
+}
+</code></pre>
+<p>递归实现的本质，其实是利用了语言本身断点栈的特点，而非递归是要我们自己额外申请一个栈，用于保存当前循环有哪些待访问的结点。</p>
+<h4 id="非递归实现-2">非递归实现</h4>
+<pre><code class="lang-c++">template&lt;class t&gt;
+void PostOrder(TreeNode&lt;t&gt;* root)
+{
+    std::stack&lt;TreeNode&lt;t&gt;*&gt; st;
+    TreeNode&lt;t&gt;* current = root;
+    TreeNode&lt;t&gt;* r = nullptr;   // 标记右子树是否被访问过
+
+    while (current != nullptr || !st.empty())
+    {
+        if (current != nullptr) // 下沉至左边
+        {
+            st.push(current);
+            current = current-&gt;lChild;
+        }
+        else {
+            current = st.top(); // 查看栈顶元素
+            if (current-&gt;rChild &amp;&amp; current-&gt;rChild != r)    // 右子树存在且未访问过
+            {
+                current = current-&gt;rChild;
+            }
+            else {
+                st.pop();
+                visit(current);
+                r = current;  // 记录最近访问过的点
+                current = nullptr;  // 结点访问完后，重置指针
+            }
+        }
+    }
+}
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Algorithm/Chapter5/5.3.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

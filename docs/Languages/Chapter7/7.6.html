@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>7.6 &#31867;&#30340;&#38745;&#24577;&#25104;&#21592; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="7.6 &#31867;&#30340;&#38745;&#24577;&#25104;&#21592; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="76-类的静态成员">7.6 类的静态成员</h1>
+
+<p>类的静态成员是指成员只和类相关，不与对象相关，所有该类型的对象共享静态成员。只要改变静态成员，其他对象访问的静态成员都会受到影响。</p>
+<pre><code class="lang-c++">class Account{
+public:
+    void calculate(){ amount += amount * interestRate;}
+    static double rate(){return interestRate;}
+    static void rate(double);
+private:
+    std::string owner;
+    double amount;
+    static double interestRate;
+    static double initRate();
+};
+</code></pre>
+<p>类的静态成员存在于任何对象之外，对象中不包含任何于静态数据成员有关的数据。</p>
+<p>静态成员函数也不与任何对象绑定在一起，它们不包含 this 指针。静态成员函数不能声明为 const 的，而且我们也不能在 static 函数体内使用 this 指针。</p>
+<h3 id="如何使用">如何使用？</h3>
+<pre><code class="lang-c++">double r = Account::rate();	// 作用域访问运算符访问静态成员
+</code></pre>
+<p>也可以通过类的对象、引用或者指针访问静态成员：</p>
+<pre><code class="lang-c++">Account ac1;
+Account* ac2;
+
+r = ac1.rate();
+r = ac2-&gt;rate();
+</code></pre>
+<p>如果在类的外部定义静态成员函数，不能重复 <strong>static</strong> 关键字。</p>
+<p>静态数据成员不属于类的任何一个对象，所以它们不是在创建类的对象时被定义的。也就是说，静态数据成员不是由类的构造函数初始化的。不能在类的内部初始化静态成员，必须在类的外部定义和初始化每个静态成员。一个静态数据成员只能定义一次。</p>
+<pre><code class="lang-c++">double Account::interestRate = initRate();
+</code></pre>
+<h3 id="静态成员类内初始化">静态成员类内初始化</h3>
+<p>类的静态成员不应该在类内初始化，但是可以为静态成员提供 const 整数类型的类内初始值，要求静态成员必须是字面值常量类型 constexpr。初始值必须是常量表达式，因为这些成员本身就是常量表达式，所以它们能用在所有合适于常量表达式的地方。</p>
+<pre><code class="lang-c++">class Account{
+    public:
+    static double rate(){
+        return interestRate;
+    }
+    static void rate(double);
+    static constexpr int period = 30;	// period 是常量
+    double daily_tbl[period];
+}
+</code></pre>
+<p>即使一个常量静态数据成员在类内部被初始化了，通常情况下也应该在类的外部定义一下该成员。</p>
+<h3 id="与普通成员的一些不同">与普通成员的一些不同</h3>
+<pre><code class="lang-c++">class Bar{
+    public:
+    // ...
+    private:
+    static Bar mem1;
+    Bar*mem2;
+    Bar mem3;	// 错误
+}
+</code></pre>
+<p>此外，非静态数据成员不能作为默认实参，但是静态数据成员却可以。</p>
+<pre><code class="lang-c++">class Screen{
+    public :
+    Screen&amp; clear(char = bkground);
+    private:
+    static const char bkground;
+}
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter7/7.6.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

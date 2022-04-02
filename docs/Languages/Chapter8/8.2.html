@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>8.2 &#25991;&#20214;&#36755;&#20837;&#36755;&#20986; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="8.2 &#25991;&#20214;&#36755;&#20837;&#36755;&#20986; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="82-文件输入输出">8.2 文件输入输出</h1>
+
+<p>fstream 除了继承自 iostream 的操作外，还有自己的一套：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>释义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fstream fstrm</td>
+<td>创建一个未绑定的文件流。fstream 是头文件 fstream 中定义的一个类型</td>
+</tr>
+<tr>
+<td>fstream fstrm(s);</td>
+<td>创建一个 fstream，并打开名为 s 的文件。s 可以是 string 类型，或者是一个指向 C 风格字符串的指针。这些构造函数都是 explicit 的，默认的文件模式 mode 依赖于 fstream 的类型</td>
+</tr>
+<tr>
+<td>fstream fstrm(s,mode);</td>
+<td>与前一个构造函数类似，但按指定mode打开文件</td>
+</tr>
+<tr>
+<td>fstrm.open(s)</td>
+<td>打开名为 s 的文件，并将文件与 fstrm绑定。s可以是一个string类型或一个 指向C风格字符串的指针。默认的文件mode依赖于fstream的类型。返回void</td>
+</tr>
+<tr>
+<td>fstrm.close()</td>
+<td>关闭与 fstrm 绑定的文件。返回void</td>
+</tr>
+<tr>
+<td>fstrm.is_open()</td>
+<td>返回一个bool值，指出与 fstrm 关联的文件是否成功打开且尚未关闭。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="821-使用文件流对象">8.2.1 使用文件流对象</h2>
+<pre><code class="lang-c++">int main(int argc, char* argv[])
+{
+    string ifileName = &quot;D:/OneDrive/桌面/demo/sales_data.txt&quot;;
+    string ofileName = &quot;D:/OneDrive/桌面/demo/sales_data_result.txt&quot;;
+    ifstream ifile(ifileName);
+    ofstream ofile(ofileName);
+
+    Sales_data total;
+    if (read(ifile, total)) // 读取第一条销售记录
+    {
+        Sales_data trans;   // 保存下一条销售记录的变量
+        while (read(ifile, trans))
+        {
+            if (total.isbn() == trans.isbn())
+            {
+                total.combine(trans);
+            }
+            else {
+                print(ofile, total) &lt;&lt; endl;
+                total = trans;  // 处理下一本书
+            }
+        }
+        print(ofile, total) &lt;&lt; endl;
+    }
+    else
+        cerr &lt;&lt; &quot;No Data?!&quot; &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p>因为 fstream 继承 iostream，所以之前写的 read 和 print 函数也是可以用的。</p>
+<p>我在输入文件sales_data.txt中写入内容：</p>
+<pre><code>978-7-229 9 36.6
+978-7-229 130 36.6
+978-7-229 100 36.6
+273-7-209 100 21.4
+971-8-229 9 89.5
+971-8-229 11 89.5
+</code></pre>
+<p>运行程序后得到：</p>
+<pre><code>978-7-229 239 8747.436.6
+273-7-209 100 214021.4
+971-8-229 20 179089.5
+</code></pre>
+<p>手工算了下，没错。运行过程中，如果程序打开了输出文件sales_data_result.txt，但是程序没有执行到 print 时异常结束（调试，直接终止程序），sales_data_result.txt文件内容会被清空，要注意这个情况。</p>
+<h3 id="成员函数open和close">成员函数open和close</h3>
+<table>
+<thead>
+<tr>
+<th>成员函数</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>open</td>
+<td>打开指定文件。</td>
+</tr>
+<tr>
+<td>close</td>
+<td>关闭当前流相关联的文件。</td>
+</tr>
+</tbody>
+</table>
+<p>open文件后，一般先判断流是否正确打开了文件。</p>
+<pre><code class="lang-c++">ifstream input;
+input.open(path1);
+if(out)	// 判断是否正确打开
+{
+    // ...
+}
+
+
+// 如果open失败了，断开流与path1文件的关联
+out.close();
+out.open(path2);	//再打开另一个文件
+</code></pre>
+<h2 id="822-文件模式">8.2.2 文件模式</h2>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>以读方式打开</td>
+</tr>
+<tr>
+<td>out</td>
+<td>以写方式打开</td>
+</tr>
+<tr>
+<td>app</td>
+<td>每次写操作前均定位到文件末尾</td>
+</tr>
+<tr>
+<td>ate</td>
+<td>打开文件后立即定位到文件末尾</td>
+</tr>
+<tr>
+<td>trunc</td>
+<td>截断文件</td>
+</tr>
+<tr>
+<td>binary</td>
+<td>以二进制方式进行IO</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>只可以对 ofstream 或 fstream 对象设定 out 模式。</li>
+<li>只可以对 ifstream 或 fstream 对象设定 in 模式。</li>
+<li>只有当 out 也被设定时才可以设定 trunc 模式。</li>
+<li>只要 trunc 没被设定，就可以设定 app 模式。在 app 模式下，即使没有显式指定 out 模式，文件也总是以输出方式被打开。</li>
+<li>默认情况下，即使我们没有指定 trunc，以 out 模式打开的文件也会被截断。为了保留以 out 模式打开的文件的内容，我们必须同时指定 app 模式，这样只会将数据追加写到文件末尾；或者同时指定in模式，即打开文件同时进行读写操作。</li>
+<li>ate 和 binary 模式可用于任何类型的文件流对象，且可以于其他任何文件模式组合使用。</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter8/8.2.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

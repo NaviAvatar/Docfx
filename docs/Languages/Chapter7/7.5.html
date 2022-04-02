@@ -130,6 +130,103 @@ private:
 }
 </code></pre>
 <p>初始值列表的初始化顺序和成员定义的顺序有关，与初始值列表的变量排放顺序无关。比如上面这段代码，就是先初始化i，在初始化j的。显然上面这个代码有问题。</p>
+<h2 id="752-委托构造函数">7.5.2 委托构造函数</h2>
+<p>C++11 新标准支持构造函数初始值的功能，即<strong>委托构造函数</strong>。</p>
+<pre><code class="lang-c++">class Sales_data{
+public:
+    Sales_data(std::string s, unsigned cnt, double price):bookNo(s), units_sold(cnt), revenue(cnt*price){}
+    
+    // 剩余的构造函数委托给另一个构造函数
+    Sales_data():Sales_data(&quot;&quot;, 0, 0){}
+    Sales_data(std::string s): Sales_data(s, 0, 0){}
+    Sales_data(std::istream&amp; is):Sales_data(){read(is, *this);}
+}
+</code></pre>
+<p>功能上来说等价于：</p>
+<pre><code class="lang-c++">class Sales_data{
+public:
+    Sales_data(std::string s, unsigned cnt, double price):bookNo(s), units_sold(cnt), revenue(cnt*price){}
+     
+    Sales_data()
+    {
+        Sales_data(&quot;&quot;, 0, 0);
+    }
+    
+    Sales_data(std::string s){ 
+        Sales_data(s, 0, 0);
+    }
+    
+    Sales_data(std::istream&amp; is){
+	    Sales_data();
+        read(is, *this);
+    }
+}
+</code></pre>
+<p>当一个构造函数委托给另一个构造函数时，受委托的构造函数的初始值列表和函数体被依次执行，然后接着才执行委托者的函数体。</p>
+<h2 id="754-隐式的类类型转换">7.5.4 隐式的类类型转换</h2>
+<p>7.1节中我们为 Sales_data 类定义了一个 combine 函数：</p>
+<pre><code class="lang-c++">Sales_data&amp; Sales_data::combine(const Sales_data&amp; rhs)
+{
+    units_sold += rhs.units_sold;
+    revenue += rhs.revenue;
+    return *this;	// 返回调用该函数的对象
+}
+</code></pre>
+<p>如果我们像下面这样调用：</p>
+<pre><code class="lang-c++">string null_book = &quot;9-999-999999-9&quot;;
+item.combine(null_book);
+
+// 这样可以通过编译，item1的boolNo就是被 null_book初始化了
+Sales_data item1 = null_book;
+</code></pre>
+<p>代码看起来似乎是错误的，因为成员函数 combine接受的是一个 Sales_data 对象的引用，但是实际上缺能够编译通过。这是因为 null_book 作为参数传入后，Sales_data 有一个构造函数带一个 string 类型参数，此时会创建一个 Sales_data 类型的临时变量，作为参数然后传入 combine。</p>
+<p>显然也可以用一个输入流作为 “参数” 调用combine：</p>
+<pre><code class="lang-c++">item.combine(std::cin);
+</code></pre>
+<p>特定场景下不希望 Sales_data 类的使用者这样调用 combine，该怎么做？</p>
+<h3 id="抑制构造函数定义的隐式转换">抑制构造函数定义的隐式转换</h3>
+<p>在声明构造函数时加上关键字 <strong>explicit</strong> :</p>
+<pre><code class="lang-c++">class Sales_data{
+public:
+    Sales_data(std::string s, unsigned cnt, double price):bookNo(s), units_sold(cnt), revenue(cnt*price){}
+    
+    // 剩余的构造函数委托给另一个构造函数
+    Sales_data():Sales_data(&quot;&quot;, 0, 0){}
+    explicit Sales_data(std::string s): Sales_data(s, 0, 0){}
+    explicit Sales_data(std::istream&amp; is):Sales_data(){read(is, *this);}
+}
+</code></pre>
+<p>关键字 explicit 只对带一个参数的构造函数有效。需要多个实参的构造函数不能用于执行隐式转换，也就不需要为那些多个或0个参数的构造函数指定 explicit。只能在类内声明构造函数时使用关键字，在类外定义时不能重复是用 explicit。</p>
+<pre><code class="lang-c++">// 错误
+explicit Sales_data::Sales_data(istream&amp; is)
+{
+    read(is, *this);
+}
+</code></pre>
+<p>explicit 只能用于直接初始化，不能用于值初始化：</p>
+<pre><code class="lang-c++">Sales_data item(null_book);	// 正确
+Sales_data item = null_book;	// 错误
+</code></pre>
+<h3 id="为转换显式地使用构造函数">为转换显式地使用构造函数</h3>
+<pre><code class="lang-c++">// explicit Sales_data(std::string)
+item.combine(Sales_data(null_book));	// 正确
+
+item.combine(const_cast&lt;Sales_data&gt;(cin));	// 正确，const_cast 可以解 explicit
+</code></pre>
+<h2 id="755-聚合类">7.5.5 聚合类</h2>
+<p><strong>不推荐使用这个用法。</strong></p>
+<p>要求所有的成员是public的，没有定义任何构造函数，没有类内初始值，没有基类，没有 virtual 函数。</p>
+<pre><code class="lang-c++">struct Data{
+    int ival;
+    string s;
+}
+
+// 初始化时就可以这样，大括号的参数赋值按成员的顺序来赋值，否则可能出错。
+// 大括号的元素个数少于成员变量，剩下的成员变量就变成值初始化。
+Data d = {0, &quot;Anna&quot;};
+</code></pre>
+<h2 id="756-字面值常量类">7.5.6 字面值常量类</h2>
+<p>略。</p>
 </article>
           </div>
           

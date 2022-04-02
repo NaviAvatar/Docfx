@@ -1,0 +1,331 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>8.1 IO &#31867; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="8.1 IO &#31867; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="81-io-类">8.1 IO 类</h1>
+
+<p>三个关于 IO 类型的头文件：</p>
+<table>
+<thead>
+<tr>
+<th>头文件</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>iostream</td>
+<td>istream，wistream 从流读取数据<br>ostream，wostream 向流写入数据<br>iostream，wiostream 读写流</td>
+</tr>
+<tr>
+<td>fstream</td>
+<td>ifstream，wifstream 从文件读取数据<br>ofstream，wofstream 向文件写入数据<br>fstream，wfstream 读写文件</td>
+</tr>
+<tr>
+<td>sstream</td>
+<td>istringstream，wistringstream 从 string 读取数据<br>ostringstream，wostringstream 向 string 写入数据<br>stringstream，wstringstream 读写 string</td>
+</tr>
+</tbody>
+</table>
+<p>为了支持使用宽字符的语言，标准库定义了一组类型和对象来操纵 wchar_t 类型的数据。宽字符版本的类型和函数的名字以一个 w 开始。</p>
+<table>
+<thead>
+<tr>
+<th>支持宽字符</th>
+<th>支持普通字符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>wcin</td>
+<td>cin</td>
+</tr>
+<tr>
+<td>wcout</td>
+<td>cout</td>
+</tr>
+<tr>
+<td>wcerr</td>
+<td>cerr</td>
+</tr>
+</tbody>
+</table>
+<h3 id="io对象不可拷贝或赋值">IO对象不可拷贝或赋值</h3>
+<p>流对象不可拷贝也不能用 const 修饰。一般流都用引用。</p>
+<h2 id="812-流的条件状态">8.1.2 流的条件状态</h2>
+<table>
+<thead>
+<tr>
+<th>状态或函数</th>
+<th>释义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>std::ios::iostate</td>
+<td>iostate是一种机器相关的类型，提供了表达条件状态的完整功能。</td>
+</tr>
+<tr>
+<td>std::ios::badbit</td>
+<td>指出流已崩溃</td>
+</tr>
+<tr>
+<td>std::ios::failbit</td>
+<td>指出 IO  操作失败了</td>
+</tr>
+<tr>
+<td>std::ios::eofbit</td>
+<td>指出流到达了文件结束</td>
+</tr>
+<tr>
+<td>std::ios::goodbit</td>
+<td>指出流未处于错误状态。此值保证为零</td>
+</tr>
+<tr>
+<td>s.eof()</td>
+<td>若流 s 的 eofbit 置位，返回 true。</td>
+</tr>
+<tr>
+<td>s.fail()</td>
+<td>若流 s 的 failbit 或badbit 置位，返回 true</td>
+</tr>
+<tr>
+<td>s.bad()</td>
+<td>若流 s 的 badbit 置位，返回 true</td>
+</tr>
+<tr>
+<td>s.good()</td>
+<td>若流 s 处于有效状态，返回 true</td>
+</tr>
+<tr>
+<td>s.clear()</td>
+<td>若流 s 中所有条件状态复位，将流的状态设置为有效。返回 void 根据给定的 flags 标志位，将流 s 中对应条件状态复位。 flags 的类型为 iostate。返回 void</td>
+</tr>
+<tr>
+<td>s.clear(flags)</td>
+<td>若流 s 中所有条件状态复位，将流的状态设置为有效。返回 void 根据给定的 flags 标志位，将流 s 中对应条件状态复位。 flags 的类型为 iostate。返回 void</td>
+</tr>
+<tr>
+<td>s.setstate(flags)</td>
+<td>根据给定的 flags 标志位，将流 s 中对应条件状态位置位。flags 的类型为 iostate。返回 void</td>
+</tr>
+<tr>
+<td>s.rdstate()</td>
+<td>返回流s 的当前状态，返回值类型为 iostate</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-c++">void test(istream&amp; os, int&amp; i)
+{
+    os &gt;&gt; i;
+    auto state = os.rdstate();
+
+    switch (state)
+    {
+    case std::ios::badbit:
+        cout &lt;&lt; &quot;流崩溃了&quot; &lt;&lt; endl;
+        break;
+    case std::ios::failbit:
+        cout &lt;&lt; &quot;IO 操作失败了&quot; &lt;&lt; endl;
+        break;
+    case std::ios::eofbit:
+        cout &lt;&lt; &quot;流到达文件结尾了&quot; &lt;&lt; endl;
+        break;
+    case std::ios::goodbit:
+        cout &lt;&lt; &quot;流处于正确状态&quot; &lt;&lt; endl;
+        break;
+    default:
+        cout &lt;&lt; &quot;流处于未知状态&quot; &lt;&lt; endl;
+        break;
+    }
+}
+int main(int argc, char* argv[])
+{
+    int i;
+    test(cin, i);
+    cout &lt;&lt; i &lt;&lt; endl;
+    return 0;
+}
+
+// 输入：15
+// 输出：
+//     流处于正确状态
+//	   15
+
+// 输入：Boo
+// 输出：
+//		IO 操作失败
+//		0
+</code></pre>
+<p>如果去看 badbit这几个类型定义的话，长这样：</p>
+<pre><code class="lang-c++">static constexpr _Iostate goodbit = static_cast&lt;_Iostate&gt;(0x0);
+static constexpr _Iostate eofbit  = static_cast&lt;_Iostate&gt;(0x1);
+static constexpr _Iostate failbit = static_cast&lt;_Iostate&gt;(0x2);
+static constexpr _Iostate badbit  = static_cast&lt;_Iostate&gt;(0x4);
+</code></pre>
+<p>用16进制表示的 0, 1, 2, 4。也就是：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>十六进制表示</th>
+<th>二进制表示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>goodbit</td>
+<td>0x0</td>
+<td>0000</td>
+</tr>
+<tr>
+<td>eofbit</td>
+<td>0x1</td>
+<td>0001</td>
+</tr>
+<tr>
+<td>failbit</td>
+<td>0x2</td>
+<td>0010</td>
+</tr>
+<tr>
+<td>badbit</td>
+<td>0x4</td>
+<td>1000</td>
+</tr>
+</tbody>
+</table>
+<p>这样的好处是给出一个状态，除了goodbit之外，通过相与可以判断一个状态是否包含上面的任一一个。</p>
+<h2 id="813-管理输出缓冲">8.1.3 管理输出缓冲</h2>
+<p>系统为了提高对设备或文件的操作效率，做了缓冲区，即当执行到某一条输出流代码时，并不一定立即在黑窗体上显示出来。数据真正写到输出设备或文件的场景有：</p>
+<ul>
+<li>程序正常结束，作为main函数的return操作的一部分，缓冲刷新被执行。</li>
+<li>缓冲区满时，需要刷新缓冲区。</li>
+<li>操作符 unitbuf 强制刷新，清空缓冲区；cerr默认设置了unitbuf。</li>
+<li>一个输出流可能被关联到另一个流。读写被关联的流时，关联到的流的缓冲区会被刷新。默认情况下，cin 和 cerr 都关联到 cout。所以读 cin 或写 cerr 都会导致 cout 的缓冲区被刷新。</li>
+</ul>
+<h3 id="刷新缓冲区">刷新缓冲区</h3>
+<pre><code class="lang-c++">cout &lt;&lt; &quot;hi&quot; &lt;&lt; endl;	// 输出 hi 和一个换行，然后刷新缓冲区
+cout &lt;&lt; &quot;hi&quot; &lt;&lt; flush;	// 输出 hi，然后刷新缓冲区
+cout &lt;&lt; &quot;hi&quot; &lt;&lt; ends;	// 输出 hi和一个空字符，然后刷新缓冲区
+</code></pre>
+<pre><code class="lang-c++">cout &lt;&lt; unitbuf;	// 所有输出操作后都会立即刷新缓冲区
+// 任何输出都立即刷新，无缓冲
+cout &lt;&lt;nonunitbuf;	// 回到正常的缓冲方式
+</code></pre>
+<p>程序崩溃时，可能有些测试数据并没有被刷新出来，所以定位bug时记得刷新一些输出缓冲区。</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter8/8.1.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
