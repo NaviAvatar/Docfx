@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>9.6 &#23481;&#22120;&#36866;&#37197;&#22120; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="9.6 &#23481;&#22120;&#36866;&#37197;&#22120; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="96-容器适配器">9.6 容器适配器</h1>
+
+<p>标准库定义了三个顺序容器适配器：</p>
+<ul>
+<li><p>stack</p>
+</li>
+<li><p>queue</p>
+</li>
+<li><p>priority_queue</p>
+</li>
+</ul>
+<p>上面这三种适配器是基于其他顺序容器的基础上实现的。stack和queue 默认基于 deque 实现的，priority_queue 默认基于 vector 实现。</p>
+<table>
+<thead>
+<tr>
+<th>适配器通用操作和类型</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>size_type</td>
+<td>一种类型，足以保存当前类型的最大对象的大小</td>
+</tr>
+<tr>
+<td>value_type</td>
+<td>元素类型</td>
+</tr>
+<tr>
+<td>container_type</td>
+<td>实现适配器的底层容器类型</td>
+</tr>
+<tr>
+<td>A a;</td>
+<td>创建一个名为 a 的空适配器</td>
+</tr>
+<tr>
+<td>A a(c);</td>
+<td>创建一个名为 a 的适配器，带有容器 c 的一个拷贝</td>
+</tr>
+<tr>
+<td>关系运算符</td>
+<td>每个适配器都支持所有关系运算符：==、!=、&lt;、&lt;=、&gt; 和 &gt;=，这些运算符返回底层容器的比较结果</td>
+</tr>
+<tr>
+<td>a.empty()</td>
+<td>若 a 包含任何元素，返回 false；否则返回 true</td>
+</tr>
+<tr>
+<td>a.size()</td>
+<td>返回 a 中的元素数目</td>
+</tr>
+<tr>
+<td>swap(a, b)</td>
+<td>交换 a 和 b 的内容，a 和 b 必须具有相同类型，包括底层容器类型也必须相同</td>
+</tr>
+<tr>
+<td>a.swap(b)</td>
+<td>交换 a 和 b 的内容，a 和 b 必须具有相同类型，包括底层容器类型也必须相同</td>
+</tr>
+</tbody>
+</table>
+<h3 id="如何定义适配器">如何定义适配器？</h3>
+<pre><code class="lang-c++">stack&lt;int&gt; stk(deq);	// 从 deq拷贝元素到 stk
+
+// 底层容器是 vector
+stack&lt;string, vector&lt;string&gt;&gt; str_stk;
+
+// 底层容器是 vector，用 vector svec 初始化str_stk2
+stack&lt;string, vector&lt;string&gt;&gt; str_stk2(svec);
+</code></pre>
+<p>适配器不能构造在 array 之上。也不能用 forward_list 来构造适配器，因为所以适配器都要求容器具有添加、删除、访问尾部元素的能力。</p>
+<p>stack 只要求push_back、pop_back和back操作，可以使用除 array 和 forward_list 之外的任何容器类型来构造。</p>
+<p>queue 要求 back、push_back、front 和 push_front，因此它可以构造在 list 或 deque 之上，但不能基于 vector。</p>
+<p>priority_queue 除了 front、push_back 和 pop_back 操作之外，还要求具有随机访问的能力，可以构造在 vector 或 deque 之上，但不能基于 list。</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter9/9.6.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>10.3 &#23450;&#21046;&#25805;&#20316; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="10.3 &#23450;&#21046;&#25805;&#20316; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="103-定制操作">10.3 定制操作</h1>
+
+<p>sort 的内部是使用元素类型的 &lt; 运算符进行比较的，对 string 而言，&lt; 系统有自己的一套比较规则，但是我们想定做额外的规则，我们需求是要定义自己的 &lt; 运算符。</p>
+<h2 id="1031-向算法传递函数">10.3.1 向算法传递函数</h2>
+<p>​	加入希望上一节的 elimDups 函数在排序时希望按照单词长度排序，大小相同再按字典序列排序。为了这个操作，我们使用接受三个参数的 sort 函数，第三参数是<strong>谓词</strong>。</p>
+<p>​	谓词是一个可调用的表达式，其返回结果是一个能用作条件的值。标准库算法所使用的谓词分两类：<strong>一元谓词</strong>，意味着它们只接受单一参数；<strong>二元谓词</strong>，意味着它们有两个参数。接受谓词参数的算法对输入序列中的元素调用谓词。因此，元素类型必须能转换谓词的参数类型。</p>
+<p>​	接受一个二元谓词参数的 sort 版本用这个谓词代替 &lt; 运算符来比较元素。我们提供给 sort 的谓词必须满足将在 11.2.2 节中所提到的条件。</p>
+<pre><code class="lang-c++">bool isShorter(const string&amp; s1, const string&amp; s2)
+{
+    return s1.size() &lt; s2.size();
+}
+</code></pre>
+<pre><code class="lang-c++">// 按长度由短到长排序 words
+sort(words.begin(), words.end(), isShorter);
+
+// 这里传一个 函数名进去，有点像C#的委托delegate
+</code></pre>
+<h3 id="排序算法">排序算法</h3>
+<p>假定序列是：</p>
+<pre><code class="lang-c++">vector&lt;string&gt; svec = {&quot;the&quot;, &quot;more&quot;, &quot;abandon&quot;, &quot;banana&quot;, &quot;mike&quot;, &quot;theater&quot;, &quot;moreadvance&quot;, &quot;mora&quot;};
+sort(svec.begin(), svec.end(), isShorter);
+</code></pre>
+<p>这样排序后，得到的 svec 中的序列为：</p>
+<pre><code class="lang-c++">the more mike mora banana abandon theater moreadvance
+</code></pre>
+<p>我们观察发现，排序真的仅仅是按照 isShorter 里的规则比较，但是我们又希望能够在相等长度的情况下，按照字符排序。</p>
+<p>总结就是我们希望排序的规则是：</p>
+<ul>
+<li>先按长度排序。</li>
+<li>长度相等按字符字典中位置排序。</li>
+</ul>
+<p>除了重新编写 isShorter 外，可以先用 sort 处理一遍容器，然后再使用 stable_sort 来处理，stable_sort维持相等元素的原有顺序。</p>
+<pre><code class="lang-c++">vector&lt;string&gt; svec = {&quot;the&quot;, &quot;more&quot;, &quot;abandon&quot;, &quot;banana&quot;, &quot;mike&quot;, &quot;theater&quot;, &quot;moreadvance&quot;, &quot;mora&quot;};
+sort(svec.begin(), svec.end());
+stable_sort(svec.begin(), svec.end(), isShorter);
+</code></pre>
+<p>这样输出的结果就是：</p>
+<pre><code class="lang-c++">the mike mora more banana abandon theater moreadvance
+</code></pre>
+<h2 id="1032-lambda-表达式">10.3.2 lambda 表达式</h2>
+<p>​	根据算法接受一元谓词还是二元谓词，我们传递给算法的谓词必须严格接受一个或两个参数。但是，有时我们希望进行的操作需要更多参数，超出了算法对谓词的限制。</p>
+<p>比如，现在要在排序好了的容器里输出长度大于等于5的字符串。我们可能这样写：</p>
+<pre><code class="lang-c++">void biggies(vector&lt;string&gt;&amp; words, vector&lt;string&gt;::size_type sz)
+{
+    elimDups();	// 将 words 按照字典排序，删除重复单词
+    
+    // 按照长度排序
+    stable_sort(words.begin(), words.end(), isShorter);
+    
+    auto iter = words.begin();
+    
+    // 找到第一个字符串长度大于等于 5 的迭代器
+    while((*iter).size() &lt;= sz)
+    {
+        iter ++;
+    }
+    
+    // 计算有多少个
+    int count = words.end() - iter;
+    
+    // 利用 count 执行打印
+}
+</code></pre>
+<p>此外还可以用标准库中的 find_if 算法来查找第一个具有特定大小的元素，find_if 接受一对迭代器，表示一个范围。但与 find 不同， find_if 接受的第三个参数是一个谓词。find_if 算法对输入序列中的每个元素调用给定的这个谓词。它返回第一个使谓词返回非 0 值的元素，如果不存在这样的元素，则返回尾迭代器。</p>
+<p>上面的代码我们可以这样写：</p>
+<pre><code class="lang-c++">bool customizeLength(const string&amp; s1)
+{
+    return s1.size() &gt;= 5;
+}
+
+int main(int argc, char* argv[])
+{ 
+    vector&lt;string&gt; svec = {&quot;the&quot;, &quot;more&quot;, &quot;mora&quot;,  &quot;mike&quot;, &quot;abandon&quot;, &quot;banana&quot;,  &quot;theater&quot;, &quot;moreadvance&quot;};
+    sort(svec.begin(), svec.end());
+    stable_sort(svec.begin(), svec.end(), isShorter);
+
+    auto iter = find_if(svec.begin(), svec.end(), customizeLength);
+
+    while (iter != svec.end())
+    {
+        visit(*iter);
+        iter++;
+    }
+    return 0;
+}
+</code></pre>
+<p>显然，在主函数 mian 中去调用 find_if 没法给 customizeLength 函数传入一个string::size_type类型的变量去定制。</p>
+<h3 id="介绍-lambda">介绍 lambda</h3>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter10/10.3.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

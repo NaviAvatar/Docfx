@@ -1,0 +1,409 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>9.5 &#39069;&#22806;&#30340; string &#25805;&#20316; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="9.5 &#39069;&#22806;&#30340; string &#25805;&#20316; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="95-额外的-string-操作">9.5 额外的 string 操作</h1>
+
+<h2 id="951-构造-string-的其他方法">9.5.1 构造 string 的其他方法</h2>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string s(cp, n)</td>
+<td>s 是 cp 指向的数组中前 n 个字符的拷贝。此数组至少应该包含 n 个字符。</td>
+</tr>
+<tr>
+<td>string s(s2, pos2)</td>
+<td>s 是 string s2 从下标 pos2 开始的字符的拷贝。若 pos2 &gt; s2.size()，构造函数的行为未知。</td>
+</tr>
+<tr>
+<td>string s(s2, pos2, len2)</td>
+<td>s 是 string s2 从下标 pos2 开始 len2 个字符的拷贝。若 pos2 &gt; s2.size()，构造函数的行为未知。不管 len2 的值是多少，构造函数至多拷贝 s2.size()-pos2个字符。</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-c++">const char *cp = &quot;Hello World!&quot;;
+char noNull[] = {'H', 'i'};	// 不是以空字符结束
+string s1(cp);	// 拷贝cp中的字符直到遇到空字符；s1=&quot;Hello World!&quot;
+string s2(noNull, 2);	// s2 == &quot;Hi&quot;
+string s3(noNull);	// noNUll 不是以空字符结束，s3未知
+string s4(cp+6, 5);	// 从 cp[6] 开始拷贝5个字符：s4 == &quot;World&quot;
+string s5(s1, 6, 5);	// 从 s1[6]开始拷贝5个字符：s5==&quot;World&quot;
+string s6(s1, 6);	// 从 s1[6]开始拷贝剩余的字符，s6==&quot;World!&quot;
+string s7(s1, 6, 20);	// 只拷贝到末尾：s7 == &quot;World!&quot;
+string s8(s1, 16);	// 数组越界了，因为 s1的长度都没超过16
+</code></pre>
+<h3 id="substrpos-n">substr(pos, n)</h3>
+<p>返回一个 string，包含 s 中从pos开始的n个字符的拷贝。pos的默认值为0。n的默认值为s.size()-pos，即拷贝从pos开始的所有字符。</p>
+<pre><code class="lang-c++">string s(&quot;Hello world&quot;);
+string s2 = s.substr(0, 5);	// s2 = Hello
+string s3 = s.substr(6);	// s3 = world
+string s4 = s.substr(6, 11);	// s3 = world
+string s5 = s.substr(12);	// outofrange 异常
+</code></pre>
+<h2 id="952-改变-string-的其他方法">9.5.2 改变 string 的其他方法</h2>
+<pre><code class="lang-c++">s.insert(s.size(), 5, '!');	// 在 s末尾插入5个感叹号
+s.erase(s.size() - 5, 5);	// 从 s 删除最后 5个字符
+</code></pre>
+<pre><code class="lang-c++">string s=&quot;okkk&quot;;
+const char* cp = &quot;Stately, plump Buck&quot;;
+s.assign(cp, 7);	// s == &quot;Stately&quot;
+cout &lt;&lt; s &lt;&lt; endl;
+s.insert(s.size(), cp + 1);	// s == &quot;Statelytately, plump Buck&quot;
+cout &lt;&lt; s &lt;&lt; endl;
+</code></pre>
+<pre><code class="lang-c++">string s = &quot;some string&quot;;
+string s2 = &quot;some other string&quot;;
+
+s.insert(0, s2);
+cout &lt;&lt; s &lt;&lt; endl;  // s = &quot;some other stringsome string&quot;
+
+s.insert(0, s2, 0, s2.size());
+cout &lt;&lt; s &lt;&lt; endl;  // s = &quot;some other stringsome other stringsome string&quot;
+</code></pre>
+<h3 id="append-和-replace">append 和 replace</h3>
+<p>append 是在 string 末尾进行插入操作的一种简写形式：</p>
+<pre><code class="lang-c++">string s(&quot;C++ Primer&quot;), s2 = s;	// s = s2 = &quot;C++ Primer&quot;
+s.insert(s.size(), &quot;4th Ed.&quot;);	// s == &quot;C++ Primer 4th Ed.&quot;
+s2.append(&quot; 4th Ed.&quot;);	// s2 == &quot;C++ Primer 4th Ed.&quot;
+</code></pre>
+<p>replace 操作是调用 erase 和 insert 的一种简写形式：</p>
+<pre><code class="lang-c++">// 将 &quot;4th&quot; 替换为 &quot;5th&quot; 的等价方法
+// 调用erase前 s== &quot;C++ Primer 4th Ed.&quot;
+s.erase(11, 3);	// s == &quot;C++ Primer  Ed.&quot;
+s.insert(11, &quot;5th&quot;);	// s== &quot;C++ Primer 5th Ed.&quot;
+
+// 从位置 11 开始，删除3个字符并插入&quot;5th&quot;
+s.replace(11, 3, &quot;5th&quot;);
+s.replace(11, 3, &quot;Fifth&quot;);	// s== &quot;C++ Primer Fifth Ed.&quot;
+</code></pre>
+<h2 id="953-string-搜索操作">9.5.3 string 搜索操作</h2>
+<p>​	string 类提供多个搜索函数。函数返回一个string::size_type 值，表示匹配发生位置的下标。如果搜索失败，则返回一个名为 string::npos 的 static 成员。标准库将 npos 定义为一个 const string::size_type 类型，并初始化为值-1.由于 npos 是一个unsigned 类型，此初始值意味着 npos 等于任何 string 最大的可能大小。</p>
+<h3 id="find-函数">find 函数</h3>
+<p>find 函数完成最简单的搜索。它查找参数指定的字符串，若找到，则返回第一个匹配位置的下标，否则返回 npos。</p>
+<pre><code class="lang-c++">string name(&quot;AnnaBelle&quot;);
+auto pos1 = name.find(&quot;Anna&quot;);	// pos1 = 0
+</code></pre>
+<h4 id="大小写敏感">大小写敏感</h4>
+<pre><code>string name(&quot;AnnaBelle&quot;);
+auto pos1 = name.find(&quot;anna&quot;);	// pos1 = npos
+</code></pre>
+<p>查找与给定字符串中任何一个字符匹配的位置。</p>
+<pre><code class="lang-c++">string numbers(&quot;0123456789&quot;), name(&quot;r2d2&quot;);
+auto pos = name.find_first_of(numbers);	// 返回 1 ，name中第一个数字的下标
+</code></pre>
+<p>搜索第一个不在参数中的字符：</p>
+<pre><code class="lang-c++">string dept(&quot;03714p3&quot;);
+auto pos = dept.find_first_not_of(bumbers); 
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>操作名</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>s.find(args)</td>
+<td>查找 s 中 args 第一次出现的位置</td>
+</tr>
+<tr>
+<td>s.rfind(args)</td>
+<td>查找 s 中 args 最后一次出现的位置</td>
+</tr>
+<tr>
+<td>s.find_first_of(args)</td>
+<td>在 s 中查找 args 中任何一个字符第一次出现的位置</td>
+</tr>
+<tr>
+<td>s.find_last_of(args)</td>
+<td>在 s 中查找 args 中任何一个字符最后一次出现的位置</td>
+</tr>
+<tr>
+<td>s.find_first_not_of(args)</td>
+<td>在 s 中查找第一个不在 args 中的字符的位置</td>
+</tr>
+<tr>
+<td>s.find_last_not_of(args)</td>
+<td>在 s 中查找最后一个不在 args 中的字符</td>
+</tr>
+</tbody>
+</table>
+<p>上面这个表格的 args 必须是下面的形式之一：</p>
+<table>
+<thead>
+<tr>
+<th>形式</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c, pos</td>
+<td>从 s 中位置 pos 开始查找字符 c。pos 默认为 0</td>
+</tr>
+<tr>
+<td>s2, pos</td>
+<td>从 s 中位置 pos 开始查找字符串 s2。pos 默认为 0</td>
+</tr>
+<tr>
+<td>cp, pos</td>
+<td>从 s 中位置 pos 开始查找指针 cp 指向的以空字符结尾的 C 风格字符串。</td>
+</tr>
+<tr>
+<td>cp, pos, n</td>
+<td>从 s 中位置 pos 开始查找指针 cp 指向的数组的前 n 个字符。pos 和 n 无默认值。</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-c++">char c[] = &quot;Bell&quot;;
+    string name(&quot;AnnaBelleBelle&quot;), sub(&quot;ell&quot;);
+
+    auto pos1 = name.find('n');
+    visit(pos1);
+
+    auto pos2 = name.rfind('n');
+    visit(pos2);
+
+    auto pos3 = name.find('e', 6);
+    visit(pos3);
+
+    auto pos4 = name.find(sub, 7);
+    visit(pos4);
+
+    auto pos5 = name.find_last_of(sub);
+    visit(pos5);
+
+// 输出
+// 1
+// 2
+// 8
+// 10
+// 13
+</code></pre>
+<p>在字符串中循环地搜索子字符串出现的所有位置：</p>
+<pre><code class="lang-c++">string::size_type pos = 0;
+while(pos = name.find_first_of(numbers, pos) != string::npos)
+{
+    cout &lt;&lt; &quot;find number at index: &quot; &lt;&lt; pos &lt;&lt; &quot; element is&quot; &lt;&lt; name[pos] &lt;&lt; endl;
+    pos++;
+}
+</code></pre>
+<h2 id="954-compare-函数">9.5.4 compare 函数</h2>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>s2</td>
+<td>比较 s 和 s2</td>
+</tr>
+<tr>
+<td>pos1, n1, s2</td>
+<td>将 s 中从 pos1 开始的 n1 个字符与 s2 进行比较</td>
+</tr>
+<tr>
+<td>pos1, n1, s2, pos2, n2</td>
+<td>将 s 中从 pos1 开始的 n1 个字符与 s2 中从 pos2 位置开始的 n2 个字符进行比较</td>
+</tr>
+<tr>
+<td>cp</td>
+<td>比较 s 与以 cp 指向的以空字符结尾的字符数组</td>
+</tr>
+<tr>
+<td>pos1, n1, cp</td>
+<td>将 s 中从 pos1 开始的 n1 个字符与 cp 指向的以空字符结尾的字符数组进行比较</td>
+</tr>
+<tr>
+<td>pos1, n1, cp, n2</td>
+<td>将 s 中从 pos1 开始的 n1 个字符与指针 cp 指向的地址开始的 n2 个字符进行比较</td>
+</tr>
+</tbody>
+</table>
+<h2 id="955-数值转换">9.5.5 数值转换</h2>
+<p>新标准引入多个函数，可以实现数值数据与标准库 string 之间的转换：</p>
+<pre><code class="lang-c++">int i = 42;
+string s = to_string(i);
+double d = stod(S);
+</code></pre>
+<p>要转换为数值的 string 中第一个非空白符必须是数值中可能出现的字符：</p>
+<pre><code class="lang-c++">string s2 = &quot;pi = 3.14&quot;;
+d = stod(s2.substr(s2.find_first_of(&quot;+-.0123456789&quot;)));
+</code></pre>
+<p>string 参数中第一个非空白符必须是符号或数字。对那些将字符串转换成浮点数的函数，string 参数可以是以小数点开头，并可以包含e或E来表示指数部分。对于那些将字符串转换为整形值的函数，根据基数不同，string 参数可以包含字母字符，对应大于数字9的数（十六进制）。</p>
+<p><font color='red'>如果 string 不能转换为一个数值，这些函数抛出一个 invalid_argument 异常。如果转换得到的数值无法用任何类型来表示（太大或太小），则抛出一个 out_of_range 异常。</font></p>
+<table>
+<thead>
+<tr>
+<th>转换函数</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>to_string(val)</td>
+<td>一组重载函数，返回数值 val 的 string 表示。val 可以是任何算术类型。对每个浮点类型和 int 或更大的整型，都有相应版本的 to_string。与往常一样，小整型会被提升。</td>
+</tr>
+<tr>
+<td>stoi(s, p, b)</td>
+<td>返回 s 的起始子串（表示整数内容）的数值，返回值类型分别是 int、long、unsigned long、long long、unsigned long long。b 表示转换所用的基数，默认值为10。p 是 size_t 指针，用来保存 s 中第一个非数值字符的下标，p 默认为 0，即函数不保存下标。</td>
+</tr>
+<tr>
+<td>stol(s, p, b)</td>
+<td></td>
+</tr>
+<tr>
+<td>stoul(s, p, b)</td>
+<td></td>
+</tr>
+<tr>
+<td>stoll(s, p, b)</td>
+<td></td>
+</tr>
+<tr>
+<td>stoull(s, p ,b)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>stof(s, p)</td>
+<td>返回 s 的起始子串的数值，返回值类型分别是 float、double 或 long double。参数 p 的作用与整数转换函数中一样</td>
+</tr>
+<tr>
+<td>stod(s, p)</td>
+<td></td>
+</tr>
+<tr>
+<td>stold(s, p)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter9/9.5.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

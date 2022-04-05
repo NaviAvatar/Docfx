@@ -1,0 +1,504 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>9.3 &#39034;&#24207;&#23481;&#22120;&#25805;&#20316; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="9.3 &#39034;&#24207;&#23481;&#22120;&#25805;&#20316; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="93-顺序容器操作">9.3 顺序容器操作</h1>
+
+<h2 id="931-向顺序容器添加元素">9.3.1 向顺序容器添加元素</h2>
+<p>除了 array 外，所有容器都提供了在运行时可以动态添加或删除元素来改变容器大小的操作。</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c.push_back(t)</td>
+<td>在 c 的尾部创建一个值为 t 的元素。返回 void</td>
+</tr>
+<tr>
+<td>c.emplace_back(args)</td>
+<td>在 c 的尾部一个值由 args 创建的元素。返回 void</td>
+</tr>
+<tr>
+<td>c.push_front(t)</td>
+<td>在 c 的头部创建一个值为 t 的元素。返回 void</td>
+</tr>
+<tr>
+<td>c.emplace_front(args)</td>
+<td>在 c 的头部一个值由 args 创建的元素。返回 void</td>
+</tr>
+<tr>
+<td>c.insert(p, t)</td>
+<td>在迭代器 p 指向的元素之前创建一个值为 t 的元素。返回指向新添加的元素的迭代器</td>
+</tr>
+<tr>
+<td>c.emplace(p, args)</td>
+<td>在迭代器 p 指向的元素之前由 args 创建的元素。返回指向新添加的元素的迭代器</td>
+</tr>
+<tr>
+<td>c.insert(p, n, t)</td>
+<td>在迭代器 p 指向的元素之前插入 n 个值为 t 的元素。返回指向新添加的第一个元素的迭代器。若n为 0，返回 p。</td>
+</tr>
+<tr>
+<td>c.insert(p, b, e)</td>
+<td>将迭代器 b 和 e 指定的范围内的元素插入到迭代器 p 指向的元素之前。b 和 e 不能指向 c 中的元素。返回指向新添加的第一个元素的迭代器；若范围为空，则返回 0。</td>
+</tr>
+<tr>
+<td>c.insert(p, il)</td>
+<td>il 是一个花括号包围的元素值列表。将这些给定值插入到迭代器p 指向的元素之前。返回指向新添加的第一个元素的迭代器；若列表为空，返回 p。</td>
+</tr>
+</tbody>
+</table>
+<p><font color='red'>向一个 vector、string、deque 插入元素会使所有指向容器的迭代器、引用和指针失效。</font></p>
+<h3 id="push_back">push_back</h3>
+<p>array、forward_list 不支持push_back。</p>
+<pre><code class="lang-c++">string word;
+while(cin &gt;&gt; word)
+{
+    container.push_back(word);
+}
+</code></pre>
+<p>每次 push_back，size 就会 +1。</p>
+<p>当用一个对象来初始化容器时，或将一个对象插入到容器中时，实际上放入到容器中的是对象值的一个拷贝，而不是对象本身。就像我们将一个对象传递给非引用参数一样，容器中的元素与提供值的对象之间没有任何关联。随后对容器中元素的任何改变都不会影响原始对象。</p>
+<h3 id="push_front">push_front</h3>
+<p>见名知意，push_back 是在容器尾部插入新元素，那么 push_front 就是在头部插入新元素。list、forward_list 和 deque 容器都支持 push_front，反而 vector 不支持。</p>
+<h3 id="在容器中的特定位置添加元素">在容器中的特定位置添加元素</h3>
+<p>每个 insert 函数都接受一个迭代器作为其第一个参数。迭代器指出了在容器中什么位置放置新元素。它可以指向容器中任何位置，包括容器尾部之后的下一个位置。由于迭代器可能指向容器尾部之后不存在的元素的位置，而且在容器开始位置插入元素是很有用的功能，所以 insert 函数将元素插入到迭代器所指定的位置之前。</p>
+<pre><code class="lang-c++">slist.insert(iter, &quot;Hello&quot;);	// 将 &quot;Hello&quot; 添加到 iter之前的位置
+</code></pre>
+<p>因此如果某些容器不支持 push_front，那么可以用 insert 也能实现同样的功能。</p>
+<pre><code class="lang-c++">vector&lt;string&gt; svec;
+list&lt;string&gt; slist;
+
+// 等价于调用 slist.push_front(&quot;Hello&quot;);
+slist.insert(slist.begin(), &quot;Hello&quot;);
+
+// 插入到 vector 末尾之外的任何位置可能很慢
+svec.insert(svec.begin(), &quot;Hello&quot;);
+</code></pre>
+<h3 id="insert-其他版本">insert 其他版本</h3>
+<pre><code class="lang-c++">// 将 10 个元素插入到 svec 的末尾，并将所有元素都初始化为 string类型 “Anna”
+svec.insert(svec.end(), 10, &quot;Anna&quot;);
+</code></pre>
+<pre><code class="lang-c++">vector&lt;string&gt; v = {&quot;quasi&quot;, &quot;sima&quot;, &quot;frollo&quot;, &quot;scar&quot;};
+
+// 将 v 的最后两个元素添加到 slist 的开始位置
+slist.insert(slist.begin(), v.end() - 2, v.end());
+slist.insert(slist.end(), {&quot;these&quot;, &quot;words&quot;, &quot;will&quot;, &quot;go&quot;, &quot;at&quot;, &quot;the&quot;, &quot;end&quot;});
+
+// 错误，迭代器表示要拷贝的范围，不能指向与目的位置相同的容器
+slist.insert(slist.begin(), slist.begin(), slist.end());
+</code></pre>
+<p>调用 insert时，参数用一对迭代器时不能指向容器本身。</p>
+<p>新版下，接受元素个数或范围的 insert 版本返回指向第一个新加入元素的迭代器。如果范围空，不插入任何元素， insert 操作会将第一个参数返回。</p>
+<pre><code class="lang-c++">list&lt;string&gt; lst;
+auto iter=lst.begin();
+while(cin &gt;&gt; word)
+{
+    iter = lst.insert(iter, word);	// 等价于调用 push_front
+}
+</code></pre>
+<h3 id="emplace">emplace</h3>
+<p>新标准引入了三个新成员：</p>
+<p>emplace_front、emplace、emplace_back。</p>
+<p>上面三个操作构造而不是拷贝元素。这些操作分别对应 push_front、insert、push_back，允许将元素放置容器头部、一个指定位置之前或容器尾部。</p>
+<p>调用push或insert成员函数，我们将元素类型的对象传递给它们，这些对象被拷贝到容器中。而当我们调用一个 emplace 成员函数时，则是将参数传递给元素类型的构造函数。emplace 成员使用这些参数在容器管理的内存空间中直接构造元素。</p>
+<pre><code class="lang-c++">// 假定c 保存Sales_data 类型的对象
+// 等价于c.push_back(Sales_data(&quot;978-0593284&quot;, 10, 39.9));
+c.emplace_back(&quot;978-0593284&quot;, 10, 39.9);
+
+// 错误
+c.push_back(&quot;978-0593284&quot;, 10, 39.9);
+</code></pre>
+<h2 id="932-访问元素">9.3.2 访问元素</h2>
+<table>
+<thead>
+<tr>
+<th>访问操作</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c.back()</td>
+<td>返回 c 中尾元素的引用。若 c 为空，函数行为未定义。</td>
+</tr>
+<tr>
+<td>c.front()</td>
+<td>返回 c 中首元素的引用。若 c 为空，函数行为未定义。</td>
+</tr>
+<tr>
+<td>c[n]</td>
+<td>返回 c 中下标为 n 的元素的引用，n是一个无符号整数。若 n&gt;=c.size()，函数行为未定义。</td>
+</tr>
+<tr>
+<td>c.at[n]</td>
+<td>返回下标为 n 的元素的引用。如果下标越界，则抛出 out_of_range 异常。</td>
+</tr>
+</tbody>
+</table>
+<p>对空容器调用 back 和 front 函数，就像数组访问越界一样严重错误。</p>
+<ul>
+<li><p>forward_list 没有 back。</p>
+</li>
+<li><p>at 和下标操作适用于 string、vector、deque 和 array。</p>
+</li>
+</ul>
+<h3 id="访问成员函数返回的是引用">访问成员函数返回的是引用</h3>
+<p>如果容器是一个const 对象，返回值是 const 的引用。如果容器不是 const，返回的是普通引用。</p>
+<pre><code class="lang-c++">if(!c.empty())
+{
+    c.front() = 42;	// 将c中第一个元素赋值 42
+    auto&amp; v = c.back();	// 指向c最后一个元素的引用
+    v = 1024;	// c中最后一个元素值改为 1024
+    auto v2 = c.back();	// v2 得到了 c最后一个元素的拷贝
+    v2 = 0;	// c 中最后一个元素值还是 1024，而不是 0
+}
+</code></pre>
+<p>编译器在编译的时候，并不会检查数组的访问是否存在越界，但是在运行时我们的程序有可能存在越界的行为，这将会导致程序异常甚至直接崩溃，但是使用 at 函数，如果越界了会抛出一个 out_of_range 异常。</p>
+<p>如果去看 at 的处理代码，会发现，其实就是先检查一下，参数是否在容器有效范围内。如果不在有效范围内，执行 _Xrange 抛出异常，否则返回数组下标元素引用。</p>
+<pre><code class="lang-c++">_NODISCARD _CONSTEXPR20_CONTAINER _Ty&amp; at(const size_type _Pos) {
+        auto&amp; _My_data = _Mypair._Myval2;
+        if (static_cast&lt;size_type&gt;(_My_data._Mylast - _My_data._Myfirst) &lt;= _Pos) {
+            _Xrange();
+        }
+
+        return _My_data._Myfirst[_Pos];
+    }
+
+</code></pre>
+<h2 id="933-删除元素">9.3.3 删除元素</h2>
+<table>
+<thead>
+<tr>
+<th>删除操作</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c.pop_back()</td>
+<td>删除 c 中尾元素。若 c 为空，则函数行为未定义。函数返回 void</td>
+</tr>
+<tr>
+<td>c.pop_front()</td>
+<td>删除 c 中首元素。若 c 为空，则函数行为未定义。函数返回 void</td>
+</tr>
+<tr>
+<td>c.erase(p)</td>
+<td>删除迭代器 p 所指定的元素，返回一个指向被删除元素之后的迭代器，若 p 指向尾元素，则返回尾后迭代器。若 p 是尾后迭代器，则函数行为未定义。</td>
+</tr>
+<tr>
+<td>c.erase(b, e)</td>
+<td>删除迭代器 b 和 e 所指定范围内的元素。返回一个指向最后一个被删元素之后元素的迭代器，若 e 本身就是尾后迭代器，则函数也返回尾后迭代器。</td>
+</tr>
+<tr>
+<td>c.clear()</td>
+<td>删除 c 中的所有元素。返回 void</td>
+</tr>
+</tbody>
+</table>
+<p><font color='red'>删除元素的成员函数并不检查其参数。在删除元素之前，程序员必须确保它们是存在的。</font></p>
+<h3 id="pop_front-和-pop_back">pop_front 和 pop_back</h3>
+<p>不能对一个空容器执行弹出操作。</p>
+<h3 id="从容器内部删除一个元素">从容器内部删除一个元素</h3>
+<p>若 j 是 i之后的元素，那么 erase(i)将返回指向 j 的迭代器。</p>
+<h4 id="删除多个元素">删除多个元素</h4>
+<pre><code class="lang-c++">elem1 = slist.erase(elem1, elem2);	// 调用后， elem1 == elem2
+</code></pre>
+<p>迭代器 elem1 指向要删除的第一个元素， elem2 指向要删除的最后一个元素之后的位置。</p>
+<h2 id="934-特殊的-forward_list-操作">9.3.4 特殊的 forward_list 操作</h2>
+<p>forward_list 是一个单向链表，要相比于获取后继结点来说，获取当前结点的前驱结点更加困难（再从头遍历一遍）。因此与其他容器的操作实现方式不同， forward_list 并未定义insert、emplace 和 erase。</p>
+<table>
+<thead>
+<tr>
+<th>操作名</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lst.before_begin()</td>
+<td>返回指向链表首元素之前不存在的元素的迭代器。此迭代器不能解引用。</td>
+</tr>
+<tr>
+<td>lst.cbefore_begin()</td>
+<td>返回指向链表首元素之前不存在的元素的迭代器。此迭代器不能解引用。返回一个 const_iterator。</td>
+</tr>
+<tr>
+<td>lst.insert_after(p, t)</td>
+<td>在迭代器 p 之后的位置插入元素。t 是一个对象。若 p 是尾后迭代器，函数未定义。</td>
+</tr>
+<tr>
+<td>lst.insert_after(p, n, t)</td>
+<td>在迭代器 p 之后的位置插入 n 个值为 t 的元素。若 p 是尾后迭代器，函数未定义。</td>
+</tr>
+<tr>
+<td>lst.insert_after(p, b, e)</td>
+<td>在迭代器 p 之后的位置插入范围 b 到 e的元素，b 和 e不能指向lst。<br>返回一个指向最后一个插入元素的迭代器。如果范围为空，则返回 p。<br>若 p 是尾后迭代器，函数未定义。</td>
+</tr>
+<tr>
+<td>lst.insert_after(p, il)</td>
+<td>il 是一个花括号列表。返回一个指向最后一个插入元素的迭代器。若 p 是尾后迭代器，函数未定义。</td>
+</tr>
+<tr>
+<td>emplace_after(p, args)</td>
+<td>使用 args 在 p 指定的位置之后创建一个元素。返回一个指向这个新元素的迭代器。若 p 为尾后迭代器，则函数行为未定义。</td>
+</tr>
+<tr>
+<td>lst.erase_after(p)</td>
+<td>删除 p 指向的位置之后的元素。<br>返回一个指向被删除元素之后元素的迭代器，若不存在这样的元素，则返回尾后迭代器。<br>如果 p 指向 lst 的尾元素或者是一个尾后迭代器，函数未定义。</td>
+</tr>
+<tr>
+<td>lst.erase_after(b, e)</td>
+<td>删除从 b 之后直到 e(不删除e)之间的元素。<br>返回一个指向被删除元素之后的迭代器，若不存在这样的元素，则返回尾后迭代器。<br>如果 p 指向 lst 的尾元素或者是一个尾后迭代器，函数未定义。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="935-改变容器的大小">9.3.5 改变容器的大小</h2>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c.resize(n)</td>
+<td>调整 c 的大小为 n 个元素。若 n&lt;c.size()，则多出的元素被丢弃。若必须添加新元素，对新元素进行值初始化。</td>
+</tr>
+<tr>
+<td>c.resize(n, t)</td>
+<td>调整 c 的大小为 n 个元素。任何新添加的元素都初始化为值 t。</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-c++">list&lt;int&gt; ilist(10, 42);	// 10 个 int，每个的值都是 42
+ilist.resize(15);		// 将 5 个值为 0 的元素添加到 ilist 的末尾
+ilist.resize(25, -1);	// 将 10 个值为 -1 的元素添加到 ilist 的末尾
+ilist.resieze(5);		// 从 ilist 末尾删除 20个元素
+</code></pre>
+<p>如果保存的是类类型，那么添加新元素时，务必提供默认构造函数。</p>
+<h2 id="936-容器操作可能是迭代器失效">9.3.6 容器操作可能是迭代器失效</h2>
+<h4 id="添加元素后">添加元素后：</h4>
+<ul>
+<li>对 vector 和 string，且存储空间被重新分配，则指向容器的迭代器、指针、引用都会失效。如果存储空间未重新分配，指向插入位置之前的元素的迭代器、指针和引用仍有效，但指向插入位置之外的任何位置都会导致迭代器、指针和引用失效。</li>
+</ul>
+<pre><code class="lang-c++">vector&lt;int&gt; vect = {0, 1, 2, 3, 4, 5, 6, 7};
+
+auto&amp; a = vect.back();
+auto iter = vect.begin();
+cout &lt;&lt; *iter &lt;&lt; endl;
+cout &lt;&lt; a &lt;&lt; endl;
+a = 100;
+
+vect.push_back(5);	// 插入后，空间重新分配了
+for (auto i : vect)
+{
+    cout &lt;&lt; i &lt;&lt; &quot; &quot;;
+}
+
+cout &lt;&lt; a &lt;&lt; endl;		// 输出 -572662307
+cout &lt;&lt; *iter &lt;&lt; endl;	// 访问失败了
+
+
+//0
+//7
+//0 1 2 3 4 5 6 100 5 -572662307
+</code></pre>
+<pre><code class="lang-c++">string s = &quot;thisisastring&quot;;
+auto iter = s.begin();
+auto first = s.begin();
+iter = iter + 3;    // iter 指向s[3]，即 's'
+cout &lt;&lt; *iter &lt;&lt; endl;    // 输出s[3],也就是's'
+
+s.insert(first, 'e');    // s = &quot;ethisisastring&quot;
+cout &lt;&lt; *iter &lt;&lt; endl;  // 结果 iter指向了s[3]，但是内容变为了 'i'
+
+// s
+// i
+</code></pre>
+<pre><code class="lang-c++"> string s = &quot;thisisastring&quot;;
+auto&amp; iter = s[3];
+
+cout &lt;&lt; iter &lt;&lt; endl;    // 输出s[3],也就是's'
+
+s.insert(s.begin(), 'e');    // s = &quot;ethisisastring&quot;
+cout &lt;&lt; iter &lt;&lt; endl;  // 查看 iter指向是否改变
+
+// 改变下iter内容
+iter = 'g';
+cout &lt;&lt; s &lt;&lt; endl;
+
+//s
+//i
+//ethgsisastring
+</code></pre>
+<p>就是说，引用指针指向的容器下标还是原来的位置，但是内容是被往后移动了。</p>
+<ul>
+<li>对于 deque，插入到除首尾位置之外的任何位置都会导致迭代器、指针和引用失效。如果在首尾位置添加元素，迭代器失效，但指向存在的元素的引用和指针不会失效。</li>
+</ul>
+<pre><code class="lang-c++"> deque&lt;int&gt; deq = { 0, 1, 2, 3, 4 ,5 };
+ auto iter = deq.begin();
+ cout &lt;&lt; *iter++ &lt;&lt; endl;
+
+deq.push_front(10);
+cout &lt;&lt; *iter &lt;&lt; endl;	// 直接报错了
+</code></pre>
+<pre><code class="lang-c++">deque&lt;int&gt; deq = { 0, 1, 2, 3, 4 ,5 };
+auto&amp; iter = deq[2];	// iter 指向 deq[2]
+cout &lt;&lt; iter &lt;&lt; endl;
+
+deq.push_front(10);	// deq ={10, 0, 1, 2, 3, 4 ,5}
+cout &lt;&lt; iter &lt;&lt; endl;	// iter 指向 deq[3]
+</code></pre>
+<ul>
+<li>对于 list 和 forward_list， 指向容器的迭代器（包括尾后迭代器和首前迭代器）、指针和引用仍然有效。</li>
+</ul>
+<h4 id="删除元素后">删除元素后：</h4>
+<ul>
+<li><p>对于 list 和 forward_list，指向容器其他位置的迭代器（包括尾后迭代器和首前迭代器）、指针和引用仍然有效。</p>
+</li>
+<li><p>对于 deque，如果在首尾之外的任何位置删除元素，那么指向被删除元素外其他元素的迭代器，引用和指针也会失效。如果删除deque的尾元素，则尾后迭代器也会失效，但其他迭代器、引用和指针不受影响；如果删除首元素，这些也不会受影响。</p>
+</li>
+</ul>
+<pre><code class="lang-c++">deque&lt;int&gt; deq = { 0, 1, 2, 3, 4 ,5 };
+auto&amp; iter = deq[2];
+cout &lt;&lt; iter &lt;&lt; endl;	// iter 指向deq[2]，内容为 2
+
+deq.pop_front();		// deq = {1, 2, 3, 4 ,5}
+cout &lt;&lt; iter &lt;&lt; endl;	// iter 指向 deq[1]，内容为2
+</code></pre>
+<pre><code class="lang-c++">deque&lt;int&gt; deq = { 0, 1, 2, 3, 4 ,5 };
+auto&amp; iter = deq[2];	
+cout &lt;&lt; iter &lt;&lt; endl;	// iter 指向deq[2]，内容为 2
+
+auto it = deq.begin();
+it++;   // it 指向 deq[1]
+
+deq.erase(it);			// 干掉 deq[1],deq = {0, 2, 3, 4, 5}
+cout &lt;&lt; iter &lt;&lt; endl;	// iter指向 deq[1], 即内容为 2
+</code></pre>
+<ul>
+<li>对于 vector 和 string，指向被删元素之前元素的迭代器、引用和指针仍有效。</li>
+</ul>
+<h3 id="不要缓冲容器的-end-函数">不要缓冲容器的 end() 函数</h3>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter9/9.3.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

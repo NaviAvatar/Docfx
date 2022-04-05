@@ -564,6 +564,42 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter10/10.1.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter10/10.1.html",
+          "hash": "F2XT8fksh4AlxC7zOImRVoekW4SWMl0xB1t/tRmQ0qw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter10/10.2.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter10/10.2.html",
+          "hash": "8Rd2fkrzQJ+RkQi8M2wc+MMEugPFGxn2+LhKmzhK1GQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter10/10.3.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter10/10.3.html",
+          "hash": "w80IrSRCtGkxCUuUeOW6M63bTNx2NbJM0XUOEGj+AL0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "Languages/Chapter2/2.1.md",
       "output": {
         ".html": {
@@ -952,7 +988,7 @@
       "output": {
         ".html": {
           "relative_path": "Languages/Chapter8/8.1.html",
-          "hash": "PClJCbNsS4aAypUkPY6dtdOUFuKbj8gwkkJjbc/xzb0="
+          "hash": "oq425BPhPyi/uV+KfgPyugIZSmmPJ3FXW0RThhAcVKQ="
         }
       },
       "is_incremental": false,
@@ -964,19 +1000,67 @@
       "output": {
         ".html": {
           "relative_path": "Languages/Chapter8/8.2.html",
-          "hash": "SF7PLdGwhV+yJe+PyJ16ZIiaQ5oatGQ0pt/J2bVfeYk="
+          "hash": "tp8oifvEii6tTXc+7gfmm04YTY5SMth/DlVQqrl7YfE="
         }
       },
       "is_incremental": false,
       "version": ""
     },
     {
-      "type": "Toc",
-      "source_relative_path": "Languages/Chapter8/toc.yml",
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter9/9.1.md",
       "output": {
         ".html": {
-          "relative_path": "Languages/Chapter8/toc.html",
-          "hash": "4qnhp7qTAdIrFuG50bxgt6b6/hWegNiutJhNGVhxocw="
+          "relative_path": "Languages/Chapter9/9.1.html",
+          "hash": "i3WJtMfqPkiWrU4wnuf1iaCkbr1IXpifQK5aRhbJyFI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter9/9.3.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter9/9.3.html",
+          "hash": "9yyGELwYWFhgXMMXPIkSlMSJf7H4BXm1FYvcmE9N8RU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter9/9.4.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter9/9.4.html",
+          "hash": "PNdOG01C3+mPBDPGl5j+QSGU5VtjSQtTFNvrlBvOskQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter9/9.5.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter9/9.5.html",
+          "hash": "EgG2OXR1XAZvc6PAmcuDWfo0FpZj86gcwtJm6OoXWg0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter9/9.6.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter9/9.6.html",
+          "hash": "6vfjw3fBsXFJvNM4GwMWza2RrktXyTIjWS0SG3CRNrc="
         }
       },
       "is_incremental": false,
@@ -988,7 +1072,7 @@
       "output": {
         ".html": {
           "relative_path": "Languages/toc.html",
-          "hash": "oIkkZsCoV1XIChY/B1BNihJnbHxm1rkgldx5W3KPsrY="
+          "hash": "bCWXOjJXXLsP5O3yECSdj6ldcaoqIqi3LK/4rYW5faw="
         }
       },
       "is_incremental": false,
@@ -1055,8 +1139,8 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 55,
-          "skipped_file_count": 50
+          "total_file_count": 63,
+          "skipped_file_count": 62
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

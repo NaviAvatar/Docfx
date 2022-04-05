@@ -12,3 +12,9 @@
   href: Chapter6/toc.yml
 - name: 第七章 类
   href: Chapter7/toc.yml
+- name: 第八章 流
+  href: Chapter8/toc.yml
+- name: 第九章 顺序容器
+  href: Chapter9/toc.yml
+- name: 第十章 泛型算法
+  href: Chapter10/toc.yml
