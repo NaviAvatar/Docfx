@@ -200,6 +200,38 @@ void PostOrder(TreeNode&lt;t&gt;* root)
     }
 }
 </code></pre>
+<h3 id="层次遍历">层次遍历</h3>
+<p>利用队列来赋值遍历树的每个结点。</p>
+<p>①从第一层开始，结点入队，执行完毕。</p>
+<p>②队不为空，出队，并将出队的结点按左孩子先入队，再右孩子入队。</p>
+<p>循环①②，直到队空。</p>
+<pre><code class="lang-c++">// 层次遍历
+template&lt;class t&gt;
+void LevelOrder(TreeNode&lt;t&gt;* root)
+{
+    if (root == nullptr)
+        return;
+
+    queue&lt;TreeNode&lt;t&gt;*&gt; que;
+    TreeNode&lt;t&gt;* current;   // 当前结点
+    que.push(root);
+
+    while (!que.empty()) // 队不为空，执行循环
+    {
+        // 队头元素出队
+        current = que.front();
+        que.pop();
+
+        visit(current);
+
+        if (current-&gt;lChild)    // 左孩子不为空，左孩子入队
+            que.push(current-&gt;lChild);
+
+        if (current-&gt;rChild)    // 右孩子不为空，右孩子入队
+            que.push(current-&gt;rChild);
+    }
+}
+</code></pre>
 </article>
           </div>
           

@@ -18,3 +18,7 @@
   href: Chapter9/toc.yml
 - name: 第十章 泛型算法
   href: Chapter10/toc.yml
+- name: 第十一章 关联容器
+  href: Chapter11/toc.yml
+- name: 第十二章 动态内存
+  href: Chapter12/toc.yml

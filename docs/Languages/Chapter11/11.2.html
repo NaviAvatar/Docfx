@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>11.2 &#20851;&#32852;&#23481;&#22120; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="11.2 &#20851;&#32852;&#23481;&#22120; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="112-关联容器">11.2 关联容器</h1>
+
+<p>​	关联容器不支持顺序容器的位置相关的操作，列如 push_front 或 push_back。原因是关联容器中元素是根据关键字存储的，这些操作对关联容器没有意义。</p>
+<h2 id="1121-定义关联容器">11.2.1 定义关联容器</h2>
+<p>​	当定义一个 map 时，必须指明关键字类型又指明值类型。而定义一个 set 时，只需指明关键字类型，因为 set 中没有值。每个关联容器都定义了一个默认构造函数。也可以将关联容器初始化为另一个同类型容器的拷贝，或是从一个值范围来初始化关联容器，只要这些值可以转化为容器所需类型就可以。</p>
+<pre><code class="lang-c++">map&lt;string ,size_t&gt; word_count;
+set&lt;string&gt; exclude = {&quot;the&quot;, &quot;but&quot;, &quot;and&quot;, &quot;or&quot;, &quot;an&quot;, &quot;a&quot;,&quot;The&quot;, &quot;But&quot;, &quot;And&quot;, &quot;Or&quot;, &quot;An&quot;, &quot;A&quot;};
+
+map&lt;string, string&gt; authors = {{&quot;Joyce&quot;, &quot;James&quot;}, 
+                               {&quot;Austen&quot;, &quot;Jane&quot;},
+                               {&quot;Dickens&quot;, &quot;Charles&quot;}};
+</code></pre>
+<h3 id="初始化-multimap-或-multiset">初始化 multimap 或 multiset</h3>
+<p>​	一个map 或 set 中的关键字必须唯一，即，对于一个给定的关键字，只能有一个元素的关键字等于它。容器 multimap 和 multiset 没有此限制，它们都允许多个元素具有相同的关键字。</p>
+<pre><code class="lang-c++">map&lt;string, int&gt; simple;
+pair&lt;string, int&gt; p;
+p.first = &quot;this&quot;;
+p.second = 9;
+simple.insert(p);
+p.first = &quot;this&quot;;
+p.second = 10;
+simple.insert(p);
+
+for (auto&amp; r : simple) {
+    cout &lt;&lt; r.first &lt;&lt; &quot; &quot; &lt;&lt; r.second &lt;&lt; endl;
+}
+</code></pre>
+<p>打印：</p>
+<p>this 9</p>
+<p>说明 map 的第二次插入失败了。事实上 map 类型的对象simple在调用 insert 后，会返回一个pair，这个pair 的second是一个bool类型，true说明插入成功，false说明插入失败。</p>
+<pre><code>multimap&lt;string, int&gt; multi;
+pair&lt;string, int&gt; p;
+p.first = &quot;this&quot;;
+p.second = 9;
+multi.insert(p);
+p.first = &quot;this&quot;;
+p.second = 10;
+multi.insert(p);
+
+for (auto&amp; r : multi) {
+    cout &lt;&lt; r.first &lt;&lt; &quot; &quot; &lt;&lt; r.second &lt;&lt; endl;
+}
+</code></pre>
+<p>打印：</p>
+<p>this 9</p>
+<p>this 10</p>
+<p>说明第二次插入成功了，multimap 是允许关键字相同的 pair 插入的！</p>
+<h2 id="1122-关键字类型的要求">11.2.2 关键字类型的要求</h2>
+<p>​	关联容器对其关键字类型有一些限制。对于有序容器——map、multimap set 以及 multiset，关键字类型必须定义元素比较的方法。默认情况下，标准库使用关键字类型 &lt; 运算符来比较两个关键字。在集合类型中，关键字类型就是元素类型；在映射类型中，关键字类型是元素的第一部分的类型。</p>
+<h3 id="有序容器的关键字类型">有序容器的关键字类型</h3>
+<p>​	可以向一个算法提供我们自己定义的比较操作，与之类似，也可以提供自己定义的操作来代替关键字上的 &lt; 运算符。所提供的操作必须在关键字类型上定义一个<strong>严格弱序</strong>。可以将<strong>严格弱序</strong>看做 “小于等于”，虽然实际定义的操作可能是一个复杂的函数。无论我们怎样定义比较函数，它必须具备如下基本性质：</p>
+<ul>
+<li><p>两个关键字不能同时 “小于等于” 对方；如果 k1 “小于等于” k2，那么 k2 绝不能 “小于等于” k1。</p>
+</li>
+<li><p>如果 k1 “小于等于” k2，且 k2 “小于等于” k3，那么 k1 必须 “小于等于” k3。</p>
+</li>
+<li><p>如果存在两个关键字，任何一个不 “小于等于” 另一个，那么我们称这两个关键字是“等价”的。如果 k1 “等价于” k2，且 k2 &quot;等价于&quot; k3，那么 k1 必须 “等价于” k3。</p>
+</li>
+</ul>
+<p>如果两个关键字是等价的（任何一个都不 “小于等于” 另一个），那么容器将它们视作相等来处理。当做 map 的关键字时，只能有一个元素与这两个关键字关联，我们可以用两者中任意一个来访问对应的值。</p>
+<h3 id="使用关键字类型的比较函数">使用关键字类型的比较函数</h3>
+<p>​	还记得 Sales_data 类型吗？我们现在可不能直接定义用 Sales_data 做关键字的 multiset，因为Sales_data 还没有 &lt; 运算符。可以定义一个 compareIsbn 函数，这个函数用于在 Sales_data 对象的 ISBN 成员上定义一个<strong>严格弱序</strong>。</p>
+<pre><code class="lang-c++">bool compareIsbn(const Sales_data&amp; lhs, const Sales_data&amp; rhs)
+{
+    return lhs.isbn() &lt; rhs.isbn();
+}
+</code></pre>
+<p>为了使用自己定义的操作，在定义 multiset 时我们必须提供两个类型：关键字类型 Sales_data 和 比较操作类型——函数指针类型，指向 compareIsbn。</p>
+<pre><code class="lang-c++">multiset&lt;Sales_data, decltype(compareIsbn)*&gt; bookstore(compareIsbn);
+
+// 等价于multiset&lt;Sales_data, bool(*)(const Sales_data&amp;, const Sales_data&amp;)&gt; bookStore(compareIsbn);
+</code></pre>
+<p>用 compareIsbn 来初始化 bookstore 对象，意味当向 bookstore 添加元素时，通过调用 compareIsbn 来为这些元素排序。</p>
+<h2 id="1123-pair-类型">11.2.3 pair 类型</h2>
+<p>定义在头文件 utility 中。</p>
+<p>见名知意，pair 就是一对{关键字，值}；上文我们已经用到了 pair 对象当做参数调用 map的 insert 函数。</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pair&lt;T1, T2&gt; p;</td>
+<td>p 是一个 pair，两个类型分别为 T1 和 T2 的成员都进行了值初始化</td>
+</tr>
+<tr>
+<td>pair&lt;T1, T2&gt; p(v1, v2)</td>
+<td>p 是一个成员类型为 T1 和 T2 的pair；first 和 second 成员分别用 v1 和 v2 进行初始化。</td>
+</tr>
+<tr>
+<td>pair&lt;T1, T2&gt;p = {v1, v2};</td>
+<td>等价于 pair&lt;T1, T2&gt; p(v1, v2)</td>
+</tr>
+<tr>
+<td>make_pair(v1, v2)</td>
+<td>返回一个用 v1 和 v2 初始化的 pair。pair 的类型从 v1 和 v2 的类型推断出来的</td>
+</tr>
+<tr>
+<td>p.first</td>
+<td>返回 p 的名为 first 的数据成员</td>
+</tr>
+<tr>
+<td>p.second</td>
+<td>返回 p 的名为 second 的数据成员</td>
+</tr>
+<tr>
+<td>p1 relop p2</td>
+<td>关系运算符（&lt;、&lt;=、&gt;、&gt;=）按字典序定义：如，p1.first &lt; p2.first 或 !(p2.first &lt; p1.first) &amp;&amp; p1.second &lt; p2.second 成立时，p1 &lt; p2 为true。</td>
+</tr>
+<tr>
+<td>p1 == p2</td>
+<td>当 first 和 second 成员分别相等时，两个 pair 相等。</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-c++">pair&lt;string, string&gt; anon;
+pair&lt;string, vector&lt;int&gt;&gt; line;
+
+pair&lt;string, string&gt; authors{&quot;?James&quot;, &quot;Joyce&quot;};
+</code></pre>
+<h3 id="创建-pair-对象的函数">创建 pair 对象的函数</h3>
+<pre><code class="lang-c++">pair&lt;string, int&gt; process(vector&lt;string&gt;&amp; v)
+{
+    if(!v.empty())
+    {
+        return {v.back(), v.back().size()};	// 列表初始化
+    }
+    else{
+        return pair&lt;string, int&gt;();	// 隐式构造返回值
+    }
+}
+</code></pre>
+<p>或者</p>
+<pre><code class="lang-c++">pair&lt;string, int&gt; process(vector&lt;string&gt;&amp; v)
+{
+    if(!v.empty())
+    {
+        return make_pair(v.back(), v.back().size());	// 列表初始化
+    }
+    else{
+        return pair&lt;string, int&gt;();	// 隐式构造返回值
+    }
+}
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter11/11.2.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

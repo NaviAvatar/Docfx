@@ -1,0 +1,319 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>12.1 &#21160;&#24577;&#20869;&#23384;&#21644;&#26234;&#33021;&#25351;&#38024; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="12.1 &#21160;&#24577;&#20869;&#23384;&#21644;&#26234;&#33021;&#25351;&#38024; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="121-动态内存和智能指针">12.1 动态内存和智能指针</h1>
+
+<p>先了解几个名词。</p>
+<p>静态内存：操作系统保存局部 static 对象、类 static 数据成员以及定义在任何函数之外的变量。</p>
+<p>栈内存：保存定义在函数内的非 static 对象。</p>
+<p>堆内存：动态分配的对象的存储地区。</p>
+<p>操作系统分配在静态或栈内存中的对象由编译器自动创建和销毁。栈对象仅在其定义的程序块运行时才存在。static 对象在使用之前分配，在程序结束时销毁。</p>
+<p>存放在堆内存的对象，由程序控制，如果不在需要这些对象，就应该手动显示释放掉，否则就存在内存泄漏。</p>
+<p>动态内存容易出现的问题：</p>
+<ul>
+<li>对象不需要了忘记显示释放。</li>
+<li>对象还需要，但是提前释放了，等到再去访问，就出现非法访问的情况。</li>
+</ul>
+<p>为了解决上述问题，新的标准库引入了两种智能指针类型来管理动态对象。智能指针负责自动释放所指向的对象。</p>
+<table>
+<thead>
+<tr>
+<th>智能指针</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>shared_ptr</td>
+<td>允许多个指针指向同一个对象</td>
+</tr>
+<tr>
+<td>unique_ptr</td>
+<td>“独占” 所指向的对象</td>
+</tr>
+<tr>
+<td>weak_ptr</td>
+<td>弱引用，指向 shared_ptr 所管理的对象。</td>
+</tr>
+</tbody>
+</table>
+<p>上述三种指针都定义在头文件 memory 中。</p>
+<h2 id="1211-shared_ptr-类">12.1.1 shared_ptr 类</h2>
+<p>智能指针是一种模板。创建智能指针时，必须提供额外的信息——指针可以指向的类型。</p>
+<pre><code class="lang-c++">shared_ptr&lt;string&gt; p1;	// 指向 string
+shared_ptr&lt;list&lt;int&gt;&gt; p2;	// 指向int的list
+</code></pre>
+<p>默认初始化的智能指针中保存着一个空指针。</p>
+<p>智能指针解引用得到其指向的对象：</p>
+<pre><code class="lang-c++">if(p1 &amp;&amp; p1-&gt;empty())
+    *p1 = &quot;Hi&quot;;
+</code></pre>
+<p>操作表：</p>
+<table>
+<thead>
+<tr>
+<th>Shared_ptr 和 unique_ptr 支持的操作</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>shared_ptr<t> sp</t></td>
+<td>空智能指针，可以指向类型为T的对象</td>
+</tr>
+<tr>
+<td>unique_ptr<t> up</t></td>
+<td>空智能指针，可以指向类型为T的对象</td>
+</tr>
+<tr>
+<td>p</td>
+<td>将 p 用作一个条件判断，若 p 指向一个对象，则为true</td>
+</tr>
+<tr>
+<td>*p</td>
+<td>解引用 p，获得它返回的对象</td>
+</tr>
+<tr>
+<td>p-&gt;mem</td>
+<td>等价于(*p).mem，mem是p指向对象的一个成员</td>
+</tr>
+<tr>
+<td>p.get()</td>
+<td>返回 p 中保存的指针。要小心使用，若智能指针释放了其对象，返回的指针所指向的对象也就消失了</td>
+</tr>
+<tr>
+<td>swap(p, q)</td>
+<td>交换p 和 q中的指针</td>
+</tr>
+<tr>
+<td>p.swap(q)</td>
+<td>交换p 和 q中的指针</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Shared_ptr 独有的操作</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>make_shared<t> (args)</t></td>
+<td>返回一个 shared_ptr，指向一个动态分配的类型为T的对象。使用args初始化此对象</td>
+</tr>
+<tr>
+<td>shared_ptr<t>p (q)</t></td>
+<td>p 是 shared_ptr q 的拷贝；此操作会递增q中的计数器。q中的指针必须能转换为T*</td>
+</tr>
+<tr>
+<td>p = q</td>
+<td>p 和 q 都是shared_ptr，所保存的指针必须能相互转换。此操作会递减p的引用计数；若 p 的引用计数变为 0，则将其管理的原内存释放。</td>
+</tr>
+<tr>
+<td>p.unique()</td>
+<td>若 p.use_count() 为1，返回true；否则返回false。</td>
+</tr>
+<tr>
+<td>p.use_count()</td>
+<td>返回与p共享对象的智能指针数量；可能很慢，主要用于调试。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="make_shared-函数">make_shared 函数</h3>
+<p>​	最安全的分配和使用动态内部的方法是调用一个名为 make_shared 的标准库函数。此函数在动态内存中分配一个对象并初始化它，返回指向此对象的 shared_ptr。</p>
+<p>​	使用 make_shared 时，必须指定想要创建的对象的类型。定义方式与模板类型相同，在函数名之后跟一个尖括号，在其中给出类型：</p>
+<pre><code class="lang-c++">// 指向一个值为 42 的 int 的 shared_ptr
+shared_ptr&lt;int&gt; p3 = make_shared&lt;int&gt;(43);
+
+// 指向一个值为 “9999999999” 的string
+shared_ptr&lt;string&gt; p4 = make_shared&lt;string&gt;(10, '9');
+
+// 指向一个值初始化的int，值为0
+shared_ptr&lt;int&gt; p5 = make_shared&lt;int&gt;();
+</code></pre>
+<p>类似容器的 emplace 成员，make_shared 用其参数来构造给定类型的对象。</p>
+<h3 id="shared_ptr-的拷贝和赋值">shared_ptr 的拷贝和赋值</h3>
+<p>​	当进行拷贝或赋值操作时，每个shared_ptr 都会记录有多少个其他 shared_ptr 指向相同的对象：</p>
+<pre><code class="lang-c++">auto p = make_shared&lt;int&gt;(42);	// 此时 p指向对象只有一个引用者
+auto q(p);	// 此时 p 和 q指向相同对象，此对象有两个引用者
+</code></pre>
+<p>​	我们可以认为每个 shared_ptr 都有一个关联的计数器，通常称其为引用计数。无论何时我们拷贝一个 shared_ptr，计数器都会递增。列如，当用一个 shared_ptr 初始化另一个 shared_ptr，或将它作为参数传递给一个函数以及作为函数的返回值时，它所关联的计数器就会递增。当我们给 shared_ptr 赋予一个新值或是 shared_ptr 被销毁（列如一个局部的shared_ptr 离开其作用域时），计数器就会递减。</p>
+<p>​	当一个 shared_ptr 的计数器为0时，他就会自动释放自己所管理的对象：</p>
+<pre><code class="lang-c++">auto r= make_shared&lt;int&gt;(42);	// r 指向的对象此时只有一个引用者
+r = q;	// 将 q 赋值给r，r 指向另一地址
+		// 递增q指向对象的引用计数
+		// 递减r 原来指向对象的引用计数
+		// r 原来指向的对象已经没有引用者，会自动释放
+</code></pre>
+<h3 id="shared_ptr-自动销毁所管理的对象">shared_ptr 自动销毁所管理的对象</h3>
+<p>shared_ptr 的析构函数会递减它所指向对象的引用计数。如果引用计数变为 0，shared_ptr 的析构函数就会销毁对象，并释放它占用的内存。</p>
+<p>由于在最后一个 shared_ptr 销毁前内存都不会释放，保证 shared_ptr 在无用之后不再保留就非常重要。shared_ptr 在无用之后仍然保留的一种情况是：将 shared_ptr 存放在一个容器中，随后重排了容器，从而不再需要某些元素。在这种情况下，应该确保用 erase 删除那些不再需要的 shared_ptr 元素。</p>
+<pre><code class="lang-c++">class Student {
+public:
+    string Name;
+    int Age;
+    Student() = default;
+    Student(string name, int age) :Name(name), Age(age) {}
+    ~Student() {
+        cout &lt;&lt; &quot;Student destroy&quot; &lt;&lt; endl;
+    }
+};
+
+shared_ptr&lt;Student&gt; factory(string name, int age = 18)
+{
+    return make_shared&lt;Student&gt;(name, age);
+}
+
+void testF()
+{
+    vector&lt;shared_ptr&lt;Student&gt;&gt; svec = { make_shared&lt;Student&gt;(&quot;vincent&quot;, 16),
+                                      make_shared&lt;Student&gt;(&quot;clock&quot;, 12),
+                                      make_shared&lt;Student&gt;(&quot;ted&quot;, 16),
+                                      make_shared&lt;Student&gt;(&quot;smith&quot;, 19) };
+
+    sort(svec.begin(), svec.end(), [](const shared_ptr&lt;Student&gt;&amp; s1, const shared_ptr&lt;Student&gt;&amp; s2) {
+        return s1-&gt;Age &lt; s2-&gt;Age;
+    });
+
+	// 打印
+    for (auto s : svec)
+    {
+        cout &lt;&lt; &quot; Name: &quot; &lt;&lt; s-&gt;Name &lt;&lt; &quot;  age: &quot; &lt;&lt; s-&gt;Age &lt;&lt; endl;            
+    }
+}
+
+int main(int argc, char* argv[])
+{ 
+    testF();
+    return 0;
+}
+</code></pre>
+<p>这里看了一下，最后的输出信息显示所有的智能指针指向的对象都清除了：</p>
+<pre><code class="lang-c++">Name: clock  age: 12
+Name: vincent  age: 16
+Name: ted  age: 16
+Name: smith  age: 19
+Student destroy
+Student destroy
+Student destroy
+Student destroy
+</code></pre>
+<p>也就是说，只要容器能够被销毁，那么智能指针也会随着销毁。没必要担心，可能文中说的是一个常驻的容器吧。</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter12/12.1.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
