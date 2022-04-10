@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>1.2 &#25805;&#20316;&#31995;&#32479;&#21457;&#23637;&#21644;&#20998;&#31867; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="1.2 &#25805;&#20316;&#31995;&#32479;&#21457;&#23637;&#21644;&#20998;&#31867; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="12-操作系统发展和分类">1.2 操作系统发展和分类</h1>
+
+<p>背景：用户在计算机上算题的所有工作都是人工干预，程序的装入、运行、结果输出等。用户独占全机，cpu等资源利用率低。</p>
+<h3 id="单道批处理系统">单道批处理系统</h3>
+<p>系统对作业的处理是成批输入的，但内存中始终保持一道作业。单道批处理系统主要解决的是人机矛盾、cpu 和 IO设备速率不匹配的矛盾。</p>
+<p>一些特性</p>
+<ul>
+<li>自动性。磁带上的一批作业能自动地逐个运行，无序人工干预。</li>
+<li>顺序性。磁带上的各道作业顺序地进入内存，各道作业的完成顺序与它们进入内存的顺序在正常情况下形同。</li>
+<li>单道性。内存中仅有一道程序运行，即监督程序每次从磁带上只调入一道程序进入内存运行，当该程序完成或发生异常时，才换入其后继程序进入内存运行。</li>
+</ul>
+<p>缺点：当程序运行的某一时段不需要cpu和IO等其他设备时，这些资源就没得到使用，极大的“浪费”了。</p>
+<h3 id="多道批处理系统">多道批处理系统</h3>
+<p>​	多道批处理系统允许多个程序同时进入内存并允许它们在 cpu 中交替地运行，这些程序共享系统中的各种硬件软件资源。比如当作业A在内存中正在使用 cpu，下一刻，它不用了，它要用 IO 设备输出结构，在作业A输出结果这段时间，作业B可以立即使用cpu。</p>
+<p>多道操作系统的特点是多道、宏观上并行（并发）、微观上串行。</p>
+<p>优点：资源利用率高，各种资源得到充分利用；系统吞吐量大。</p>
+<p>缺点：用户响应时间长；不提供人机交互能力，用户不能了解自己的程序运行情况。</p>
+<h3 id="分时系统">分时系统</h3>
+<p>​	把处理器的运行时间分成很短的时间片，按时间片轮流把处理器分配给各联机作业使用。若某个作业分配给它的时间片内不能完全其计算，则该作业暂时停止运行，把处理器让给其他作业使用，等待下一轮再继续运行。因为计算速度很快，作业运行轮转也很快，用户感觉自己独占一台计算机。</p>
+<p>​	分时操作系统值多个用户通过终端同时共享一台主机，这些终端连接在主机上，用户可以同时与主机进行交互操作而互不干扰。比起多道批处理系统，分时系统解决了人机交互的情况。</p>
+<p>有以下特征：</p>
+<ul>
+<li>同时性。同时性也称多路性，指允许多个终端用户同时使用一台计算机，即一台计算机与若干台终端向连接，终端用户可以同时使用计算机。</li>
+<li>交互性。用户能方便地与系统进行人机对话，即用户通过终端采用人机对话方式直接控制程序运行。</li>
+<li>独立性。系统多个用户可以独立地进行操作，互不干扰，单个用户感觉不到别人也在使用这台计算机，好像只有自己单独使用这台计算机一样。</li>
+<li>及时性。用户请求能在很短时间内获得响应。分时系统采用时间片轮转方式使一台计算机同时为多个终端服务，使用户能够对系统的及时响应感到满意。</li>
+</ul>
+<p>虽然分时系统已经很好了，比如我们现代大多数人用的windows系统，就是一个分时系统，但是有一些作业运行要求很高，比如军方的一些导弹系统，要求时间片很短。这是分时系统就做不到了。</p>
+<h3 id="实时操作系统">实时操作系统</h3>
+<p>为了能在某个时间限制内完成某些紧急任务而不需要时间片排队，科学家们就发明了实时操作系统。这里的时间限制可以分为两种情况：</p>
+<ul>
+<li>某个动作必须绝对地在规定的时刻（规定的时间范围内）发生，称为<strong>硬实时系统</strong>，如飞行自动控制系统，自动跟踪导弹系统等。</li>
+<li>若能够接受偶尔违反时间规定且不会引起任何永久性的伤害，则称为软实时系统，如飞机订票系统，银行管理系统。</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/OperatingSystem/Chapter1/1.2.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

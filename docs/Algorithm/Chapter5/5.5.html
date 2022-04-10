@@ -110,6 +110,153 @@ TreeNode&lt;t&gt;* search_key(TreeNode&lt;t&gt;* root, t key)
 }
 </code></pre>
 <h3 id="二叉排序树的插入">二叉排序树的插入</h3>
+<pre><code class="lang-c++">template&lt;class t&gt;
+TreeNode&lt;t&gt;* search_father(TreeNode&lt;t&gt;* root, t key)
+{
+    TreeNode&lt;t&gt;* father = nullptr;
+    TreeNode&lt;t&gt;* current = root;
+    while (current &amp;&amp; current-&gt;Data != key)
+    {
+        if (current-&gt;Data &lt; key)
+        {
+            father = current;
+            current = current-&gt;rChild;
+        }
+        else
+        {
+            father = current;
+            current = current-&gt;lChild;
+        }
+    }
+
+    return father;
+}
+
+template&lt;class t&gt;
+int GetChildrenNum(TreeNode&lt;t&gt;* root)
+{
+    if (root-&gt;lChild &amp;&amp; root-&gt;rChild) // 左右孩子都存在
+        return 2;
+
+    if (root-&gt;lChild == nullptr &amp;&amp; root-&gt;rChild == nullptr) // 叶子结点
+        return 0;
+    
+    return 1;
+}
+
+// 中序遍历中查找当前结点的后继结点
+template&lt;class t&gt;
+TreeNode&lt;t&gt;* FindInOrderNext(TreeNode&lt;t&gt;* current)
+{
+    // 中序遍历的结点的后继肯定在右子树
+    TreeNode&lt;t&gt;* exist = current-&gt;rChild;
+    if (exist == nullptr)   // 没有后继
+        return nullptr;
+
+     TreeNode&lt;t&gt;* next = nullptr; // 指向后继结点
+    while (exist)
+    {
+        if (exist)  // 一路向左
+        {
+            next = exist;
+            exist = exist-&gt;lChild;
+        }
+        else {
+            return next;
+        }
+    }
+
+    return next;
+}
+
+// 二叉树的删除
+template&lt;class t&gt;
+void Delete(TreeNode&lt;t&gt;* root, t key)
+{
+    TreeNode&lt;t&gt;* father = nullptr;
+    TreeNode&lt;t&gt;* current = search_key(root, key);   // 找到 key 结点
+    
+    if (!current)    // 为空，直接返回
+        return;
+
+    father = search_father(root, key);
+    while (current != nullptr)
+    {
+        int count = GetChildrenNum(current);
+
+        // 叶子结点直接删除
+        if (count == 0)
+        {
+            if (father) {
+                if (father-&gt;lChild == current) {
+                    father-&gt;lChild = nullptr;
+                }
+                else {
+                    father-&gt;rChild = nullptr;
+                }
+            }
+           
+            delete current;
+            current = nullptr;
+            return;
+        }
+        else if (count == 1)    // 只有一个孩子
+        {
+            auto child = current-&gt;lChild ? current-&gt;lChild : current-&gt;rChild;   // 获取删除结点的孩子
+            father = search_father(root, current-&gt;Data);
+
+            if (father-&gt;lChild == current)
+                father-&gt;lChild = child;
+            else
+                father-&gt;rChild = child;
+
+            delete current;
+            current = nullptr;
+            return;
+        }
+        else // 两个孩子都存在
+        {
+            TreeNode&lt;t&gt;* next = FindInOrderNext(current);
+            
+            // 找到父亲节点
+            father = search_father(root, next-&gt;Data);
+
+            if(next)
+                current-&gt;Data = next-&gt;Data;
+            
+            current = next; // 将后继结点继续做判断
+        } 
+    }
+}
+</code></pre>
+<p>貌似有问题，比如不能删除根结点，正确的做法是应该利用线索化二叉树来做。</p>
+<h2 id="552-平衡二叉树">5.5.2 平衡二叉树</h2>
+<h3 id="定义-1">定义</h3>
+<p>​	为避免树的高度增长过快，降低二叉排序树的性能，规定在插入和删除二叉树结点时，要保证任意结点的左、右子树高度差的绝对值不超过1，称为平衡二叉树。（BBT）</p>
+<p>平衡因子：左子树和右子树的高度差。</p>
+<h3 id="平衡二叉树的插入">平衡二叉树的插入</h3>
+<p>二叉排序树保证平衡的基本思想如下：每当在二叉排序树中插入（或删除）一个结点时，首先检查其插入路径上的结点是否因为此操作而导致了不平衡。若导致不平衡，则先找到插入路径上离插入结点最近的平衡因子的绝对值大于1的结点A，再对以A为根的子树，在保证二叉排序树特性的前提下，调整各结点的位置。</p>
+<h4 id="ll-平衡旋转">LL 平衡旋转</h4>
+<p>情况：在结点A的左孩子的左子树上插入了新结点，单重A的平衡因子由1变成了2。</p>
+<p>方法：将A的左孩子B由右上旋转代替A称为根结点，将A结点向右下旋转称为B的右子树的根结点，而B的原右子树则作为A结点的左子树。</p>
+<p><img src="pictures/chapter5-5-2.png" alt="5-5-2"></p>
+<h4 id="rr-平衡旋转">RR 平衡旋转</h4>
+<p>情况：由于在结点A的右孩子的右子树上插入了新结点，A的平衡因子由-1变为-2，导致以A为根的子树失去平衡，需要一次向左的旋转操作。</p>
+<p>解决：将A的右孩子B向左上旋转代替A称为根结点，将结点A向左下旋转成B的左子树的根结点，而B的原左子树则作为A结点的右子树。</p>
+<p><img src="pictures/chapter5-5-3.png" alt="5-5-3"></p>
+<h4 id="lr-平衡旋转">LR 平衡旋转</h4>
+<p>情况：由于在A的左孩子的右子树上插入新结点，A的平衡因子由1变为2，导致以A为根结点的子树失去平衡。</p>
+<p>解决：先将A结点的左孩子B的右子树的根结点C向左上旋转提升到B结点的位置，再把该C结点向右上旋转提升到A结点的位置。</p>
+<p><img src="pictures/chapter5-5-4.png" alt="5-3-4"></p>
+<h4 id="rl-平衡旋转">RL 平衡旋转</h4>
+<p>情况：由于在A的右孩子的左子树上插入新结点，A的平衡因子由-1变为-2，导致以A为根的子树失去平衡。</p>
+<p>解决：先将A的右孩子B的左子树的根结点C向右上旋转提升到B结点位置，然后把C结点向左上旋提升到A的位置。</p>
+<p><img src="pictures/chapter5-5-5.png" alt="5-5-5"></p>
+<h2 id="553-哈夫曼树和哈夫曼编码">5.5.3 哈夫曼树和哈夫曼编码</h2>
+<h3 id="定义-2">定义</h3>
+<p>从树根到任意结点的路径长度（经过的边数）与该结点权值的乘积称为该结点的带权路径长度。</p>
+<p>树中所有结点的带权路径长度之和称为该树的带权路径长度。</p>
+<p>其他略。（待补充）</p>
 </article>
           </div>
           

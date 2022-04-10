@@ -277,6 +277,233 @@ Student destroy
 Student destroy
 </code></pre>
 <p>也就是说，只要容器能够被销毁，那么智能指针也会随着销毁。没必要担心，可能文中说的是一个常驻的容器吧。</p>
+<h2 id="1212-直接管理内存">12.1.2 直接管理内存</h2>
+<h3 id="new-关键字">new 关键字</h3>
+<p>分配空间使用 new：</p>
+<pre><code class="lang-c++">// 分配空间但是未初始化
+int* pi = new int;
+string* ps = new string;
+
+// 最后分配空间就进行初始化
+int* pi = new int(1024);
+string* ps = new string(10, '9');
+vector&lt;int&gt;* pv = new vector&lt;int&gt;{1,2,3,4,5,6,7,8,9};
+
+// 动态分配空间进行值初始化
+int* pi = new int();
+string* ps = new string();
+</code></pre>
+<p>关于使用 auto，编译器会从初始化器来推断我们想要的分配对象的类型，但是只接受单一初始化器：</p>
+<pre><code class="lang-c++">auto p1 = new auto{obj};
+
+auto p2 = new auto{a,b,c};	// 错误
+</code></pre>
+<p>如果obj 是 int，那么 p1 是一个 int*；如果 obj 是一个string，那么 p1 是 string*。</p>
+<h3 id="动态分配的-const-对象">动态分配的 const 对象</h3>
+<pre><code class="lang-c++">const int* pci = new const int(1024);
+
+const string* pcs = new const string(&quot;112&quot;);
+</code></pre>
+<p>如果某个电脑上的内存耗尽了，使用 new 就会抛出一个 bad_alloc 异常，要想不抛出异常，则请使用<strong>定位new</strong>：</p>
+<pre><code class="lang-c++">int* p2 = new (nothrow) int;	// 分配失败的话，会返回一个空指针
+</code></pre>
+<h3 id="delete-关键字">delete 关键字</h3>
+<p>new 了之后，需要手动 delete 掉已经分配的空间，否则可能出现内存泄漏的情况。而且要养成 delete 之后将指针指向 nullptr。</p>
+<h2 id="1213-shared_ptr-和-new-结合使用">12.1.3 shared_ptr 和 new 结合使用</h2>
+<pre><code class="lang-c++">shared_ptr&lt;double&gt; p1;
+shared_ptr&lt;int&gt; p2(new int(42));
+</code></pre>
+<p>接受指针参数的智能指针构造函数是 explicit 的。</p>
+<pre><code class="lang-c++">shared_ptr p1 = new int(1024);	// 错误
+shared_ptr p2(new int(1024));	// 正确
+
+
+shared_ptr&lt;int&gt; clone(int p)
+{
+    return new int(p);	// 错误
+    // retuern shared_ptr&lt;int&gt;(new int(p));	// 正确
+}
+</code></pre>
+<h3 id="不要混合使用普通指针和智能指针">不要混合使用普通指针和智能指针</h3>
+<pre><code class="lang-c++">int *x(new int(1024)); // x 是一个普通指针
+process(x);	// 错误，x不能转换为 shared_ptr&lt;int&gt;
+process(make_shared&lt;int&gt;(x));	// 合法，但是这个语句会将 x 指向的内存销毁
+int j = *x;	// x已经被销毁，未知访问
+</code></pre>
+<h3 id="小心使用-get-函数">小心使用 get 函数</h3>
+<pre><code class="lang-c++">shared_ptr&lt;int&gt; p(new int(42));
+int* q = p.get();	// 不要让 q 被销毁
+{
+    shared_ptr&lt;int&gt;(q);
+}
+// 出了作用域，q 被销毁了，此时 q 也是一个悬空指针
+
+int foo = *p; // 未知访问咯
+</code></pre>
+<h3 id="reset-函数">reset 函数</h3>
+<p>reset 会更新引用计数，如果需要，会释放 p 指向的对象。reset 成员经常和 unique 一起使用，来控制多个 shared_ptr 共享的对象。</p>
+<pre><code class="lang-c++">if(!p.unique())
+{
+    p.reset(new string(*p));	// 分配新的拷贝
+}
+*p += newVale;
+</code></pre>
+<h2 id="1214-智能指针和异常">12.1.4 智能指针和异常</h2>
+<p>如果一个函数内部使用的是智能指针，那么函数执行过程中是发生了异常还是正常结束，都会对其申请的空间进行引用计数的递减甚至销毁（引用计数为零）。但是如果是直接内存管理，可能发生异常或者正常返回的代码路径没有走 delete 的代码，就存在内存泄漏的情况。</p>
+<h3 id="智能指针和哑类">智能指针和哑类</h3>
+<p>有些类没有的定义析构函数来释放这些资源的类，可能会遇到与使用动态内存相同的错误，比如连接数据库。</p>
+<pre><code class="lang-c++">struct destination;
+struct connection;
+connection connect(destination*);
+void disconnect(connection);
+void f(destination&amp; d)
+{
+    connection c = connect(&amp;d);
+    
+    // 退出 f 函数，忘记关闭连接，资源没有得到释放
+}
+</code></pre>
+<p>正确的做法是，使用智能指针：</p>
+<pre><code class="lang-c++">void f(destination&amp; d)
+{
+    connection c = connect(&amp;d);
+    shared_ptr&lt;connection&gt; p(&amp;c, end_connection);
+}
+
+// 代替了智能指针的 delete
+void end_connection(connection *p){
+    disconnect(*p);
+}
+</code></pre>
+<h2 id="1215-unique_ptr">12.1.5 unique_ptr</h2>
+<p>​	一个 unique_ptr 拥有 它所指向的对象。与 shared_ptr 不同，某个时刻只能有一个 unique_ptr 指向一个给定的对象。当 unique_ptr 被销毁时，它所指向的对象也被销毁。</p>
+<p>​	unique_ptr 没有类似make_shared 函数返回一个 unique_ptr 对象，所以在定义时必须将其绑定到一个 new 返回的指针上。</p>
+<pre><code class="lang-c++">unique_ptr&lt;double&gt; p1; // 可以指向一个 double的 unique_ptr
+unique_ptr&lt;int&gt;p2(new int(42));	// p2 指向一个值为 42 的 int
+</code></pre>
+<p>unique_ptr 不支持普通的拷贝或赋值操作：</p>
+<pre><code class="lang-c++">unique_ptr&lt;string&gt; p1(new string(&quot;Stegosaurus&quot;));
+unique_ptr&lt;string&gt; p2(p1);	// 错误
+unique_ptr&lt;string&gt; p3;
+p3 = p2;	// 错误
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>unique_ptr 操作</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>unique_ptr<t> u1</t></td>
+<td>空 unique_ptr，可以指向类型为T 的对象。u1 会使用 delete 来释放它的指针；</td>
+</tr>
+<tr>
+<td>unique_ptr&lt;T,D&gt; u2</td>
+<td>u2会使用一个类型为 D 的可调用对象来释放它的指针</td>
+</tr>
+<tr>
+<td>unique_ptr&lt;T, D&gt; u(d)</td>
+<td>空 unique_ptr，指向类型为 T 的对象，用类型为 D 的对象 d 代替 delete</td>
+</tr>
+<tr>
+<td>u= nullptr</td>
+<td>释放 u 指向的对象，将 u 置为空</td>
+</tr>
+<tr>
+<td>u.release()</td>
+<td>u 放弃对指针的控制权，返回指针，并将 u 置空</td>
+</tr>
+<tr>
+<td>u.reset()</td>
+<td>释放 u 指向的对象</td>
+</tr>
+<tr>
+<td>u.reset(q)</td>
+<td>如果提供了内置指针 q，令 u 指向这个对象；否则将 u 置空</td>
+</tr>
+<tr>
+<td>u.reset(nullptr)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="release-转移指针控制权">release 转移指针控制权</h3>
+<pre><code class="lang-c++">unique_ptr&lt;string&gt; p2(p1.release());	// release 将 p1 置为空，指针控制权转给 p2
+unique_ptr&lt;string&gt; p3(new string(&quot;Trex&quot;));
+
+p2.reset(p3.release());	// reset 释放了 p2 原来指向的内存
+</code></pre>
+<h3 id="传递-unique_ptr-参数和返回-unique_ptr">传递 unique_ptr 参数和返回 unique_ptr</h3>
+<p>某些情况下可以进行 unique_ptr 的拷贝：</p>
+<pre><code class="lang-c++">unique_ptr&lt;int&gt; clone(int p)
+{
+    return unique_ptr&lt;int&gt;(new int(p));
+}
+
+unique_ptr&lt;int&gt; clone(int p)
+{
+    unique_ptr&lt;int&gt; ret(new int(p));
+    return ret;
+}
+
+</code></pre>
+<h3 id="向-unique_ptr-传入删除器">向 unique_ptr 传入删除器</h3>
+<pre><code class="lang-c++">void f(destination&amp; d)
+{
+    connection c = connect(&amp;d);
+    unique_ptr&lt;connection, decltype(end_connection)*&gt; p(&amp;c, end_connection);
+    
+    // 当f退出时，正确关闭连接
+}
+</code></pre>
+<h2 id="1216-weak_ptr">12.1.6 weak_ptr</h2>
+<p>​	weak_ptr 是一种不控制所指对象生成期的智能指针，它指向由一个 shared_ptr 管理的对象。讲一个 weak_ptr 绑定到一个 shared_ptr 不会改变 shared_ptr 的引用计数。一旦最后一个指向对象的 shared_ptr 被销毁，对象就会被释放。即使有 weak_ptr 指向对象，对象还是会被释放。</p>
+<table>
+<thead>
+<tr>
+<th>weak_ptr 操作</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>weak_ptr<t> w</t></td>
+<td>空 weak_ptr 可以指向类型为 T 的对象</td>
+</tr>
+<tr>
+<td>weak_ptr<t> w(sp)</t></td>
+<td>与 shared_ptr sp 指向相同的对象 weak_ptr。T 必须能转换为 sp 可以指向的类型</td>
+</tr>
+<tr>
+<td>w = p;</td>
+<td>weak_ptr<t> w(sp) 等价</t></td>
+</tr>
+<tr>
+<td>w.reset()</td>
+<td>将 w 置空</td>
+</tr>
+<tr>
+<td>w.use_count()</td>
+<td>与 w 共享对象的 shared_ptr 的数量</td>
+</tr>
+<tr>
+<td>w.expired()</td>
+<td>若 w.use_count() 为 0，返回 true；否则返回 false</td>
+</tr>
+<tr>
+<td>w.lock()</td>
+<td>如果 expired 为 true，返回一个空 shared_ptr；否则返回一个指向 w的独享的 shared_ptr。</td>
+</tr>
+</tbody>
+</table>
+<p>因此在访问 weak_ptr 指向对象时，应该使用 lock 来操作：</p>
+<pre><code class="lang-c++">if(shared_ptr&lt;int&gt; np == wp.lock())
+{
+    // ...
+}
+</code></pre>
 </article>
           </div>
           

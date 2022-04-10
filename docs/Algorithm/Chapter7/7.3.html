@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>7.3 B &#26641;&#21644; B+ &#26641; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="7.3 B &#26641;&#21644; B+ &#26641; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="73-b-树和-b-树">7.3 B 树和 B+ 树</h1>
+
+<h2 id="731-b-树及其基本操作">7.3.1 B 树及其基本操作</h2>
+<p>B 树，又称多路平衡查找树，B 树中所有结点的孩子个数的最大值称为 B 树的阶，通常用 m 表示。一个 m 阶 B 树或为空树，或满足以下条件：</p>
+<p>① 树中每个结点至多有 m 棵子树，即至多含有 m-1 个关键字。</p>
+<p>② 若根结点不是终端结点，则至少有两课子树。</p>
+<p>③ 除根结点外的所有非叶结点至少有⌈m/2⌉ 棵子树，即至少含有⌈m/2⌉-1个关键字。</p>
+<p>④ 所有的叶结点都出现在同一层次上，并且不带信息。</p>
+<p>B 树是所有结点的平衡因子均等于0的多路平衡查找树。</p>
+<p>示例：</p>
+<p><img src="pictures/chapter7-3-1.png" alt="7-3-1"></p>
+<p>从图中可以看出一些性质：</p>
+<ul>
+<li>结点的孩子个数等于结点中关键字个数+1。</li>
+<li>如果根结点没有关键字就没有子树，此时B树为空；如果根结点有关键字，则其子树必然大于等于两颗子树。</li>
+<li>除根结点外的所有非终端结点至少有 ⌈m/2⌉ = ⌈5/2⌉=3 棵子树，至多有 5 棵子树。</li>
+<li>结点中关键字从左到右递增有序，关键字两侧均有指向子树的指针，左边指针所指子树的所有关键字均小于该关键字，右边指针所指子树的所有关键字均大于该关键字。或者看成下层结点关键字总是落在由上层结点关键字所划分的区间内，如第二层最左边结点的关键字划分成了三个区间：(-∞, 5)，(5 11)，(11, +∞)，该结点 3 个指针所指子树的关键字均落在这 3 个区间内。</li>
+<li>所有叶节点均在第 4 层，代表查找失败的位置。</li>
+</ul>
+<h3 id="树的高度磁盘存取次数">树的高度（磁盘存取次数）</h3>
+<p>这里我们说树的高度不包括最后的不带任何信息的叶结点所处的那一层。</p>
+<p>若 n ≥ 1，则对任意一棵包含 n 个关键字、高度为 h、阶数为 m 的 B 树：</p>
+<p>① 因为 B 树中每个结点最多有 m 棵子树，m-1 个关键字，所以在一棵高度为 h 的 m 阶 B 树中关键字个数应满足 n ≤ (m-1)(1+m+m²+…+ m^h)= m^h -1，即 h ≥ log₍m₎(n+1)</p>
+<p>② 若让每个结点中的关键字个数达到最少，则容纳同样多关键字的 B 树的高度达到最大。第一层至少有 1 个结点，第二层至少有 2 个结点；除根结点外的每个非终端结点至少有 ⌈m/2⌉ 棵子树，则第三层至少有2⌈m/2⌉个结点，第 h+1 层至少有2(⌈m/2⌉)^(h-1)个结点，这里的第h+1层不包含任何信息的结点。对于关键字个数为 n 的 B 树，叶结点即查找不成功的结点为 n+1，由此有 n+1 ≥ 2(⌈m/2⌉)^(h-1)，即 h ≤log₍⌈m/2⌉₎((n+1)/2) + 1。</p>
+<p>综上，h的范围为： log₍m₎(n+1) ≤ h ≤log₍⌈m/2⌉₎((n+1)/2) + 1</p>
+<h3 id="b-树的查找">B 树的查找</h3>
+<p>与二叉查找树相似，不过二叉是两路分支，B 树是多路分支。</p>
+<h4 id="如何查找">如何查找？</h4>
+<p>① 在B 树中找结点。</p>
+<p>② 在结点内找关键字。</p>
+<p>由于 B 树常存在磁盘上，因此前一个查找操作是在磁盘上进行的，而后一个查找操作是在内存中进行的，即在找到目标后，先将结点信息读入内存，然后在结点内采用顺序查找法或折半查找法。</p>
+<p>在 B 树上查找到某个结点后，先在有序表中进行查找，若找到则查找成功，否则按照对应的指针信息到所指的子树中去查找。</p>
+<p>比如查找15：</p>
+<p><img src="pictures/chapter7-3-2.png" alt="7-3-2"></p>
+<h3 id="b-树的插入">B 树的插入</h3>
+<p>① 定位。利用 B 树查找法，找出插入该关键字的最底层中的某个非叶结点。</p>
+<p>② 插入。在 B 树中，每个非失败结点的关键字个数都在区间 [⌈m/2⌉-1, m-1]内。插入后的结点关键字个数小于 m，可以直接插入；插入后检查被插入结点内关键字的个数，当插入后的结点关键字个数大于 m -1 时，必须对结点进行分裂。</p>
+<ul>
+<li>分裂：取一个新结点，在插入 key 后的原结点，从中间位置(⌈m/2⌉) 将其中的关键字分成两部分，左部分包含的关键字放在原结点中，右部分包含的关键字放在新结点中，中间位置（⌈m/2⌉）的结点插入原结点的父结点。若此时导致其父结点的关键字个数也超过了上限，则继续按照这种分裂操作，直至这个过程传到根结点为止，进而导致B树高度增1。</li>
+</ul>
+<p><img src="pictures/chapter7-3-3.png" alt="7-3-3"></p>
+<h3 id="b-树的删除">B 树的删除</h3>
+<p>B 树要求结点中的关键字个数≥⌈m/2⌉-1，所有在删除结点时可能需要合并。</p>
+<p>当被删关键字 k 不在终端结点（最底层非叶结点）中时，可以用 k的前驱或者后继k'代替k，然后在相应的结点中删除 k'，关键字 k'必定落在某个终端结点中，则转换成了被删除关键字在终端结点中的情况。</p>
+<p><img src="pictures/chapter7-3-4.png" alt=""></p>
+<p>当被删除关键字在终端结点（最底层非叶结点）中时，考虑以下三种情况。</p>
+<p>① 直接删除关键字。若被删除关键字所在结点的关键字个数 ≥ ⌈m/2⌉，表明删除该关键字后依然满足 B 树，则直接删除该关键字。</p>
+<p>② 兄弟够借。若被删除关键字所在结点删除前的关键字个数 = ⌈m/2⌉-1，且与此结点相邻的右（或左）兄弟结点的关键字≥ ⌈m/2⌉，则需要调整该结点、右（或左）兄弟结点及其双亲结点，以达到新的平衡。</p>
+<p><img src="pictures/chapter7-3-5.png" alt=""></p>
+<p>③ 兄弟不够借。若被删除关键字所在结点删除前的关键字个数为 ⌈m/2⌉ -1，且此时与该结点相邻的左、右兄弟结点的关键字个数均为 ⌈m/2⌉ -1，则将关键字删除后与左（或右）兄弟结点及双亲结点中的关键字进行合并。在合并过程中，双亲结点中的关键字个数会减1.若双亲结点是根结点且关键字个数减少至0，则直接删除根结点，合并后的新结点称为根；若双亲结点不是根结点，且关键字个数减少到⌈m/2⌉ -2，则又要与它自己的兄弟结点进行调整合并操作，不断迭代上述操作，直到满足B树要求为止。</p>
+<p><img src="pictures/chapter7-3-6.png" alt=""></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Algorithm/Chapter7/7.3.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

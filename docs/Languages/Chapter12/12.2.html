@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>12.2 &#21160;&#24577;&#25968;&#32452; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="12.2 &#21160;&#24577;&#25968;&#32452; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="122-动态数组">12.2 动态数组</h1>
+
+<h2 id="1221-new-和数组">12.2.1 new 和数组</h2>
+<pre><code class="lang-c++">int* pia = new int[get_size()];	// pia 指向第一个 int
+</code></pre>
+<p>这里看得出来，动态申请一个数组时，方括号中的数值不必是常量的，但是必须是整数。</p>
+<h3 id="使用类型别名申请一个新的数组">使用类型别名申请一个新的数组</h3>
+<pre><code class="lang-c++">typedef int arrT[42];
+int* p = new arrT;	// 申请一个 42个 int 的数组，p指向第一个int
+
+// 等价于 int* p = new int[42];
+</code></pre>
+<h3 id="分配一个数组会得到一个元素类型的指针">分配一个数组会得到一个元素类型的指针</h3>
+<p>new T[] 通常称为 “动态数组”。当用一个 new 分配一个数组时，我们并未得到一个数组类型的对象，而是得到一个数组元素类型的指针。所以不能对动态数组调用 begin 或 end。也不能使用范围 for 语句处理。</p>
+<h3 id="初始化动态分配对象的数组">初始化动态分配对象的数组</h3>
+<pre><code class="lang-c++">int* pia = new int[10];	// 10个未初始化的int
+int* pia2 = new int[10]();	// 10个值初始化为0 的int
+string* psa = new string[10];	// 10个空string
+string* psa2 = new string[10]();	// 10个空string
+
+int* pia3 = new int[10]{1,2,3,4,5,6,7,8,9,10};
+string* psa3 = new string[10]{&quot;a&quot;,&quot;an&quot;,&quot;the&quot;,string(3,'x')};	// 前4个用给定的初始化器初始化
+</code></pre>
+<h3 id="动态分配一个空数组是合法的">动态分配一个空数组是合法的</h3>
+<pre><code class="lang-c++">size_t n=get_size();
+int* p = new int[n];
+for(int* q = p; q != p+n;q++)
+{
+    // todo: visit array
+}
+</code></pre>
+<p>如果n为零，也是可以编译通过的，但是如果显示声明一个零长度的数组，是错误的。</p>
+<h3 id="释放动态数组">释放动态数组</h3>
+<pre><code class="lang-c++">delete []pa;	//	pa 指向一个动态分配的数组或为空
+</code></pre>
+<p>特殊的是，数组中的元素按逆序被销毁，显示尾元素销毁，然后从尾元素一个一个到头元素。</p>
+<h3 id="智能指针和动态数组">智能指针和动态数组</h3>
+<p>标准库提供了一个可以管理 new 分配的数组的 unique_ptr 版本。</p>
+<pre><code class="lang-c++">unique_ptr&lt;int[]&gt; up(new int[10]);
+up.release();	// 自动调用 delete[销毁指针]
+</code></pre>
+<p>而访问up时，不能使用 . 或者 -&gt; 去访问，而是用下标：</p>
+<pre><code class="lang-c++">up[1] = 10;
+</code></pre>
+<p>shared_ptr 不支持直接管理动态数组。如果非要使用 shared_ptr，需要自定义delete[]：</p>
+<pre><code class="lang-c++">shared_ptr&lt;int&gt; sp(new int[10], [](int* p){delete []p;});
+sp.reset();	// 使用我们提供的lambda 释放数组
+</code></pre>
+<p>而且 shared_ptr 不支持下标访问，只能通过 get 来访问数组中的元素：</p>
+<pre><code class="lang-c++">for(size_t i = 0; i != 10; ++i)
+    *(sp.get() + i) = i;
+</code></pre>
+<h2 id="1222-allocator-类">12.2.2 allocator 类</h2>
+<p>​	new 有一些灵活性上的局限，其中一方面表现在它将内存分配和对象构造组合在了一起。类似的，delete 将对象析构和内存释放组合在了一起。我们分配单个对象时，通常希望将内存分配和对象初始化组合在一起。因为这种情况下，我们几乎肯定知道对象应该有什么值。</p>
+<p>​	当分配一大块内存时，我们通常计划在这块内存上按需构造对象。在此情况下，我们希望将内存分配和对象构造分离。这意味着我们可以分配大块内存，但只在真正需要时才真正执行对象创建操作（付出一定开销）。</p>
+<p>一般情况下，将内存分配和对象构造组合在一起可能会导致不必要的浪费。</p>
+<pre><code class="lang-c++">string* const p = new string[n];	// 构造 n 个空string
+string s;
+string *q = p;
+while(cin &gt;&gt; s &amp;&amp; q!=p+n)
+{
+    *q++ = s;
+}
+const size_t size = q - p;
+delete[]p;	// p 指向一个数组，要使用 delete[]
+</code></pre>
+<p>new 表达式分配并初始化了 n 个 string。但是，我们可能不需要 n 个 string，少量 string 可能就足够了。这样，我们就可能创建了一些永远用不到的对象。而且，对于那些确实要使用的对象，我们也在初始化之后立即赋予它们新值。每个使用到的元素都被赋值了两次：第一次是在默认初始化时，随后是在赋值时。</p>
+<p>​	更重要的是，那些没有默认构造函数的类就不能动态分配数组了。</p>
+<h3 id="allocator">allocator</h3>
+<pre><code>标准库 allocator 类定义在头文件 memory 中，它帮助我们将内存分配和对象构造分离开来。它提供一种类型感知的内存分配方法，它分配的内存是原始的、未构造的。
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>allocator<t> a</t></td>
+<td>定义了一个名为 a 的 allocator 对象，它可以为类型为 T 的对象分配内存。</td>
+</tr>
+<tr>
+<td>a.allocate(n)</td>
+<td>分配一段原始的、未构造的内存，保存 n 个类型为 T 的对象</td>
+</tr>
+<tr>
+<td>a.deallocate(p, n)</td>
+<td>释放从T*指针p中地址开始的内存，这块内存保存了n个类型为T的对象；p必须是一个先前由 allocator 返回的指针，且 n 必须是 p 创建时所要求的大小啊。在调用 deallocator 之前，用户必须对每个在这块内存中创建的对象调用 destroy</td>
+</tr>
+<tr>
+<td>a.construct(p, args)</td>
+<td>p 必须是一个类型为 T* 的指针，指向一块原始内存；args 被传递给类型为T的构造函数，用来在 p 指向的内存中构造一个对象</td>
+</tr>
+<tr>
+<td>a.destroy(p)</td>
+<td>p 为 T* 类型的指针，此算法对 p 指向的对象执行析构函数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="allocator-分配为构造的内存">allocator 分配为构造的内存</h3>
+<p>​	allocator 分配的内存是未构造的。我们按需要在此内存中构造对象。在新标准库中，construct 成员函数接受一个指针和零个或多个额外参数，在给定位置构造一个元素，额外参数用来初始化构造的对象。类似 make_shared 的参数，这些额外参数必须是与构造的对象的类型相匹配的合法的初始化器。</p>
+<pre><code class="lang-c++">auto q = p;	// q 指向最后构造的元素之后的位置
+alloc.construct(q++);	// *q为空字符串
+alloc.construct(q++, 10, 'c');	// *q 为 cccccccccc
+alloc.construct(q++, &quot;hi&quot;);		// *q 为 hi!
+</code></pre>
+<p>当用完对象后，必须对每个构造的元素调用 destroy 来销毁它们。函数 destroy 接受一个指针，对指向的对象执行析构函数。</p>
+<pre><code class="lang-c++">while(q!=p)
+{
+    alloc.destroy(--q);	// 释放真正够早的string
+}
+</code></pre>
+<p>一旦元素被销毁后，就可以重新使用这部分内存来保存其他string，也可以释放归还给系统。释放内存通过调用 deallocate来完成。</p>
+<pre><code class="lang-c++">alloc.deallocate(p, n);
+</code></pre>
+<p>传递给 deallocte 的指针不能为空，它必须指向由 allocate 分配的内存。而且传递给 deallocate的大小参数必须与调用 allocated 分配内存时提供的大小参数具有一样的值。</p>
+<h3 id="拷贝和填充未初始化内存的算法">拷贝和填充未初始化内存的算法</h3>
+<p>​	标准库还未 allocator 类定义了两个伴随算法，可以在未初始化内存中创建对象。</p>
+<table>
+<thead>
+<tr>
+<th>算法</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uninitialized_copy(b, e, b2)</td>
+<td>从迭代器 b 和 e 指出的 输入范围中拷贝元素到迭代器 b2 指定的未构造的原始内存中。b2 指向的内存必须足够大，能容纳输入序列中元素的拷贝。</td>
+</tr>
+<tr>
+<td>uninitialized_copy_n(b, n, b2)</td>
+<td>从迭代器 b 指向的元素开始，拷贝 n 个元素到 b2 开始的内存中</td>
+</tr>
+<tr>
+<td>uninitialized_fill(b, e, t)</td>
+<td>在迭代器 b 和 e 指定的原始内存范围中创建对象，对象的值均为 t 的拷贝</td>
+</tr>
+<tr>
+<td>uninitialized_fill_n(b, n, t)</td>
+<td>从迭代器 b 指向的内存地址开始创建 n 个对象。b 必须指向足够大的未构造的原始内存，能够容纳给定数量的对象</td>
+</tr>
+</tbody>
+</table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Languages/Chapter12/12.2.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>7.2 &#39034;&#24207;&#26597;&#25214;&#21644;&#25240;&#21322;&#26597;&#25214; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="7.2 &#39034;&#24207;&#26597;&#25214;&#21644;&#25240;&#21322;&#26597;&#25214; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="72-顺序查找和折半查找">7.2 顺序查找和折半查找</h1>
+
+<h2 id="721-顺序查找">7.2.1 顺序查找</h2>
+<p>顺序查找，也可以叫做线性查找，适用于链表和顺序表。对于顺序表，通过数组下标逐个递增去查找；对于链表，通过指针 next 去查找。</p>
+<h3 id="一般线性表的顺序查找">一般线性表的顺序查找</h3>
+<pre><code class="lang-c++">template&lt;class t&gt;
+class Table{
+    t* data;	// 指向数组的首地址
+    int length;	// 长度
+};
+
+int Search_Seq(Table tb, t key)
+{
+    tb.elem[0] = key;	// 哨兵
+    for(int i = tb.length; tb.elem[i]!=key; --i)	// 逆序来找
+        ;
+    
+        return i;
+}
+</code></pre>
+<p>如果表中的元素有序，比如表中元素是int类型，按从小到大排序，那么查找时不用从表的一端查到另一端，只需查找到比他大（或者小）的一个元素后，即算查找失败。</p>
+<pre><code class="lang-c++">比如一个表大从小排到大：
+int a[] = {1,2,3, 5,6, 8,9,10};
+
+现在要查找 key = 7 的元素
+那么查找时，在 6和8之间并没有7这个元素，从头往后查，查到8时即可停止查找。
+</code></pre>
+<h2 id="722-折半查找">7.2.2 折半查找</h2>
+<p>折半查找，又称为二叉查找。仅适用于有序的顺序表。</p>
+<p>基本思想：首先将给定值 key 与表中中间位置的元素比较，若相等，则查找成功，返回该元素的位置；若不等，则所需查找的元素只能在中间元素以外的前半部分或后半部分。然后缩小范围继续相同的查找，不断迭代，直到找到位置，或确定表中没有 key。</p>
+<pre><code class="lang-c++">template&lt;class t&gt;
+int Binary_Search(SeqList l, t key)
+{
+    int low = 0, high = l.length - 1, mid;
+    while(low &lt;= high)
+    {
+        mid = (low + high) / 2;
+        if(l.elem[mid] == key)
+            return mid;
+        else if(l.elem[mid] &gt; key)
+            high = mid - 1;		// 从前半部分查找
+        else
+            low = mid + 1;		// 从后半部分查找
+    }
+    
+    return -1;	// 查找失败
+}
+</code></pre>
+<h2 id="723-分块查找">7.2.3 分块查找</h2>
+<p>分块查找，也称索引顺序查找。</p>
+<p>基本思想：将查找表分为若干子块。块内的元素可以无序，但块之间是有序的，即第一个块中的最大关键字小于第二个块中的所有记录的关键字，第二个块中的最大关键字小于第三个块中的所有记录的关键字，以此类推。再建立一个索引表，索引表中的每个元素含有各块的最大关键字和各块中的第一个元素的地址，索引表按关键字有序排序。</p>
+<p>查找过程：</p>
+<p>①在索引表中确定待查记录所在块，可以顺序查找或折半查找找索引表</p>
+<p>②在块内顺序查找。</p>
+<p>例如：关键字集合：{88,24,72,61,21,6,32,11,8,31,22,83,78,54}，按照关键字值24, 54, 78, 88分为4个块和索引表。</p>
+<p><img src="pictures/chapter7-2-1.png" alt="7-2-1"></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Algorithm/Chapter7/7.2.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

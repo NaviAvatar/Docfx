@@ -6,5 +6,7 @@
   href: Chapter4/toc.yml
 - name: 二叉树
   href: Chapter5/toc.yml
+- name: 查找
+  href: Chapter7/toc.yml
 - name: 算法题
   href: Popular/toc.yml
