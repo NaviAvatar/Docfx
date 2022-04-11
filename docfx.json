@@ -47,7 +47,8 @@
         "files": [
           "images/**",
           "Languages/**.png",
-          "Algorithm/**.png"
+          "Algorithm/**.png",
+          "OperatingSystem/**.png"
         ]
       }
     ],

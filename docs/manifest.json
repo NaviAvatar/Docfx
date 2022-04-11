@@ -963,7 +963,7 @@
       "output": {
         ".html": {
           "relative_path": "Languages/Chapter13/13.6.html",
-          "hash": "9BhhCbtSDUPLoratxh37FmvRZko8mz5tv/s0oZw5mUY="
+          "hash": "CpBxmr+wtEczt1vBNIruHHje6U/HQw49crzz35I3Axg="
         }
       },
       "is_incremental": false,
@@ -1443,7 +1443,7 @@
       "output": {
         ".html": {
           "relative_path": "Languages/toc.html",
-          "hash": "HUnrVi6HjvWiy09dx4qj/P9SsyoBeSfQx783yu/rCBc="
+          "hash": "5grArh9cM7pHEs7pXZDs3WMDTSD/nvgYWeUzzpXiyUY="
         }
       },
       "is_incremental": false,
@@ -1474,12 +1474,125 @@
       "version": ""
     },
     {
+      "type": "Conceptual",
+      "source_relative_path": "OperatingSystem/Chapter1/1.3.md",
+      "output": {
+        ".html": {
+          "relative_path": "OperatingSystem/Chapter1/1.3.html",
+          "hash": "UyUjlv40gvuxcLPV1U6V6g2GeL7lW7G3wiXdkocEzVc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "OperatingSystem/Chapter2/2.1.md",
+      "output": {
+        ".html": {
+          "relative_path": "OperatingSystem/Chapter2/2.1.html",
+          "hash": "+7ihmfZojvRweX6vu9+Csd+6x8W/bQABa0BvzobaZiM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "OperatingSystem/Chapter2/2.2.md",
+      "output": {
+        ".html": {
+          "relative_path": "OperatingSystem/Chapter2/2.2.html",
+          "hash": "WB+UD1LR25u5ZZSuAb3OH1QQvPHr8sFSNpM2tu1zLwo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "OperatingSystem/Chapter2/pictures/2-1-3-1.png",
+      "output": {
+        "resource": {
+          "relative_path": "OperatingSystem/Chapter2/pictures/2-1-3-1.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "OperatingSystem/Chapter2/pictures/2-1-5-1.png",
+      "output": {
+        "resource": {
+          "relative_path": "OperatingSystem/Chapter2/pictures/2-1-5-1.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "OperatingSystem/Chapter2/pictures/2-1-5-2.png",
+      "output": {
+        "resource": {
+          "relative_path": "OperatingSystem/Chapter2/pictures/2-1-5-2.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "OperatingSystem/Chapter2/pictures/2-1-5-3.png",
+      "output": {
+        "resource": {
+          "relative_path": "OperatingSystem/Chapter2/pictures/2-1-5-3.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "OperatingSystem/Chapter2/pictures/2-2-4-1.png",
+      "output": {
+        "resource": {
+          "relative_path": "OperatingSystem/Chapter2/pictures/2-2-4-1.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "OperatingSystem/Chapter2/pictures/2-2-4-2.png",
+      "output": {
+        "resource": {
+          "relative_path": "OperatingSystem/Chapter2/pictures/2-2-4-2.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "OperatingSystem/Chapter2/pictures/2-2-4-3.png",
+      "output": {
+        "resource": {
+          "relative_path": "OperatingSystem/Chapter2/pictures/2-2-4-3.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
       "type": "Toc",
       "source_relative_path": "OperatingSystem/toc.yml",
       "output": {
         ".html": {
           "relative_path": "OperatingSystem/toc.html",
-          "hash": "jozt0jHzGCDWU/Gwndn5olMy8elDOgmuA1GpTWxxwEI="
+          "hash": "gMDKCYqu6sKanXVCZQNaTY332GOf6Dxsn70a4jR9Bh0="
         }
       },
       "is_incremental": false,
@@ -1522,8 +1635,8 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 83,
-          "skipped_file_count": 83
+          "total_file_count": 86,
+          "skipped_file_count": 86
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

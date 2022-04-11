@@ -4,3 +4,9 @@
   href: 13.2.md
 - name: 13.3 交换操作
   href: 13.3.md
+- name: 13.4 拷贝控制示例
+  href: 13.4.md
+- name: 13.5 动态内存管理类
+  href: 13.5.md
+- name: 13.6 对象移动
+  href: 13.6.md
