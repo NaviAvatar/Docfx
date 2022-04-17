@@ -4,3 +4,5 @@
   href: 7.2.md
 - name: 7.3 B 树和 B+ 树
   href: 7.3.md
+- name: 7.4 散列表
+  href: 7.4.md

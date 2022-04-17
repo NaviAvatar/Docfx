@@ -1,0 +1,680 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>8.4	&#36873;&#25321;&#25490;&#24207; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="8.4	&#36873;&#25321;&#25490;&#24207; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="84选择排序">8.4	选择排序</h1>
+
+<h2 id="841简单选择排序">8.4.1	简单选择排序</h2>
+<p>基本思想：每一趟在后面 n- i -1(i = 1,2,...,n-1)个待排序元素中选择关键字最小的元素，作为有序子序列的第 i 个元素。直到第 n -1 趟执行完毕。</p>
+<pre><code class="lang-c++">// 选择排序
+void SelectSort(int A[], int n)
+{ 
+	
+	for (int i = 0; i &lt; n - 1; i++)
+	{
+		int j = i;
+		int min = A[i];
+		int flag = i;	// 最小元素的下标
+
+		// 找到最小值
+		for (; j &lt; n; j++)
+		{
+			if (min &gt; A[j])
+			{
+				min = A[j];
+				flag = j;
+			}
+		}
+
+		int tmp = A[flag];
+		A[flag] = A[i];
+		A[i] = tmp;
+	}
+}
+
+
+</code></pre>
+<p>这个算法不稳定。</p>
+<h2 id="842堆排序">8.4.2	堆排序</h2>
+<p>什么是“堆”？</p>
+<p>若 n 个关键字序列 L[1 ... n] 满足下面某一条性质，则称为堆（Heap）:</p>
+<p>① 满足：L(i) ≥ L(2i) 且 L(i) ≥ L(2i+1) (1≤ i ≤ n/2)————称为<strong>大根堆</strong></p>
+<p>② 满足:   L(i) ≤ L(2i) 且 L(i) ≤ L(2i+1) (1≤ i ≤ n/2)————称为<strong>小根堆</strong></p>
+<p>从二叉树的视觉：</p>
+<p><img src="pictures/8-4-2-1.png" alt="大根堆"></p>
+<p>如果按照层次遍历来标号，那就是对应的数组了。</p>
+<p><img src="pictures/8-4-2-2.png" alt="大根堆映射成数组"></p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>87</td>
+<td>45</td>
+<td>78</td>
+<td>32</td>
+<td>17</td>
+<td>65</td>
+<td>53</td>
+<td>09</td>
+</tr>
+</tbody>
+</table>
+<p>即 根≥左、右结点（大根堆）。</p>
+<p>这样每次选一个最大的值出来，就很快，直接就是根结点的值最大。</p>
+<p><strong>问题是怎么建立大根堆？</strong></p>
+<h3 id="建立大根堆">建立大根堆</h3>
+<p>假如初始序列为：</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>53</td>
+<td>53</td>
+<td>17</td>
+<td>78</td>
+<td>9</td>
+<td>45</td>
+<td>65</td>
+<td>87</td>
+<td>32</td>
+</tr>
+</tbody>
+</table>
+<p>第一步：把所有非终端结点都检查一遍，是否满足大根堆的要求，如果不满足，则进行调整。非终端结点有个特点：下标 ≤ ⌊n/2⌋</p>
+<p><img src="pictures/8-4-2-3.png" alt="建立大根堆1"></p>
+<p>在这个例子中，只需检查 i ≤ 4下标的结点。</p>
+<p>应该从后往前处理。也就是元素为 9 的结点进行调整。</p>
+<p>提示：</p>
+<p>i 的左孩子——2i</p>
+<p>i 的右孩子——2i+1</p>
+<p>i 的父结点——⌊i/2⌋</p>
+<p>显然这里以元素9为子树的树不满足大根堆，需要与当前结点的更大的一个孩子互换。</p>
+<p><img src="pictures/8-4-2-4.png" alt="调整大根堆元素9"></p>
+<p>互换后：</p>
+<p><img src="pictures/8-4-2-5.png" alt=""></p>
+<p>此时数组为：</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>53</td>
+<td>17</td>
+<td>78</td>
+<td>32</td>
+<td>45</td>
+<td>65</td>
+<td>87</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<p>这时候到下标为3的元素，发现不满足大根堆：</p>
+<p><img src="pictures/8-4-2-6.png" alt=""></p>
+<p>需要和孩子中最大的结点进行互换：</p>
+<p><img src="pictures/8-4-2-7.png" alt=""></p>
+<p>此时数组为：</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>53</td>
+<td>17</td>
+<td>87</td>
+<td>32</td>
+<td>45</td>
+<td>65</td>
+<td>78</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<p>接着处理下标为 2 的结点。</p>
+<p><img src="pictures/8-4-2-8.png" alt=""></p>
+<p>接下来换下标为 1 的结点：</p>
+<p><img src="pictures/8-4-2-9.png" alt=""></p>
+<p>这个时候，发现根结点的右子树（53）没有符合大根堆要求，继续调整：</p>
+<p><img src="pictures/8-4-2-10.png" alt=""></p>
+<p>此时数组：</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>87</td>
+<td>45</td>
+<td>78</td>
+<td>32</td>
+<td>17</td>
+<td>65</td>
+<td>53</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<p>相关代码：</p>
+<pre><code class="lang-c++">void BuildMaxHeap(int A[], int len)
+{
+    for(int i=len/2; i &gt; 0; i--)	// 从后往前调整所有非终端结点
+        HeadAdjust(A, i, len);
+}
+
+void HeadAdjust(int A[], int k, int len)
+{
+    A[0]=A[k];	// A[0] 暂时存放子树的根结点
+    for(int i = 2*k; i &lt;= len; i*=2){ // 沿 key 较大的子结点向下筛选
+        if(i &lt; len &amp;&amp; A[i] &lt; A[i+1]) // 取key较大的子结点的下标
+            i++;
+        if(A[0] &gt;=A[i])
+            break;	// 筛选结束
+        else{
+            A[k]=A[i];	// 将 A[i] 调整到双亲结点上
+            k=i;		// 修改 k 值，以便继续向下筛选
+        }
+    }
+    A[k] = A[0];		// 被筛选结点的值放入最终位置
+}
+
+// 堆排序的完整逻辑
+void HeapSort(int A[], int len)
+{
+    BuildMapHead(A,len);	// 初始建堆
+    for(int i = len;i&gt;1; i--)	// n-1趟的交换过程和建堆过程
+    {
+        swap(A[i], A[0]);	// 堆顶元素和堆底元素互换
+    }		
+    HeadAdjust(A,1, i-1);	// 把剩余待排序元素整理成堆
+}
+</code></pre>
+<p>大根堆建立之后，将最大元素（根元素）和待排序序列中的最后一个元素交换：</p>
+<p><img src="pictures/8-4-2-11.png" alt=""></p>
+<p>此时数组：</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>9</td>
+<td>45</td>
+<td>78</td>
+<td>32</td>
+<td>17</td>
+<td>65</td>
+<td>53</td>
+<td><strong>87</strong></td>
+</tr>
+</tbody>
+</table>
+<p>87已经算是一个排好序的子序列了。现在下标为 1 的元素（值为9）又不满足大根堆了，需要重新调整，直接调用 HeadAdjust(A, 1, 7)。</p>
+<p><img src="pictures/8-4-2-12.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>78</td>
+<td>45</td>
+<td>65</td>
+<td>32</td>
+<td>17</td>
+<td>9</td>
+<td>53</td>
+<td><strong>87</strong></td>
+</tr>
+</tbody>
+</table>
+<p>继续将堆顶元素和待排序最后一个元素交换。</p>
+<p><img src="pictures/8-4-2-13.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>53</td>
+<td>45</td>
+<td>65</td>
+<td>32</td>
+<td>17</td>
+<td>9</td>
+<td><strong>78</strong></td>
+<td><strong>87</strong></td>
+</tr>
+</tbody>
+</table>
+<p>53 又不符合大根堆了。继续调整：HeadAdjust(A, 1, 6)</p>
+<p><img src="pictures/8-4-2-14.png" alt=""></p>
+<p>此时数组：</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>65</td>
+<td>45</td>
+<td>53</td>
+<td>32</td>
+<td>17</td>
+<td>9</td>
+<td><strong>78</strong></td>
+<td><strong>87</strong></td>
+</tr>
+</tbody>
+</table>
+<p>继续将对顶元素和待排序最后一个元素互换</p>
+<p><img src="pictures/8-4-2-15.png" alt=""></p>
+<p>此时数组：</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>9</td>
+<td>45</td>
+<td>53</td>
+<td>32</td>
+<td>17</td>
+<td><strong>65</strong></td>
+<td><strong>78</strong></td>
+<td><strong>87</strong></td>
+</tr>
+</tbody>
+</table>
+<p>接着还是执行调整HeadAdjust(A, 1, 5)：</p>
+<p><img src="pictures/8-4-2-16.png" alt=""></p>
+<p>此时数组：</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>53</td>
+<td>45</td>
+<td>9</td>
+<td>32</td>
+<td>17</td>
+<td><strong>65</strong></td>
+<td><strong>78</strong></td>
+<td><strong>87</strong></td>
+</tr>
+</tbody>
+</table>
+<p>接着互换 ：</p>
+<p><img src="pictures/8-4-2-17.png" alt=""></p>
+<p>此时数组：</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>17</td>
+<td>45</td>
+<td>9</td>
+<td>32</td>
+<td><strong>53</strong></td>
+<td><strong>65</strong></td>
+<td><strong>78</strong></td>
+<td><strong>87</strong></td>
+</tr>
+</tbody>
+</table>
+<p>接着调整HeadAdjust(A, 1, 4)：</p>
+<p><img src="pictures/8-4-2-18.png" alt=""></p>
+<p>接着互换：</p>
+<p><img src="pictures/8-4-2-19.png" alt=""></p>
+<p>此时数组</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>17</td>
+<td>32</td>
+<td>9</td>
+<td><strong>45</strong></td>
+<td><strong>53</strong></td>
+<td><strong>65</strong></td>
+<td><strong>78</strong></td>
+<td><strong>87</strong></td>
+</tr>
+</tbody>
+</table>
+<p>接着调整HeadAdjust(A, 1, 3)：</p>
+<p><img src="pictures/8-4-2-20.png" alt=""></p>
+<p>接着互换：</p>
+<p><img src="pictures/8-4-2-21.png" alt=""></p>
+<p>此时数组</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>9</td>
+<td>17</td>
+<td><strong>32</strong></td>
+<td><strong>45</strong></td>
+<td><strong>53</strong></td>
+<td><strong>65</strong></td>
+<td><strong>78</strong></td>
+<td><strong>87</strong></td>
+</tr>
+</tbody>
+</table>
+<p>接着调整HeadAdjust(A, 1, 2)：</p>
+<p><img src="pictures/8-4-2-22.png" alt=""></p>
+<p>接着互换：</p>
+<p><img src="pictures/8-4-2-23.png" alt=""></p>
+<p>此时数组：</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>9</td>
+<td><strong>17</strong></td>
+<td><strong>32</strong></td>
+<td><strong>45</strong></td>
+<td><strong>53</strong></td>
+<td><strong>65</strong></td>
+<td><strong>78</strong></td>
+<td><strong>87</strong></td>
+</tr>
+</tbody>
+</table>
+<p>这样就得到一个有序的数组了！！！</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Algorithm/Chapter8/8.4.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

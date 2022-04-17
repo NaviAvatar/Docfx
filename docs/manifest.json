@@ -433,6 +433,18 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "Algorithm/Chapter6/6.1.md",
+      "output": {
+        ".html": {
+          "relative_path": "Algorithm/Chapter6/6.1.html",
+          "hash": "o3m4DC1EVuHCKa/dzVyiIpxe2gGOiPIXSTYmOTK4Wio="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "Algorithm/Chapter7/7.1.md",
       "output": {
         ".html": {
@@ -461,7 +473,19 @@
       "output": {
         ".html": {
           "relative_path": "Algorithm/Chapter7/7.3.html",
-          "hash": "h7yXP0oUWurD5hRi1prcfm1O2glfl01r3vgj3NKflFY="
+          "hash": "w1M2bZy32yxMn+30sHEmisdqTWxZf0UZdtYVX+2QBJA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Algorithm/Chapter7/7.4.md",
+      "output": {
+        ".html": {
+          "relative_path": "Algorithm/Chapter7/7.4.html",
+          "hash": "kies+1gGQ1YFNMGxOigp3QqIjiXMP3s1FYuR94YnHfc="
         }
       },
       "is_incremental": false,
@@ -539,6 +563,318 @@
       "output": {
         "resource": {
           "relative_path": "Algorithm/Chapter7/pictures/chapter7-3-6.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Algorithm/Chapter8/8.2.md",
+      "output": {
+        ".html": {
+          "relative_path": "Algorithm/Chapter8/8.2.html",
+          "hash": "DouBXhuBeoDjY/rjItkf9yxQUtIOIBLGhwQkJfuE0zY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Algorithm/Chapter8/8.3.md",
+      "output": {
+        ".html": {
+          "relative_path": "Algorithm/Chapter8/8.3.html",
+          "hash": "fbCfH78b1HVkHS2FwquO1wbm9uJDLetV22OxnNZ2UKI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Algorithm/Chapter8/8.4.md",
+      "output": {
+        ".html": {
+          "relative_path": "Algorithm/Chapter8/8.4.html",
+          "hash": "Mj+mrgZ0wnouHN2bILt7fXXQn9JxSnqdYDmkihsY2x0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-2-1-1.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-2-1-1.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-1.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-1.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-10.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-10.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-11.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-11.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-12.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-12.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-13.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-13.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-14.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-14.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-15.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-15.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-16.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-16.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-17.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-17.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-18.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-18.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-19.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-19.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-2.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-2.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-20.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-20.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-21.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-21.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-22.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-22.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-23.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-23.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-3.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-3.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-4.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-4.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-5.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-5.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-6.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-6.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-7.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-7.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-8.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-8.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Chapter8/pictures/8-4-2-9.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Chapter8/pictures/8-4-2-9.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "Algorithm/Chapter8/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "Algorithm/Chapter8/toc.html",
+          "hash": "rBjD5VqM7L3PWErTWdSYI42LmH8dFBbarJ/+ODYOOh0="
         }
       },
       "is_incremental": false,
@@ -628,7 +964,7 @@
       "output": {
         ".html": {
           "relative_path": "Algorithm/toc.html",
-          "hash": "kqWz+a2d6OhRxIoGcDuj3J6pZqrg2a39tIiA7GGNAiE="
+          "hash": "oDzDsSOipk9X+U3S8+tazo/NLFEROUfFOyP5RSTptLE="
         }
       },
       "is_incremental": false,
@@ -963,7 +1299,91 @@
       "output": {
         ".html": {
           "relative_path": "Languages/Chapter13/13.6.html",
-          "hash": "CpBxmr+wtEczt1vBNIruHHje6U/HQw49crzz35I3Axg="
+          "hash": "JnN9J7h3s+YGIu2ZzDNhaECZ7YooCqGTPNGTAQQmM3w="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter15/15.1.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter15/15.1.html",
+          "hash": "mT8JE6bAY05+N5akWFvw6WvlP/2sdodLbTBodwLXLGU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter15/15.2.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter15/15.2.html",
+          "hash": "kbvUTD9T3BBcgRSqRPW0mtRGW0obIZmqHGGQGCAK6vA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter15/15.3.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter15/15.3.html",
+          "hash": "yV1uOrV5K4n/lgVdtda/kZ205UaRJKTDuqSNLmcek7k="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter15/15.4.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter15/15.4.html",
+          "hash": "ZEynomsrIkXehvP1Xt4o9/DNjqbnOe5nRPkKuMeJ/Go="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter15/15.5.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter15/15.5.html",
+          "hash": "IlqHe/2+gtYweo5zQXrHjVDWfga1sTaJdHO7rokGRSU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter15/15.6.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter15/15.6.html",
+          "hash": "davGZ/I4FbO1onXMafN1c7p4o3d1Xiq0aPeN4XlqvQw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Languages/Chapter15/15.7.md",
+      "output": {
+        ".html": {
+          "relative_path": "Languages/Chapter15/15.7.html",
+          "hash": "S2P1p1/BLMy0ENXD4zdAmVpEccMTtcExfQ+vlvO/d/Q="
         }
       },
       "is_incremental": false,
@@ -1443,7 +1863,31 @@
       "output": {
         ".html": {
           "relative_path": "Languages/toc.html",
-          "hash": "5grArh9cM7pHEs7pXZDs3WMDTSD/nvgYWeUzzpXiyUY="
+          "hash": "cvCJkn7paiLufQZH65pTrDsjBRllyKJRYqYOeyO0hU0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Linux/Chapter1/1.1.md",
+      "output": {
+        ".html": {
+          "relative_path": "Linux/Chapter1/1.1.html",
+          "hash": "Kh+GGnhSvKiXFSfoOj+PwUz68SWsMftXriAYwY7dqtY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "Linux/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "Linux/toc.html",
+          "hash": "uZ+F0DGwaTNKv0eq72ce/gxYLtjD3dWz/whjM14N3OU="
         }
       },
       "is_incremental": false,
@@ -1616,7 +2060,7 @@
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "EWqiDpvkCZIifk14SSSYFvc9+sgWRxjuBgXmwoVWRRc="
+          "hash": "oyd1hom1Xzcb9HgbATt+NU1d4yBAGaBZcLKidH50QUU="
         }
       },
       "is_incremental": false,
@@ -1635,8 +2079,8 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 86,
-          "skipped_file_count": 86
+          "total_file_count": 99,
+          "skipped_file_count": 99
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

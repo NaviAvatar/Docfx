@@ -1,0 +1,848 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>8.3	&#20132;&#25442;&#25490;&#24207; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="8.3	&#20132;&#25442;&#25490;&#24207; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="83交换排序">8.3	交换排序</h1>
+
+<h2 id="831冒泡排序">8.3.1	冒泡排序</h2>
+<p>基本思想：从后往前两两比较相邻元素的值，若为逆序（A[i-1] &gt; A[i]），则交换它们，直到序列比较完为止。</p>
+<p>第一趟排序是把序列中最小的元素放到第一个位置。</p>
+<p>第二趟排序是把序列中倒数第二小的元素放到第二个位置。</p>
+<p>.......</p>
+<p>第n-1趟排序是把序列中倒数第n-1小的元素放在n-1个位置。</p>
+<p>这样看起来如果序列中有n个元素只需要循环 n -1便可排好序了。</p>
+<pre><code class="lang-c++">// 冒泡排序
+void BubbluSort(int A[], int n)
+{
+	for (int i = 0; i &lt; n; i++)
+	{
+		for (int j = n - 1; j &gt; i; j--)
+		{
+			if (A[j] &lt; A[j - 1])
+			{
+				int temp = A[j - 1];
+				A[j - 1] = A[j];
+				A[j] = temp;
+			}
+		}
+	}
+}
+</code></pre>
+<h2 id="832快速排序">8.3.2	快速排序</h2>
+<p>基本思想：基于分治法。在待排序表 L[1 ... n] 中任取一个元素 pivot 作为枢轴（通常取首元素），通过一趟排序将待排序表划分为独立的两部分 L[1 ... k-1] 和 L[k+1 ... n]，使得 L[1 ... k-1] 中的所有元素小于 pivot，L[k+1 ... n] 中的所有元素大于等于 pivot，则 pivot 放在了其最终位置 L(k) 上，这个过程称为一趟快速排序（一次划分）。然后分别递归地对两个子表重复上述过程，直至每部分内只有一个元素或空为止，即所有元素放在了其最终位置上。</p>
+<p>一趟快速排序的过程是一个交替搜索和交换的过程，看下面的一个例子。</p>
+<p>初始序列为第二行：</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>49</td>
+<td>38</td>
+<td>65</td>
+<td>97</td>
+<td>76</td>
+<td>13</td>
+<td>27</td>
+<td>49</td>
+<td>55</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>选中第一个下标为1的49元素，然后把剩余元素划分为都小于49的和都大于等于49的。(49存放到某个临时变量里)</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>38</td>
+<td>65</td>
+<td>97</td>
+<td>76</td>
+<td>13</td>
+<td>27</td>
+<td>49</td>
+<td>55</td>
+<td>4</td>
+</tr>
+<tr>
+<td>low</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>high</td>
+</tr>
+</tbody>
+</table>
+<p>这时候先看 high 指向的元素，发现 10 号元素 4 比 49小，应该将其移动到空的地方（low 指向的下标，），然后 high 变为空：</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>38</td>
+<td>65</td>
+<td>97</td>
+<td>76</td>
+<td>13</td>
+<td>27</td>
+<td>49</td>
+<td>55</td>
+<td></td>
+</tr>
+<tr>
+<td>low</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>high</td>
+</tr>
+</tbody>
+</table>
+<p>然后 low++；</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>38</td>
+<td>65</td>
+<td>97</td>
+<td>76</td>
+<td>13</td>
+<td>27</td>
+<td>49</td>
+<td>55</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>low</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>high</td>
+</tr>
+</tbody>
+</table>
+<p>发现 38 小于 49，继续 low++。</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>38</td>
+<td>65</td>
+<td>97</td>
+<td>76</td>
+<td>13</td>
+<td>27</td>
+<td>49</td>
+<td>55</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>low</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>high</td>
+</tr>
+</tbody>
+</table>
+<p>这时 65 大于 49，应该把 65 放到空的地方（high 指向位置）</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>38</td>
+<td></td>
+<td>97</td>
+<td>76</td>
+<td>13</td>
+<td>27</td>
+<td>49</td>
+<td>55</td>
+<td>65</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>low</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>high</td>
+</tr>
+</tbody>
+</table>
+<p>轮到 high --，直到发现比49小的元素。</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>38</td>
+<td></td>
+<td>97</td>
+<td>76</td>
+<td>13</td>
+<td>27</td>
+<td>49</td>
+<td>55</td>
+<td>65</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>low</td>
+<td></td>
+<td></td>
+<td></td>
+<td>high</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>移动 27：</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>38</td>
+<td>27</td>
+<td>97</td>
+<td>76</td>
+<td>13</td>
+<td></td>
+<td>49</td>
+<td>55</td>
+<td>65</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>low</td>
+<td></td>
+<td></td>
+<td></td>
+<td>high</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>轮到 low ++；</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>38</td>
+<td>27</td>
+<td>97</td>
+<td>76</td>
+<td>13</td>
+<td></td>
+<td>49</td>
+<td>55</td>
+<td>65</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>low</td>
+<td></td>
+<td></td>
+<td>high</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>38</td>
+<td>27</td>
+<td></td>
+<td>76</td>
+<td>13</td>
+<td>97</td>
+<td>49</td>
+<td>55</td>
+<td>65</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>low</td>
+<td></td>
+<td></td>
+<td>high</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>high--。</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>38</td>
+<td>27</td>
+<td></td>
+<td>76</td>
+<td>13</td>
+<td>97</td>
+<td>49</td>
+<td>55</td>
+<td>65</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>low</td>
+<td></td>
+<td>high</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>38</td>
+<td>27</td>
+<td>13</td>
+<td>76</td>
+<td></td>
+<td>97</td>
+<td>49</td>
+<td>55</td>
+<td>65</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>low</td>
+<td></td>
+<td>high</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>low++。</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>38</td>
+<td>27</td>
+<td>13</td>
+<td>76</td>
+<td></td>
+<td>97</td>
+<td>49</td>
+<td>55</td>
+<td>65</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>low</td>
+<td>high</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>38</td>
+<td>27</td>
+<td>13</td>
+<td></td>
+<td>76</td>
+<td>97</td>
+<td>49</td>
+<td>55</td>
+<td>65</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>low</td>
+<td>high</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>high--</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>38</td>
+<td>27</td>
+<td>13</td>
+<td></td>
+<td>76</td>
+<td>97</td>
+<td>49</td>
+<td>55</td>
+<td>65</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>low\high</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>high ==low 时，指向的位置就是 枢轴元素放的位置：</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>38</td>
+<td>27</td>
+<td>13</td>
+<td><strong>49</strong></td>
+<td>76</td>
+<td>97</td>
+<td>49</td>
+<td>55</td>
+<td>65</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>low\high</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>这个时候枢轴的左边元素全都小于 49，右边元素大于等于 49。</p>
+<p>这部分代码如下;</p>
+<pre><code class="lang-c++">int Partition(int A[], int low, int high) {
+	int pivot = A[low];	// 枢轴元素
+	while (low &lt; high)
+	{
+		while (low &lt; high &amp;&amp; A[high] &gt;= pivot) --high;
+		A[low] = A[high];	// 将比枢轴小的元素放左边
+		while (low &lt; high &amp;&amp; A[low] &lt;= pivot) low++;
+		A[high] = A[low];	// 将比枢轴大的元素放右边
+	}
+
+	A[low] = pivot;
+	return low;	// 返回枢轴下标
+}
+</code></pre>
+<p>之后，将枢轴左右两边的子表进行同样的处理：</p>
+<pre><code class="lang-c++">void QuickSort(int A[], int low, int high)
+{
+	if (low &lt; high)
+	{
+		int pivotpos = Partition(A, low, high);	// 获取枢轴
+		QuickSort(A, low, pivotpos - 1);	// 对左子表进行快排
+		QuickSort(A, pivotpos + 1, high);	// 对右子表进行快排
+	}
+}
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Algorithm/Chapter8/8.3.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

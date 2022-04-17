@@ -40,14 +40,23 @@
           "toc.yml",
           "*.md"
         ]
+      },
+      {
+        "files": [
+          "Linux/**.md",
+          "Linux/**/toc.yml",
+          "toc.yml",
+          "*.md"
+        ]
       }
-    ],
+    ],    
     "resource": [
       {
         "files": [
           "images/**",
           "Languages/**.png",
           "Algorithm/**.png",
+          "Linux/**.png",
           "OperatingSystem/**.png"
         ]
       }
