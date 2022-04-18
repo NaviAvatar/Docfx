@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title> </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content=" ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+
+<pre><code class="lang-c++">// algorithm_other.cpp : 描述的是青蛙跳台阶的算法，青蛙一次可以跳一个阶梯，也可以选择跳两个阶梯，也可以选择跳三个阶梯。
+//                       现在有100个阶梯，青蛙要跳到第一百个阶梯，有多少种跳法？
+//
+
+#include &lt;iostream&gt;
+#include&lt;algorithm&gt;
+
+int Get_Count(int step)
+{
+    if (step == 1) return 1;
+    else if (step == 2) return 2;
+    else if (step == 3) return 4;
+
+    return Get_Count(step -1) + Get_Count(step -2) + Get_Count(step - 3);
+}
+
+// 获取排列组合，为什么用double 类型，因为计算数组排列组合的时候，可能出现不能被整除的情况导致出现误差。
+double Get_Permutation_and_Combination(double step_one, double step_two, double step_three)
+{
+    double A[] = { step_one,step_two,step_three };
+    std::sort(std::begin(A), std::end(A));  // 进行排列。
+
+    double sum = step_one + step_three + step_two; // 一共 sum 个元素
+
+    if (A[1] != 0) //当 A[1] 不为零时, 一共有 C(A[2] , sum) * C(A[1], sum-A[2]) 多种排列组合
+    {
+        double left = 1;
+        double right = 1;
+        for (double i = sum; i &gt;= sum - A[2] + 1; i--) // 计算 C(A[2] , sum)
+        {
+            left *= i;
+        }
+        for (double k = A[2]; k &gt; 1; k--)
+        {
+            left /= k;
+        }
+
+
+        for (double j = sum - A[2]; j &gt;= sum - A[2] - A[1] + 1; j--)
+        {
+            right *= j;
+        }
+        for (double k = A[1]; k &gt; 1; k--)
+        {
+            right /= k;
+        }
+
+
+        return left * right;    // 返回排列结果
+    }
+    else   // 说明 有两个step是零，故只需返回 1
+    {
+        return 1;
+    }
+}
+
+double Get_Count_another(double step)
+{
+    double result = 0;
+    for (double step_one = 0; step_one &lt;= step; step_one++)
+    {
+        for (double step_two = 0; step_two &lt;= step - step_one; step_two += 2)
+        {
+            for (double step_three = 0; step_three &lt;= step - step_two - step_one; step_three += 3)
+            {
+                if (step == step_one + step_two + step_three)
+                {
+                    result += Get_Permutation_and_Combination(step_one, step_two/2, step_three/3);
+                }
+            }
+        }
+    }
+
+    return result;
+}
+
+
+int main()
+{
+    for (double i = 20; i &gt;= 1; i--) {
+        std::cout &lt;&lt; &quot;  递归：&quot; &lt;&lt; Get_Count(i) &lt;&lt; &quot; 种台阶跳法&quot; &lt;&lt; std::endl;
+        std::cout &lt;&lt; &quot;非递归：&quot; &lt;&lt; Get_Count_another(i) &lt;&lt; &quot; 种台阶跳法&quot; &lt;&lt; std::endl;
+    }   
+}
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Algorithm/Popular/1.2.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

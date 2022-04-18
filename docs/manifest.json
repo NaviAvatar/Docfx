@@ -893,6 +893,30 @@
       "version": ""
     },
     {
+      "type": "Conceptual",
+      "source_relative_path": "Algorithm/Popular/1.2.md",
+      "output": {
+        ".html": {
+          "relative_path": "Algorithm/Popular/1.2.html",
+          "hash": "2w2h8T1Qitlto+dBdDTEdA0m6pkP+si+MaR7dydaPVI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Algorithm/Popular/1.3.md",
+      "output": {
+        ".html": {
+          "relative_path": "Algorithm/Popular/1.3.html",
+          "hash": "XIymrE8ow6XO99k/AF54Bu/7WlT+i3LU1I147E7pz/U="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
       "type": "Resource",
       "source_relative_path": "Algorithm/Popular/pictures/1.1.1.png",
       "output": {
@@ -959,12 +983,67 @@
       "version": ""
     },
     {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Popular/pictures/1.3.1.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Popular/pictures/1.3.1.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Popular/pictures/1.3.2.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Popular/pictures/1.3.2.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Popular/pictures/1.3.3.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Popular/pictures/1.3.3.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Popular/pictures/1.3.4.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Popular/pictures/1.3.4.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Algorithm/Popular/pictures/1.3.5.png",
+      "output": {
+        "resource": {
+          "relative_path": "Algorithm/Popular/pictures/1.3.5.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
       "type": "Toc",
       "source_relative_path": "Algorithm/toc.yml",
       "output": {
         ".html": {
           "relative_path": "Algorithm/toc.html",
-          "hash": "oDzDsSOipk9X+U3S8+tazo/NLFEROUfFOyP5RSTptLE="
+          "hash": "+eMXq9AFqUFCn4ErqqhMHlXVqnChZ8uv5I/iRDjkQiw="
         }
       },
       "is_incremental": false,
@@ -2079,7 +2158,7 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 99,
+          "total_file_count": 101,
           "skipped_file_count": 99
         },
         "ResourceDocumentProcessor": {
