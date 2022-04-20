@@ -1,0 +1,333 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vim &#21629;&#20196;&#25805;&#20316; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="vim &#21629;&#20196;&#25805;&#20316; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="vim-命令操作">vim 命令操作</h1>
+
+<p>[尚硅谷]: <a href="https://www.bilibili.com/video/BV1WY4y1H7d3?p=19">https://www.bilibili.com/video/BV1WY4y1H7d3?p=19</a>&amp;spm_id_from=pageDriver	&quot;文档内容来源于哔哩哔哩尚硅谷课程视频&quot;</p>
+<h2 id="1-一般模式">1 一般模式</h2>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>yy</td>
+<td>复制当前行</td>
+</tr>
+<tr>
+<td>y2y</td>
+<td>赋值当前行开始往下两行</td>
+</tr>
+<tr>
+<td>p</td>
+<td>粘贴</td>
+</tr>
+<tr>
+<td>5p</td>
+<td>连续粘贴五次</td>
+</tr>
+<tr>
+<td>u</td>
+<td>撤回上一步操作</td>
+</tr>
+<tr>
+<td>dd</td>
+<td>删除当前光标所在行</td>
+</tr>
+<tr>
+<td>d10d</td>
+<td>删除当前光标所在行开始往下连续10行</td>
+</tr>
+<tr>
+<td>y$</td>
+<td>复制当前光标到行尾</td>
+</tr>
+<tr>
+<td>y^</td>
+<td>复制当前光标到行头</td>
+</tr>
+<tr>
+<td>x</td>
+<td>删除光标标记的字符</td>
+</tr>
+<tr>
+<td>shift + x</td>
+<td>删除光标前面的一个字符</td>
+</tr>
+<tr>
+<td>d$</td>
+<td>删除当前光标位置到行尾</td>
+</tr>
+<tr>
+<td>d^</td>
+<td>删除当前光标位置到行头</td>
+</tr>
+<tr>
+<td>r</td>
+<td>按一次r，可以改一次光标所在的字符</td>
+</tr>
+<tr>
+<td>shift + r</td>
+<td>更改光标的内容，光标自动右移（不会跳到下一行）</td>
+</tr>
+<tr>
+<td>shift + ^</td>
+<td>移动到行头</td>
+</tr>
+<tr>
+<td>shift + $</td>
+<td>移动到行尾</td>
+</tr>
+<tr>
+<td>w</td>
+<td>切换到下一个词的词头</td>
+</tr>
+<tr>
+<td>e</td>
+<td>切换到下一个词的词尾</td>
+</tr>
+<tr>
+<td>b</td>
+<td>切换到上一个词的词头</td>
+</tr>
+<tr>
+<td>gg</td>
+<td>移动到文档内容的第一行的第一个字符</td>
+</tr>
+<tr>
+<td>shift + g</td>
+<td>移动到文档内容的最后一行的第一个字符</td>
+</tr>
+<tr>
+<td>shift + H</td>
+<td>移动到当前命令窗口显示文档的第一行</td>
+</tr>
+<tr>
+<td>shift + L</td>
+<td>移动到当前命令窗口的最后一行行首</td>
+</tr>
+<tr>
+<td>3 + shift + g</td>
+<td>跳到文档第3行</td>
+</tr>
+<tr>
+<td>12 + shift + H</td>
+<td>如果当前窗口存在第12行，跳到第12行，否则，跳到当前窗口显示的行号最大的那一行</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-命令模式">2 命令模式</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>: set nu</td>
+<td>显示行号</td>
+</tr>
+<tr>
+<td>: set nonu</td>
+<td>隐藏行号</td>
+</tr>
+<tr>
+<td>:w</td>
+<td>保存</td>
+</tr>
+<tr>
+<td>:q</td>
+<td>转到一般模式</td>
+</tr>
+<tr>
+<td>:wq</td>
+<td>保存并转换到一般模式</td>
+</tr>
+<tr>
+<td>:q!</td>
+<td>强制退出</td>
+</tr>
+<tr>
+<td>:/boot</td>
+<td>文档中所有 boot 单词高亮。<br>此时按 n 键，光标会在高亮词之间跳动（上往下循环）。<br>此时按shift + n 键，光标会在高亮词之间跳动（下往上循环）</td>
+</tr>
+<tr>
+<td>:noh</td>
+<td>取消高亮</td>
+</tr>
+<tr>
+<td>: $/boot/booot</td>
+<td>替换当前行匹配到的第一个 boot 为 booot</td>
+</tr>
+<tr>
+<td>: $/boot/booot/g</td>
+<td>针对光标所在行的所有 boot 改为 booot</td>
+</tr>
+<tr>
+<td>: %$/boot/booot</td>
+<td>替换每一行中第一个匹配到的 boot 改为 booost</td>
+</tr>
+<tr>
+<td>: %$/boot/booot/g</td>
+<td>文档中每一行的 boot 都被替换成 booost</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-编辑模式">3 编辑模式</h2>
+<p>从一般模式切换到编辑模式，按以下键：</p>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>i</td>
+<td>当前光标</td>
+</tr>
+<tr>
+<td>a</td>
+<td>光标后移一个字符</td>
+</tr>
+<tr>
+<td>o</td>
+<td>在当前光标之后插入一行空行，光标跳到空行</td>
+</tr>
+<tr>
+<td>shift + i</td>
+<td>光标跳到当前行的行首</td>
+</tr>
+<tr>
+<td>shift + a</td>
+<td>光标跳到当前行的行尾</td>
+</tr>
+<tr>
+<td>shift + o</td>
+<td>在当前行的前面插入一行空行，光标跳到空行</td>
+</tr>
+</tbody>
+</table>
+<p>退出编辑模式是 按 Esc 键。</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Linux/Command/vimCommand.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
