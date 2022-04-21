@@ -16,7 +16,9 @@
 
 centos 6版本的基本语法：
 
-**service 服务名 start|stop|restart|status**
+```
+service 服务名 start|stop|restart|status
+```
 
 查看服务的方法：/etc/init.d/服务名
 
@@ -24,7 +26,9 @@ centos 6版本的基本语法：
 
 centos 7版本的基本语法：
 
-**systemctl start|stop|restart|status	服务名**
+```
+systemctl start|stop|restart|status	服务名
+```
 
 查看服务的方法：/usr/lib/systemd/system
 
@@ -70,13 +74,15 @@ NFS ：network file system
 
 CentOS 7 的运行级别简化为：
 
-multi-user.target 等价于原运行级别3（多用户有网，无图形界面）
+<font color='red'>multi-user.target 等价于原运行级别3（多用户有网，无图形界面）</font>
 
-graphical.target 等价于原运行级别5（多用户有网，有图形界面）
+<font color='red'>graphical.target 等价于原运行级别5（多用户有网，有图形界面）</font>
 
 查看当前运行级别：
 
+```
 systemctl get-default
+```
 
 命令行下转换运行级别：
 
@@ -89,7 +95,9 @@ systemctl get-default
 
 老版本：
 
+```
 chkconfig --list
+```
 
 列出老版本的SysV服务：
 
@@ -101,11 +109,15 @@ chkconfig --list
 
 使用命令行操作的话就是：
 
+```
 chkconfig newtork on/off
+```
 
 下面这个操作是把network对应的3级别关掉：
 
+```
 chkconfig --level 3 network off
+```
 
 我们查看 NetworkManager的状态，会发现它的状态是 enabled 的
 
@@ -113,7 +125,9 @@ chkconfig --level 3 network off
 
 如果想改成开机不要自启动，直接输入下面的命令：
 
+```
 systemctl disable NetworkManager
+```
 
 再次查看状态：
 
@@ -121,11 +135,15 @@ systemctl disable NetworkManager
 
 如果想改成开机自启动，就输入下面的命令：
 
+```
 systemctl enable NetworkManager
+```
 
 查看开机自启动的服务：
 
+```
 systemctl list-unit-files
+```
 
 ![](pictures/10.png) 
 
@@ -143,11 +161,13 @@ systemctl list-unit-files
 
 老版本：iptables
 
-CentOS 7：fire walld
+CentOS 7：firewalld
 
 还记得查看服务状态吗？
 
-systemctl status firewalld，
+```
+systemctl status firewalld
+```
 
 [防火墙]: https://baike.baidu.com/item/%E9%98%B2%E7%81%AB%E5%A2%99/52767	"防火墙能做什么"
 
@@ -168,7 +188,7 @@ systemctl status firewalld，
 | shutdown 15:28 | 在 15:28:00 时刻立即执行关机 |
 |                |                              |
 
-为什么 shutdown 默认会等一会儿再关闭？
+**为什么 shutdown 默认会等一会儿再关闭？**
 
 因为要执行 sync。
 
