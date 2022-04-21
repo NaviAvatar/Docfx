@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>linux &#30446;&#24405;&#20171;&#32461; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="linux &#30446;&#24405;&#20171;&#32461; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="linux-目录介绍">linux 目录介绍</h1>
+
+<p>[内容来源]: <a href="https://www.bilibili.com/video/BV1WY4y1H7d3?p=24">https://www.bilibili.com/video/BV1WY4y1H7d3?p=24</a>&amp;spm_id_from=pageDriver	&quot;本文来源于尚硅谷linux教程系列课程&quot;</p>
+<p><img src="pictures/treestruct.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bin</td>
+<td>Binary的缩写，装二进制文件，主要放了一些常用的命令。</td>
+</tr>
+<tr>
+<td>/sbin</td>
+<td>s 是 Super User，这里存放的是系统管理员使用的系统管理程序。</td>
+</tr>
+<tr>
+<td>/home</td>
+<td>存放普通用户的主目录，在 Linux 中每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的。</td>
+</tr>
+<tr>
+<td>/root</td>
+<td>该目录为系统管理员，也称作超级权限者的用户主目录。</td>
+</tr>
+<tr>
+<td>/lib</td>
+<td>系统开机所需的最基本的动态链接共享库，其作用类似于windows里的Dll库。几乎所有的应用程序都需要用这些共享库。</td>
+</tr>
+<tr>
+<td>/lost+found</td>
+<td>这个目录一般情况下为空，当系统非法关机后，这里存放一些文件。</td>
+</tr>
+<tr>
+<td>/etc</td>
+<td>所有的系统管理所需的配置文件和子目录。</td>
+</tr>
+<tr>
+<td>/usr</td>
+<td>一个非常重要的目录，用户的很多应用程序和文件都存放在这个目录下，类似于 windows 的 program files目录。</td>
+</tr>
+<tr>
+<td>/boot</td>
+<td>存放启动linux时使用的一些核心文件，包括一些连接文件以及镜像文件。一般不允许动这个文件。</td>
+</tr>
+<tr>
+<td>/proc</td>
+<td>是一个虚拟的目录，它是系统内存的映射，可以通过直接访问这个目录来获取系统信息。</td>
+</tr>
+<tr>
+<td>/srv</td>
+<td>service 缩写，该目录存放一些服务启动之后所需提取的数据。</td>
+</tr>
+<tr>
+<td>/sys</td>
+<td>系统硬件相关。</td>
+</tr>
+<tr>
+<td>/tmp</td>
+<td>存放临时文件。</td>
+</tr>
+<tr>
+<td>/dev</td>
+<td>类似windows的设备管理器。把所有的硬件用文件的形式存储。</td>
+</tr>
+<tr>
+<td>/media</td>
+<td>linux 系统会自动识别一些设备，如U盘、光驱等等。当识别后，linux 会把识别的设备挂载到这个目录下。</td>
+</tr>
+<tr>
+<td>/mnt</td>
+<td>系统提供该目录是为了让用户临时挂载别的文件系统，我们可以将外部的存储挂载在 /mnt 上，然后进入该目录就可以直接查看看里面的内容了。</td>
+</tr>
+<tr>
+<td>/opt</td>
+<td>给主机额外安装软件所摆放的目录。如安装一个 mysql 数据库就可以放到这个目录下。包括各种日志文件。</td>
+</tr>
+<tr>
+<td>/selinux</td>
+<td>SELinux 是一种安全子系统，它能控制程序只能访问特定文件。</td>
+</tr>
+</tbody>
+</table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Linux/Command/linux&#30446;&#24405;&#20171;&#32461;.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
