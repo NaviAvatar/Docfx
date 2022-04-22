@@ -1,8 +1,8 @@
-- name: vim 编辑器操作
+- name: 1. vim 编辑器操作
   href: vimCommand.md
-- name: linux 文件目录结构
+- name: 2. linux 文件目录结构
   href: linux-directory.md
-- name: 网络配置
+- name: 3. 网络配置
   href: network-config.md
-- name: 系统管理
+- name: 4. 系统管理
   href: system-manage.md
