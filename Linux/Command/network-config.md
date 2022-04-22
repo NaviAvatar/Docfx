@@ -73,27 +73,31 @@ VMnet8 的ip地址和虚拟机的ip地址在同一个网段下，所以这两个
 
 我们这里将会对 虚拟机进行静态 ip 的配置，物理机则不用，因为我们的实验目标是用 windows远程登录 linux系统啊。
 
-① 用终端打开文件
+① 用终端打开文件(可通过输入 ifconfig 命令查看 ip 在哪个文件，这里是 ifcfg-ens33)
 
-vim /etc/sysconfig/network-scripts/ifcfg-ens33(可通过ifconfig查看ip在哪个文件，这里是 ifcfg-ens33)
+```
+vim /etc/sysconfig/network-scripts/ifcfg-ens33
+```
 
 ② 修改 BOOTPROTO="dhcp" 改成 BOOTPROTO="static"
 
-③ 添加ip 地址：
+③ 添加 ip 地址：
 
+```
 IPADDR=192.168.19.100
-
 GATEWAY=192.168.19.2
-
 DNS1=192.168.19.2
+```
 
 保存文件。
 
 ④ 重启网络配置：
 
+```
 [root@hadoop100 ~] service network restart
+```
 
-配置好后，可以去windows进行ping，查看是不是可以 ping 通。ping不通可能是防火墙的问题。
+配置好后，可以去 windows 进行 ping，查看是不是可以 ping 通。ping 不通可能是防火墙的问题。
 
 ## 配置主机名
 
@@ -101,27 +105,41 @@ DNS1=192.168.19.2
 
 显示主机名：
 
+```
 [root@hadoop100 ~] hostname
+```
 
+进入文件修改主机名（需要重启才生效）
+
+```
 vim /etc/hostname
+```
 
-修改其名（需要重启）
+或者执行（立即生效）
 
-或者 hostnamectl set-hostname hadoop99
+```
+ hostnamectl set-hostname hadoop99
+```
 
-再打开终端就改掉主机名了。
+再打开另一个终端就改掉主机名了。
 
 ### hosts 文件的作用
 
 配置 hostname 和 ip 地址的映射。
 
-修改了主机名后，去host文件配置ip和主机名：
+修改了主机名后，去 windows 的下 host 文件配置 ip 和主机名：
 
 192.168.19.100	hadoop100
 
-windows 下的hosts文件路径：C:\Windows\System32\drivers\etc
+windows 下的hosts文件路径：
+
+```
+C:\Windows\System32\drivers\etc
+```
 
 这时候，在windows 下直接 ping hadoop100 就能 ping 通对应的 ip。
+
+------
 
 ## 远程登录
 
@@ -138,3 +156,6 @@ Xftp 7可以连接远程，并进行客户端和服务端的文件传输。远�
 如果显示中文出现乱码：
 
 点击菜单栏的属性-选项-编码，选utf-8。
+
+[不会点击这里]: https://www.bilibili.com/video/BV1WY4y1H7d3?p=23	"视频学习远程登录"
+
