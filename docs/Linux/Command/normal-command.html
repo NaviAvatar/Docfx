@@ -1,0 +1,431 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>&#24120;&#29992;&#22522;&#26412;&#21629;&#20196; </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="&#24120;&#29992;&#22522;&#26412;&#21629;&#20196; ">
+    <meta name="generator" content="docfx 2.59.0.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="常用基本命令">常用基本命令</h1>
+
+<p>[1]: <a href="https://www.bilibili.com/video/BV1WY4y1H7d3?p=28">https://www.bilibili.com/video/BV1WY4y1H7d3?p=28</a>	&quot; 视频来源于尚硅谷视频教程&quot;
+[2]: <a href="https://www.bilibili.com/video/BV1WY4y1H7d3?p=35">https://www.bilibili.com/video/BV1WY4y1H7d3?p=35</a>	&quot;less, more，cat 用法&quot;
+[3]: <a href="https://blog.csdn.net/weixin_32501329/article/details/116768385">https://blog.csdn.net/weixin_32501329/article/details/116768385</a>	&quot;查找文件中关键字&quot;</p>
+<p>可以把 Shell 看做一个命令解释器，它负责解释命令并交给内核执行。centos 7 默认的 shell 是 dash。</p>
+<p>这条命令可以将 /bin/ 目录下筛选 sh 的文件详细列出来：</p>
+<pre><code>ls -l /bin/ | grep sh
+</code></pre>
+<pre><code>ls -l          这条代码是显示目录和文件的详细资料，不会显示子目录里的文件细节
+</code></pre>
+<p><font color='red'>命令记不住怎么办？</font></p>
+<p>网上查，或者 man 去查，或者 xx --help。</p>
+<p>基本语法：man [命令]</p>
+<p><font color='red'>如果进入 3 级别模式，查询命令 --help信息太多怎么办？</font></p>
+<pre><code class="lang-c++">ls --help|less
+</code></pre>
+<p>或者</p>
+<pre><code>ls --help|more
+</code></pre>
+<p>一些常用的命令：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pwd</td>
+<td>print working directory，显示当前所在的绝对路径，常用于定位自己位置</td>
+<td>pwd</td>
+</tr>
+<tr>
+<td>cd</td>
+<td>changing directory，切换目录</td>
+<td>cd /root/public</td>
+</tr>
+<tr>
+<td>../</td>
+<td>当前路径的上一层目录</td>
+<td>cd ../video</td>
+</tr>
+<tr>
+<td>cd -</td>
+<td>返回上一次所在的位置目录，常用于频繁切换两个路径</td>
+<td>cd -</td>
+</tr>
+<tr>
+<td>cd</td>
+<td>返回主目录，不同用户返回的主目录不同</td>
+<td>cd</td>
+</tr>
+<tr>
+<td>su</td>
+<td>switch user，切换用户</td>
+<td>su</td>
+</tr>
+<tr>
+<td>ls</td>
+<td>list，列出当前目录的文件和文件夹</td>
+<td>ls</td>
+</tr>
+<tr>
+<td>ls -a</td>
+<td>list all，显示当前目录的所有文件，包括隐藏文件</td>
+<td>ls -a</td>
+</tr>
+<tr>
+<td>..</td>
+<td>表示上层目录</td>
+<td>cd ../</td>
+</tr>
+<tr>
+<td>.</td>
+<td>表示当前目录</td>
+<td>cd ./桌面</td>
+</tr>
+<tr>
+<td>以.开头的文件</td>
+<td>说明是隐藏文件</td>
+<td></td>
+</tr>
+<tr>
+<td>ls -l</td>
+<td>list long，显示当前目录下的文件和目录的详细信息</td>
+<td>ls -l</td>
+</tr>
+<tr>
+<td>ll</td>
+<td>等同于 ls -l</td>
+<td>ll</td>
+</tr>
+<tr>
+<td>mkdir</td>
+<td>making directory，创建目录</td>
+<td>mkdir a</td>
+</tr>
+<tr>
+<td>mkdir a b</td>
+<td>创建 a 文件夹和 b文件夹</td>
+<td>mkdir a b</td>
+</tr>
+<tr>
+<td>mkdir a/b/c</td>
+<td>如果a目录存在且a/b目录存在，a/b/c文件夹创建成功；<br>如果a目录不存在或者a/b目录不存在，a/b/c 文件夹创建失败。<br>如果目录已存在，不会更改文件的创建时间属性。</td>
+<td>mkdir a/b/c</td>
+</tr>
+<tr>
+<td>mkdir -p a/b/c</td>
+<td>不管父辈级目录（a，a/b）存不存在，都将创建到 a/b/c。<br>如果目录已存在，不会更改文件的创建时间属性。</td>
+<td>mkdir -p a/b/c</td>
+</tr>
+<tr>
+<td>rmdir</td>
+<td>remove directory，删除目录</td>
+<td>rmdir a</td>
+</tr>
+<tr>
+<td>rmdir a b</td>
+<td>如果a、b目录有文件或文件夹，那么删除失败。</td>
+<td>rmdir a b</td>
+</tr>
+<tr>
+<td>rmdir a/b/c</td>
+<td>如果a/b/c有文件或者文件，那么删除失败。<br>如果父辈级的目录还有其他文件或者文件夹，那么删除是吧</td>
+<td>rmdir a/b/c</td>
+</tr>
+<tr>
+<td>touch</td>
+<td>创建文件。后面可以跟文件的绝对路径和相对路径。<br>如果文件存在，那么文件的内容不会变，时间属性会变成指令执行的时候的时间。</td>
+<td>touch a.c</td>
+</tr>
+<tr>
+<td>cp s d</td>
+<td>s:source，被拷贝的文件或文件夹。<br>d:拷贝文件放到的路径，可以是一个文件的绝对路径或者相对路径。<br>d也可以是一个文件夹的相对路径或者绝对路径。<br>如果是文件夹，请使用 -r 参数去递归复制。</td>
+<td>cp -r /code /sourcecode</td>
+</tr>
+<tr>
+<td>\cp</td>
+<td>同cp一样，不过不会进行拷贝询问。</td>
+<td></td>
+</tr>
+<tr>
+<td>alias</td>
+<td>可以查看有什么指令有别名。</td>
+<td></td>
+</tr>
+<tr>
+<td>rm</td>
+<td>删除。</td>
+<td></td>
+</tr>
+<tr>
+<td>rm s.c</td>
+<td>会进行删除前询问。</td>
+<td></td>
+</tr>
+<tr>
+<td>\rm s.c</td>
+<td>删除前不会询问。</td>
+<td></td>
+</tr>
+<tr>
+<td>rm -f s.c</td>
+<td>删除前不会询问。</td>
+<td></td>
+</tr>
+<tr>
+<td>rm -rf s/</td>
+<td>删除 s目录下的子文件和 子目录，并且不会询问。</td>
+<td></td>
+</tr>
+<tr>
+<td>rm -f ./*</td>
+<td>清空当前目录。</td>
+<td></td>
+</tr>
+<tr>
+<td>mv</td>
+<td>移动，可以移动文件，可以移动目录，或者给目录和文件重命名。</td>
+<td></td>
+</tr>
+<tr>
+<td>cat</td>
+<td>查看文档，一下子全打印在黑眶上。</td>
+<td>cat fileName|grep “待查找字符串”</td>
+</tr>
+<tr>
+<td>more</td>
+<td>全部加载文件，但是现实开头文件。</td>
+<td></td>
+</tr>
+<tr>
+<td>less</td>
+<td>根据当前显示的文件加载部分内容，比more 强，还可以进行搜索。/keyword。即可搜索。<br>shift+G : 到文尾；g：到文首。</td>
+<td></td>
+</tr>
+<tr>
+<td>echo</td>
+<td>打印。如果待打印字串之间有很长空格，这些长空格会被替换成一个空格。<br>如果有双引号，则按原样输出。</td>
+<td>echo &quot;hello world&quot;</td>
+</tr>
+<tr>
+<td>echo -e</td>
+<td>-e，表示支持\引号里的转义字符。</td>
+<td>echo -e &quot;hello world\nlinux&quot;</td>
+</tr>
+<tr>
+<td>&lt;、&gt;</td>
+<td>输入输出重定向，可以将内容写到文件上。</td>
+<td>ls -l &gt; a.txt，将当前目录的文件详细信息写入a.txt中。</td>
+</tr>
+<tr>
+<td>&lt;&lt;、&gt;&gt;</td>
+<td>输入输出追加，将内容追加到文件尾部。</td>
+<td></td>
+</tr>
+<tr>
+<td>head</td>
+<td>默认打开文件前10行。</td>
+<td>head a.c</td>
+</tr>
+<tr>
+<td>head -n 20</td>
+<td>显示文件前20行，立即退出（不像tail）。</td>
+<td>head a.c -n 20</td>
+</tr>
+<tr>
+<td>tail</td>
+<td>默认查看文件最后10行。</td>
+<td>tail a.c</td>
+</tr>
+<tr>
+<td>tial -n 20</td>
+<td>查看文件最后20行。</td>
+<td>tail a.c -n 20</td>
+</tr>
+<tr>
+<td>tial -f</td>
+<td>实时跟踪刷新文件内容。</td>
+<td>tail -f a.c -n 20</td>
+</tr>
+<tr>
+<td>history</td>
+<td>查看当前命令，可以搭配 less 使用。</td>
+<td>history|less</td>
+</tr>
+<tr>
+<td>history 10</td>
+<td>表示过去最近输入的10条指令。</td>
+<td></td>
+</tr>
+<tr>
+<td>history -c</td>
+<td>删除过去使用的指令的记录。</td>
+<td></td>
+</tr>
+<tr>
+<td>date</td>
+<td>获取当前时间信息。</td>
+<td></td>
+</tr>
+<tr>
+<td>cal</td>
+<td>查看日历。获取当天所在月份的日历</td>
+<td></td>
+</tr>
+<tr>
+<td>cal -3</td>
+<td>前后两个月也放出来</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="ln软连接">ln软连接</h2>
+<p>可以理解为快捷键。文件类型以 l 开头，表示软连接 ln。可以创建连接到软连接的连接。</p>
+<p>基本语法：</p>
+<pre><code>ln -s [原文件或目录] [软连接名]
+如：ln -s /home/aaaa/code/a.c programfile
+</code></pre>
+<p>删除软连接：</p>
+<pre><code>rm -rf [软连接名]
+rm -rf programfile
+</code></pre>
+<p>如果删除了源文件，用 ls 显示软连接名就变成红色的。</p>
+<p>如果想显示物理路径，用 pwd -p。</p>
+<p>否则，进入软连接目录下，pwd显示的是软连接路径</p>
+<p>如果想通过进入软连接名到其真是物理地址，可以用 cd -p [软连接路径]</p>
+<p>查看倒数第 1000 行日志(具有实时追踪日志内容变化的功能)：<font color='red'>tail -f catalina.out -n 1000 | less</font></p>
+<p>1、find [选项] [目录] [条件] [动作]</p>
+<p>如果不指定任何目录，find 将会查找当前目录。如果 不指定条件，则条件相当于“true”，这样会把全部文件都找出来。选项、条件和动作的设置十分繁多，  看看 几个参数选项：</p>
+<p>-xdev：不在其它文件系统的目录中搜索。</p>
+<p>-mindepth <n>：搜索文件时至少要深入到指定目录的第 n 层子目录。<p>
+<p>-maxdepth <n>：搜索文件时最多深入到指定目录的第 n 层子目录。<p>
+<p>-follow：如果符号链接到目录，则跟随符号链接进入。默认情况下，find 不跟随链接。</p>
+<p>-daystart：当使用与事件相关的测试时(见下文)，将当天的开始时间作为时间戳，而不是默认值(从当前时间倒退24个小时)。</p>
+<p>条件可以是一个或多个原子测试。这是一些有用的测试：</p>
+<p>-type &lt;文件类型&gt;：搜索给定类型的文件。文件类型可以是以下之一：f(普通文件)、d(目录)、l(符号链接)、s(套接字)、b(块模式文件)、c(字符模式文件)或p(命名管道)。</p>
+<p>-name &lt;模式&gt;：查找文件名与给定模式匹配的文件。使用此选项，模式将被看作shell 全局模式(参见“Shell 通配符”一节)。</p>
+<p>-iname &lt;模式&gt;：与 -name 类似，但不区分大小写。</p>
+<p>-atime <n>、-amin <n>：查找上次访问时间在 n 天前(-atime)或 n 分钟前(-amin) 的文件。您还可以指定 &lt;+n&gt; 或 &lt;-n&gt;，这代表要搜索访问时间在至多或者至少 n 天/分钟前的文件。<p>
+<p>-anewer &lt;文件&gt;：查找上次访问时间晚于文件的文件。</p>
+<p>-ctime <n>、-cmin <n>、-cnewer <file>：与 -atime、-amin 和 -anewer 相同，但比较的是文件上次修改的时间。<p>
+<p>-regex &lt;模式&gt;：与 -name 相同，但模式将被看作正则表达式。</p>
+<p>-iregex <pattern>：与 -regex 相同，但不区分大小写。<p>
+<p>2、利用find加grep，find找出文件，grep查找文件内容</p>
+<pre><code># find . -type f -print | xargs grep &quot;hostname&quot;
+</code></pre>
+<p>用grep命令在所有的普通文件中搜索hostname这个词</p>
+</pattern></file></n></n></n></n></n></n></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Linux/Command/normal-command.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

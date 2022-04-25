@@ -136,31 +136,41 @@
 <p>为什么要配置静态 ip 地址？</p>
 <p>因为每次启动机器时，DHCP 是动态分配 ip 给虚拟机和物理主机的，写程序啊什么的不可能每次都要改一下ip输入吧！！！</p>
 <p>我们这里将会对 虚拟机进行静态 ip 的配置，物理机则不用，因为我们的实验目标是用 windows远程登录 linux系统啊。</p>
-<p>① 用终端打开文件</p>
-<p>vim /etc/sysconfig/network-scripts/ifcfg-ens33(可通过ifconfig查看ip在哪个文件，这里是 ifcfg-ens33)</p>
+<p>① 用终端打开文件(可通过输入 ifconfig 命令查看 ip 在哪个文件，这里是 ifcfg-ens33)</p>
+<pre><code>vim /etc/sysconfig/network-scripts/ifcfg-ens33
+</code></pre>
 <p>② 修改 BOOTPROTO=&quot;dhcp&quot; 改成 BOOTPROTO=&quot;static&quot;</p>
-<p>③ 添加ip 地址：</p>
-<p>IPADDR=192.168.19.100</p>
-<p>GATEWAY=192.168.19.2</p>
-<p>DNS1=192.168.19.2</p>
+<p>③ 添加 ip 地址：</p>
+<pre><code>IPADDR=192.168.19.100
+GATEWAY=192.168.19.2
+DNS1=192.168.19.2
+</code></pre>
 <p>保存文件。</p>
 <p>④ 重启网络配置：</p>
-<p>[root@hadoop100 ~] service network restart</p>
-<p>配置好后，可以去windows进行ping，查看是不是可以 ping 通。ping不通可能是防火墙的问题。</p>
+<pre><code>[root@hadoop100 ~] service network restart
+</code></pre>
+<p>配置好后，可以去 windows 进行 ping，查看是不是可以 ping 通。ping 不通可能是防火墙的问题。</p>
 <h2 id="配置主机名">配置主机名</h2>
 <p>为什么配置主机名？方便远程登录时，输入主机名即可。</p>
 <p>显示主机名：</p>
-<p>[root@hadoop100 ~] hostname</p>
-<p>vim /etc/hostname</p>
-<p>修改其名（需要重启）</p>
-<p>或者 hostnamectl set-hostname hadoop99</p>
-<p>再打开终端就改掉主机名了。</p>
+<pre><code>[root@hadoop100 ~] hostname
+</code></pre>
+<p>进入文件修改主机名（需要重启才生效）</p>
+<pre><code>vim /etc/hostname
+</code></pre>
+<p>或者执行（立即生效）</p>
+<pre><code> hostnamectl set-hostname hadoop99
+</code></pre>
+<p>再打开另一个终端就改掉主机名了。</p>
 <h3 id="hosts-文件的作用">hosts 文件的作用</h3>
 <p>配置 hostname 和 ip 地址的映射。</p>
-<p>修改了主机名后，去host文件配置ip和主机名：</p>
+<p>修改了主机名后，去 windows 的下 host 文件配置 ip 和主机名：</p>
 <p>192.168.19.100	hadoop100</p>
-<p>windows 下的hosts文件路径：C:\Windows\System32\drivers\etc</p>
+<p>windows 下的hosts文件路径：</p>
+<pre><code>C:\Windows\System32\drivers\etc
+</code></pre>
 <p>这时候，在windows 下直接 ping hadoop100 就能 ping 通对应的 ip。</p>
+<hr>
 <h2 id="远程登录">远程登录</h2>
 <p>上面都配置好后，在windows cmd 下输入</p>
 <p>ssh root@hadoop100</p>
@@ -169,6 +179,7 @@
 <p>Xftp 7可以连接远程，并进行客户端和服务端的文件传输。远程拷贝和复制等。</p>
 <p>如果显示中文出现乱码：</p>
 <p>点击菜单栏的属性-选项-编码，选utf-8。</p>
+<p>[不会点击这里]: <a href="https://www.bilibili.com/video/BV1WY4y1H7d3?p=23">https://www.bilibili.com/video/BV1WY4y1H7d3?p=23</a>	&quot;视频学习远程登录&quot;</p>
 </article>
           </div>
           

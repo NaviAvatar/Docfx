@@ -1974,11 +1974,35 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "Linux/Command/linux-git-install.md",
+      "output": {
+        ".html": {
+          "relative_path": "Linux/Command/linux-git-install.html",
+          "hash": "MfA+JRz0WUhX5oD9SCR/SCA+77jRJf8qWFHNzKlXLCM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "Linux/Command/network-config.md",
       "output": {
         ".html": {
           "relative_path": "Linux/Command/network-config.html",
-          "hash": "+/Yg7v3GMdmSdKm3c9Y8Mu6++Ap8Ye48s1AaLrhkGWU="
+          "hash": "uJHHllm17EX2bkMImccOEicuTCDj4XQNflVSUhnFBHE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Linux/Command/normal-command.md",
+      "output": {
+        ".html": {
+          "relative_path": "Linux/Command/normal-command.html",
+          "hash": "Wde8yFeisP+D6LWjij5wGOJmOa5oVbR2H+H2Waq3mBw="
         }
       },
       "is_incremental": false,
@@ -2133,7 +2157,7 @@
       "output": {
         ".html": {
           "relative_path": "Linux/Command/system-manage.html",
-          "hash": "beGFmjDv5vMJBUkzwkTa43FPx+Vo/qeCdXjw8qSk1q4="
+          "hash": "PA8hte5HhsE8b4BLJ6DWFks2Q39aQaHMoVtvoApGiRE="
         }
       },
       "is_incremental": false,
@@ -2152,12 +2176,60 @@
       "version": ""
     },
     {
+      "type": "Conceptual",
+      "source_relative_path": "Linux/Git/git-configure.md",
+      "output": {
+        ".html": {
+          "relative_path": "Linux/Git/git-configure.html",
+          "hash": "ZrLVcL7faSQTl4trih1F4puPpQpGObwIxxXGD5uiDSo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Linux/Git/linux-git-install.md",
+      "output": {
+        ".html": {
+          "relative_path": "Linux/Git/linux-git-install.html",
+          "hash": "fcRleJCBbYIvlb9d6sX0vaXsrs+FqsC33zjyeyBT9vA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "Linux/Git/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "Linux/Git/toc.html",
+          "hash": "9WkHaXvkXhCbJYS/6mwan/QK2yMO6441qVR0NnhcDIc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Linux/other/python-pip-install.md",
+      "output": {
+        ".html": {
+          "relative_path": "Linux/other/python-pip-install.html",
+          "hash": "EDu5HTfjNPEBTqy/oDpslgw5Shf9uXDm5fh+BxAcJYc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
       "type": "Toc",
       "source_relative_path": "Linux/toc.yml",
       "output": {
         ".html": {
           "relative_path": "Linux/toc.html",
-          "hash": "h8Y4kM01oY1FjVjJB9ZCwjXBkQW2VinLs63zZGuQkWM="
+          "hash": "qeCZLUYRRDxeaDCeevVQ7f0wv36/a4xlCJeQVlphCuc="
         }
       },
       "is_incremental": false,
@@ -2349,8 +2421,8 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 105,
-          "skipped_file_count": 102
+          "total_file_count": 110,
+          "skipped_file_count": 104
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

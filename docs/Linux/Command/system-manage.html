@@ -79,6 +79,7 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="系统管理">系统管理</h1>
 
+<p>[内容来源]: <a href="https://www.bilibili.com/video/BV1WY4y1H7d3?p=24&amp;spm_id_from=pageDriver">https://www.bilibili.com/video/BV1WY4y1H7d3?p=24&amp;spm_id_from=pageDriver</a>	&quot;内容来源尚硅谷教程系列&quot;</p>
 <h2 id="1-linux-服务管理">1. linux 服务管理</h2>
 <h3 id="进程和服务的介绍">进程和服务的介绍</h3>
 <p>进程是程序装载入内存，正在被执行的程序。</p>
@@ -86,11 +87,13 @@
 <h3 id="service-服务管理">service 服务管理</h3>
 <p>之前修改 ip 后，启动用 service network restart 命令，意思是重启网络服务。</p>
 <p>centos 6版本的基本语法：</p>
-<p><strong>service 服务名 start|stop|restart|status</strong></p>
+<pre><code>service 服务名 start|stop|restart|status
+</code></pre>
 <p>查看服务的方法：/etc/init.d/服务名</p>
 <p>显示出来的四个，绿色的是可执行程序。</p>
 <p>centos 7版本的基本语法：</p>
-<p><strong>systemctl start|stop|restart|status	服务名</strong></p>
+<pre><code>systemctl start|stop|restart|status	服务名
+</code></pre>
 <p>查看服务的方法：/usr/lib/systemd/system</p>
 <p>我们可以关掉 network 和 NetworkManager 服务，这样就不能访问网络了，外部物理机器有ping不通。</p>
 <p>建议停掉 network ，启用 NetworkManager。</p>
@@ -146,10 +149,11 @@
 </table>
 <p>NFS ：network file system</p>
 <p>CentOS 7 的运行级别简化为：</p>
-<p>multi-user.target 等价于原运行级别3（多用户有网，无图形界面）</p>
-<p>graphical.target 等价于原运行级别5（多用户有网，有图形界面）</p>
+<p><font color='red'>multi-user.target 等价于原运行级别3（多用户有网，无图形界面）</font></p>
+<p><font color='red'>graphical.target 等价于原运行级别5（多用户有网，有图形界面）</font></p>
 <p>查看当前运行级别：</p>
-<p>systemctl get-default</p>
+<pre><code>systemctl get-default
+</code></pre>
 <p>命令行下转换运行级别：</p>
 <table>
 <thead>
@@ -171,25 +175,31 @@
 </table>
 <h2 id="3-配置开机服务和防火墙">3. 配置开机服务和防火墙</h2>
 <p>老版本：</p>
-<p>chkconfig --list</p>
+<pre><code>chkconfig --list
+</code></pre>
 <p>列出老版本的SysV服务：</p>
 <p><img src="pictures/6.png" alt=""></p>
 <p>假如我们用setup去关闭 network，再回来看，<strong>2-6的运行级别被关掉了：</strong></p>
 <p><img src="pictures/7.png" alt=""></p>
 <p>使用命令行操作的话就是：</p>
-<p>chkconfig newtork on/off</p>
+<pre><code>chkconfig newtork on/off
+</code></pre>
 <p>下面这个操作是把network对应的3级别关掉：</p>
-<p>chkconfig --level 3 network off</p>
+<pre><code>chkconfig --level 3 network off
+</code></pre>
 <p>我们查看 NetworkManager的状态，会发现它的状态是 enabled 的</p>
 <p><img src="pictures/8.png" alt=""></p>
 <p>如果想改成开机不要自启动，直接输入下面的命令：</p>
-<p>systemctl disable NetworkManager</p>
+<pre><code>systemctl disable NetworkManager
+</code></pre>
 <p>再次查看状态：</p>
 <p><img src="pictures/9.png" alt=""></p>
 <p>如果想改成开机自启动，就输入下面的命令：</p>
-<p>systemctl enable NetworkManager</p>
+<pre><code>systemctl enable NetworkManager
+</code></pre>
 <p>查看开机自启动的服务：</p>
-<p>systemctl list-unit-files</p>
+<pre><code>systemctl list-unit-files
+</code></pre>
 <p><img src="pictures/10.png" alt=""></p>
 <p>可以看出服务有三种状态：</p>
 <table>
@@ -217,9 +227,10 @@
 <h3 id="实战配置防火墙的自启动">实战：配置防火墙的自启动</h3>
 <p>防火墙：</p>
 <p>老版本：iptables</p>
-<p>CentOS 7：fire walld</p>
+<p>CentOS 7：firewalld</p>
 <p>还记得查看服务状态吗？</p>
-<p>systemctl status firewalld，</p>
+<pre><code>systemctl status firewalld
+</code></pre>
 <p>[防火墙]: <a href="https://baike.baidu.com/item/%E9%98%B2%E7%81%AB%E5%A2%99/52767">https://baike.baidu.com/item/%E9%98%B2%E7%81%AB%E5%A2%99/52767</a>	&quot;防火墙能做什么&quot;</p>
 <p><img src="pictures/11.png" alt=""></p>
 <p>看出是 enabled，是开机自启动的，意味着如果现在输入命令行 systemctl stop firewalld，防火墙会立即停止，但是下次开机，防火墙又自动开启。</p>
@@ -259,7 +270,7 @@
 </tr>
 </tbody>
 </table>
-<p>为什么 shutdown 默认会等一会儿再关闭？</p>
+<p><strong>为什么 shutdown 默认会等一会儿再关闭？</strong></p>
 <p>因为要执行 sync。</p>
 <table>
 <thead>

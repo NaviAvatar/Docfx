@@ -6,3 +6,7 @@
   href: network-config.md
 - name: 4. 系统管理
   href: system-manage.md
+- name: 5. 常见指令
+  href: normal-command.md
+- name: linux 下安装 git 新版
+  href: linux-git-install.md
