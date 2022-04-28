@@ -461,7 +461,7 @@
       "output": {
         ".html": {
           "relative_path": "Algorithm/Chapter7/7.2.html",
-          "hash": "YreUs1MaF9t88dxDkD+qVtDuWTRDCEBKlGktSHMp+zI="
+          "hash": "0vSW/9aF3JkeLfEAUj0Amjz2M4HiYegpxLurgm6UUa4="
         }
       },
       "is_incremental": false,
@@ -574,7 +574,7 @@
       "output": {
         ".html": {
           "relative_path": "Algorithm/Chapter8/8.2.html",
-          "hash": "DouBXhuBeoDjY/rjItkf9yxQUtIOIBLGhwQkJfuE0zY="
+          "hash": "j3n9/O5MOSQdlFuRK/ONPyxVsDBQAjHJ7lL/XZUAnLk="
         }
       },
       "is_incremental": false,
@@ -917,6 +917,18 @@
       "version": ""
     },
     {
+      "type": "Conceptual",
+      "source_relative_path": "Algorithm/Popular/1.4.md",
+      "output": {
+        ".html": {
+          "relative_path": "Algorithm/Popular/1.4.html",
+          "hash": "mgiv+cAs7sfuEZcM9sZzhuR4MmApZN5ZOYuJRZt1KF8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
       "type": "Resource",
       "source_relative_path": "Algorithm/Popular/pictures/1.1.1.png",
       "output": {
@@ -1043,7 +1055,7 @@
       "output": {
         ".html": {
           "relative_path": "Algorithm/toc.html",
-          "hash": "+eMXq9AFqUFCn4ErqqhMHlXVqnChZ8uv5I/iRDjkQiw="
+          "hash": "uS4LYtbFeU9S8HzSCawZnZ7ocsuOX3U0qAB6kZj1S1M="
         }
       },
       "is_incremental": false,
@@ -2165,6 +2177,18 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "Linux/Command/user-management-instru.md",
+      "output": {
+        ".html": {
+          "relative_path": "Linux/Command/user-management-instru.html",
+          "hash": "+ofGgNtiYr/5eqtkXNluu5zxp/fqCP8Z+R+z5sMJKUU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "Linux/Command/vimCommand.md",
       "output": {
         ".html": {
@@ -2421,8 +2445,8 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 110,
-          "skipped_file_count": 104
+          "total_file_count": 112,
+          "skipped_file_count": 111
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

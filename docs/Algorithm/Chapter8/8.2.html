@@ -227,13 +227,14 @@
 <h2 id="822折半插入排序">8.2.2	折半插入排序</h2>
 <p>直接插入排序的工作原理：</p>
 <p>从前半部分有序子序列中找出待插入元素的位置k，然后位置 k （包括k的元素）都往后移动。查找时用的是顺序查找，我们可以改进一下，查找时用折半查找，这样会快一些（要求存储是按照数组存储）。</p>
-<p>void BinaryInsertSort(T data[], int n)
-{
-T temp; // 哨兵
-int low = 0; // 起始位置
-int high = 0; // 末尾位置
-int mid = 0;	// 中间点</p>
-<pre><code class="lang-c++">	// 默认第一个元素已经排好序
+<pre><code class="lang-c++">void BinaryInsertSort(T data[], int n)
+	{
+		T temp; // 哨兵
+		int low = 0; // 起始位置
+		int high = 0; // 末尾位置
+		int mid = 0;	// 中间点
+
+	// 默认第一个元素已经排好序
 	for (int i = 1; i &lt; n; i++)
 	{
 		low = 0;
