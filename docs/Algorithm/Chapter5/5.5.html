@@ -169,70 +169,115 @@ TreeNode&lt;t&gt;* FindInOrderNext(TreeNode&lt;t&gt;* current)
     return next;
 }
 
-// 二叉树的删除
+
+</code></pre>
+<h3 id="二叉排序树的删除">二叉排序树的删除</h3>
+<pre><code class="lang-c++">// 二叉树的删除
 template&lt;class t&gt;
-void Delete(TreeNode&lt;t&gt;* root, t key)
-{
-    TreeNode&lt;t&gt;* father = nullptr;
-    TreeNode&lt;t&gt;* current = search_key(root, key);   // 找到 key 结点
-    
-    if (!current)    // 为空，直接返回
-        return;
+TreeNode* deleteNode(TreeNode* root, T key) {
+        // 此时 rootCache 就是要删除的点
+        if (root == nullptr)
+            return root;
 
-    father = search_father(root, key);
-    while (current != nullptr)
-    {
-        int count = GetChildrenNum(current);
+        TreeNode* dNode = root;
+        TreeNode* father = root;  // 待删除结点的父结点
+        TreeNode* child = nullptr;
+        int state = 0;  // state =0 表示 child 是 左孩子，state = 1 child表示 father 右孩子
 
-        // 叶子结点直接删除
-        if (count == 0)
+        // 找到删除结点
+        while (dNode != nullptr)
         {
-            if (father) {
-                if (father-&gt;lChild == current) {
-                    father-&gt;lChild = nullptr;
+            if (dNode-&gt;val == key)
+            {
+                break;
+            }
+            else if (dNode-&gt;val &gt; key) // 在左子树找
+            {
+                if (dNode-&gt;left == nullptr) // 树中不存在key
+                    return root;
+                
+                father = dNode;
+                dNode = dNode-&gt;left;
+                state = 0;
+            }
+            else {  // 在右子树中找
+                if (dNode-&gt;right == nullptr)
+                    return root;
+
+                father = dNode;
+                dNode = dNode-&gt;right;
+                state = 1;
+            }
+        }
+            
+        // 核心部分，不断循环，直到dNode指向叶结点，father指向叶结点的父亲结点
+        while (dNode-&gt;left != nullptr || dNode-&gt;right != nullptr)
+        {
+            if (dNode-&gt;left != nullptr)
+            {
+                father = dNode;
+                child = father-&gt;left;
+                state = 0;
+                while (child != nullptr &amp;&amp; child-&gt;right != nullptr) // 找到顶替结点
+                {
+                    father = child;
+                    child = child-&gt;right;
+                    state = 1;
                 }
-                else {
-                    father-&gt;rChild = nullptr;
+                dNode-&gt;val = child-&gt;val; // 替换key
+                dNode = child;
+            }
+            else  // dNote-&gt;left为空，现在对dNote-&gt;right 中找出最小值
+            {
+                father = dNode;
+                child = father-&gt;right;
+                state = 1;
+                while (child != nullptr &amp;&amp; child-&gt;left != nullptr) // 找到顶替结点
+                {
+                    father = child;
+                    child = child-&gt;left;
+                    state = 0;
+                }
+                if (dNode &amp;&amp; child)
+                {
+                    dNode-&gt;val = child-&gt;val;
+                    dNode = child;
                 }
             }
-           
-            delete current;
-            current = nullptr;
-            return;
         }
-        else if (count == 1)    // 只有一个孩子
-        {
-            auto child = current-&gt;lChild ? current-&gt;lChild : current-&gt;rChild;   // 获取删除结点的孩子
-            father = search_father(root, current-&gt;Data);
 
-            if (father-&gt;lChild == current)
-                father-&gt;lChild = child;
-            else
-                father-&gt;rChild = child;
-
-            delete current;
-            current = nullptr;
-            return;
+        // 说明root 只有一个结点
+        if (dNode == father) {
+            delete root;
+            root = nullptr;
+            return root;
         }
-        else // 两个孩子都存在
-        {
-            TreeNode&lt;t&gt;* next = FindInOrderNext(current);
-            
-            // 找到父亲节点
-            father = search_father(root, next-&gt;Data);
 
-            if(next)
-                current-&gt;Data = next-&gt;Data;
-            
-            current = next; // 将后继结点继续做判断
-        } 
+        // 此时 child 是最后一个叶子顶替结点X，father 是X 的父结点
+        if (state)
+        {
+            if (father &amp;&amp; father-&gt;right)
+            {
+                delete father-&gt;right;
+            }
+            father-&gt;right = nullptr;
+        }
+        else
+        {
+            if (father &amp;&amp; father-&gt;left)
+            {
+                delete father-&gt;left;
+            }
+            father-&gt;left = nullptr;
+        }
+
+        return root;
     }
-}
+};
 </code></pre>
-<p>貌似有问题，比如不能删除根结点，正确的做法是应该利用线索化二叉树来做。</p>
 <h2 id="552-平衡二叉树">5.5.2 平衡二叉树</h2>
 <h3 id="定义-1">定义</h3>
-<p>​	为避免树的高度增长过快，降低二叉排序树的性能，规定在插入和删除二叉树结点时，要保证任意结点的左、右子树高度差的绝对值不超过1，称为平衡二叉树。（BBT）</p>
+<p>​	为避免树的高度增长过快，引起二叉排序树的性能降低，规定在插入和删除二叉树结点时，要保证任意结点的左、右子树高度差的绝对值不超过1，称为平衡二叉树。（BBT）</p>
 <p>平衡因子：左子树和右子树的高度差。</p>
 <h3 id="平衡二叉树的插入">平衡二叉树的插入</h3>
 <p>二叉排序树保证平衡的基本思想如下：每当在二叉排序树中插入（或删除）一个结点时，首先检查其插入路径上的结点是否因为此操作而导致了不平衡。若导致不平衡，则先找到插入路径上离插入结点最近的平衡因子的绝对值大于1的结点A，再对以A为根的子树，在保证二叉排序树特性的前提下，调整各结点的位置。</p>

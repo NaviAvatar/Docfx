@@ -79,7 +79,7 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="61-图的一些算法">6.1 图的一些算法</h1>
 
-<p>如果判断一个五向图是不是有环？</p>
+<p>如果判断一个无向图是不是有环？</p>
 <p>答：</p>
 <p>① 将所有度小于等于1的顶点入队。</p>
 <p>②当队不为空时，在队中取一个元素A（访问），与A的相连接的结点度减1（消去各顶点与A的连接）。</p>
@@ -111,7 +111,7 @@ public:
 	{
 		map&lt;int, vector&lt;int&gt;&gt; tmp = data;	// 拷贝一份数据
 		int count = tmp.size();				// 顶点个数
-		vector&lt;int&gt;	que;					// 辅助队列，队列不能遍历好傻逼
+		vector&lt;int&gt;	que;					// 辅助队列
 		set&lt;int&gt; hasVisit;				// 访问过结点的
 		for (auto&amp; x : tmp)
 		{
@@ -181,7 +181,7 @@ TestCase()
         cout &lt;&lt; &quot; 无环&quot; &lt;&lt; endl;
 }
 </code></pre>
-<p>这里只对一个连通图进行测试，应该再测试有度为 0的结点，但是好像要改动很大？日后有时间再改进。</p>
+<p>这里只对一个连通图进行测试，应该再测试有度为 0 的结点，但是好像要改动很大？日后有时间再改进。</p>
 </article>
           </div>
           
