@@ -1974,6 +1974,30 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "Linux/Chapter1/1.2.md",
+      "output": {
+        ".html": {
+          "relative_path": "Linux/Chapter1/1.2.html",
+          "hash": "3JPcYflhbqIz8JU9jH2vbyTIJHcvteyT727kEvjUARI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Linux/Chapter1/1.3.md",
+      "output": {
+        ".html": {
+          "relative_path": "Linux/Chapter1/1.3.html",
+          "hash": "e2BsDceIRfsa5pe5hWAtCYgRxBmQ0GOOgnmlfE1J3qc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "Linux/Command/linux-directory.md",
       "output": {
         ".html": {
@@ -2181,7 +2205,7 @@
       "output": {
         ".html": {
           "relative_path": "Linux/Command/user-management-instru.html",
-          "hash": "+ofGgNtiYr/5eqtkXNluu5zxp/fqCP8Z+R+z5sMJKUU="
+          "hash": "outbwa8U8QfIjRfkS7n5zcBPua6bbfIhluQGTqHYfcQ="
         }
       },
       "is_incremental": false,
@@ -2193,7 +2217,7 @@
       "output": {
         ".html": {
           "relative_path": "Linux/Command/vimCommand.html",
-          "hash": "rpmAB1mP9zv1mWMEWimU6EAIjWmQrrhlKr16LoPlJd0="
+          "hash": "6lKJ7YXmN9CnipzoREQLPKlCpGQgP8fYVhxLmaw1tAA="
         }
       },
       "is_incremental": false,
@@ -2253,7 +2277,7 @@
       "output": {
         ".html": {
           "relative_path": "Linux/toc.html",
-          "hash": "qeCZLUYRRDxeaDCeevVQ7f0wv36/a4xlCJeQVlphCuc="
+          "hash": "tkTMfyFydOtlSNPo00OVuGudb7ozQwys7ediPyPl91g="
         }
       },
       "is_incremental": false,
@@ -2445,8 +2469,8 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 112,
-          "skipped_file_count": 112
+          "total_file_count": 114,
+          "skipped_file_count": 114
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

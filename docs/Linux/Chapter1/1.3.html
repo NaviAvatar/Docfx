@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>&#29992;&#25143;&#31649;&#29702; </title>
+    <title>coredump &#35843;&#35797; </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="&#29992;&#25143;&#31649;&#29702; ">
+    <meta name="title" content="coredump &#35843;&#35797; ">
     <meta name="generator" content="docfx 2.59.0.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
@@ -77,67 +77,26 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="用户管理">用户管理</h1>
+<h1 id="coredump-调试">coredump 调试</h1>
 
-<h2 id="如何创建新用户">如何创建新用户</h2>
-<p>创建新用户</p>
-<pre><code>useradd tony
+<p>将系统的core文件生成设置修改为不限制coredump文件大小（开始默认core文件大小为0）</p>
+<pre><code>ulimit -a
 </code></pre>
-<p>给用户 tony 设置密码</p>
-<pre><code>passwd	tony
+<p>之后会看到core file size ...</p>
+<p>修改：</p>
+<pre><code>ulimit -c unlimited
 </code></pre>
-<p>查看当前用户</p>
-<pre><code>less /etc/passwd
+<p>这时候如果出现段错误，会生成有一个core文件，可以通过 ls 命令来查询。</p>
+<p>运行gdb 带上 core文件</p>
+<pre><code>gdb coredumptest core.6914
 </code></pre>
-<p>查看当前用户 tony 是否已登录</p>
-<pre><code>id tony
+<p>列出来的信息中会定位到出现问题的地方，这时候可以用 bt 来查看函数的调用栈。</p>
+<pre><code>(gdb) bt
+#0  0x00000000004007bc in bb (bbb=15) at coredumptest.cpp:7
+#1  0x00000000004007d5 in aa (aaa=15) at coredumptest.cpp:12
+#2  0x00000000004007e9 in main () at coredumptest.cpp:17
 </code></pre>
-<p>切换用户</p>
-<pre><code>su tony
-</code></pre>
-<p>查看原始创建会话用户</p>
-<pre><code>who am i
-</code></pre>
-<hr>
-<h2 id="如何临时赋予普通用户有root权限">如何临时赋予普通用户有root权限</h2>
-<p>回退到 root 权限，打开 sudoers 文件</p>
-<pre><code>vim /etc/sudoers
-</code></pre>
-<p>添加tony权限</p>
-<pre><code>tony	ALL=(ALL)	ALL
-</code></pre>
-<p>强制保存文件</p>
-<pre><code>:wq!
-</code></pre>
-<p>切换到 tony 用户，在无权限区域，使用 sudo + 命令。</p>
-<hr>
-<h2 id="如何删除普通用户">如何删除普通用户</h2>
-<p>删除用户但是保留其主文件夹</p>
-<pre><code>userdel tony
-</code></pre>
-<p>如果不需要主目录，可在删除用户时指定删除主目录</p>
-<pre><code>userdel -r tony
-</code></pre>
-<hr>
-<h2 id="如何添加用户组">如何添加用户组</h2>
-<p>添加用户组 meifa</p>
-<pre><code>group meifa
-</code></pre>
-<p>添加用户到用户组 meifa</p>
-<pre><code>usermod -g meifa tony
-usermod -g meifa david
-</code></pre>
-<p>重命名用户组</p>
-<pre><code>groupmod -n haircut meifa
-</code></pre>
-<p>删除用户组</p>
-<pre><code>groupdel tony
-groupdel david
-</code></pre>
-<p>给组以 sudo 权限</p>
-<ul>
-<li>打开 sudoers 文件</li>
-</ul>
+<p>说明是 main 开始，调用 aa函数，aa函数调用 bb函数，然后出现了问题。</p>
 </article>
           </div>
           
@@ -145,9 +104,6 @@ groupdel david
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Linux/Command/user-management-instru.md/#L1" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

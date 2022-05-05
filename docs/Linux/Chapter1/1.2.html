@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>&#29992;&#25143;&#31649;&#29702; </title>
+    <title>GDB &#35843;&#35797;&#25991;&#20214; </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="&#29992;&#25143;&#31649;&#29702; ">
+    <meta name="title" content="GDB &#35843;&#35797;&#25991;&#20214; ">
     <meta name="generator" content="docfx 2.59.0.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
@@ -77,67 +77,103 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="用户管理">用户管理</h1>
+<h1 id="gdb-调试文件">GDB 调试文件</h1>
 
-<h2 id="如何创建新用户">如何创建新用户</h2>
-<p>创建新用户</p>
-<pre><code>useradd tony
-</code></pre>
-<p>给用户 tony 设置密码</p>
-<pre><code>passwd	tony
-</code></pre>
-<p>查看当前用户</p>
-<pre><code>less /etc/passwd
-</code></pre>
-<p>查看当前用户 tony 是否已登录</p>
-<pre><code>id tony
-</code></pre>
-<p>切换用户</p>
-<pre><code>su tony
-</code></pre>
-<p>查看原始创建会话用户</p>
-<pre><code>who am i
-</code></pre>
-<hr>
-<h2 id="如何临时赋予普通用户有root权限">如何临时赋予普通用户有root权限</h2>
-<p>回退到 root 权限，打开 sudoers 文件</p>
-<pre><code>vim /etc/sudoers
-</code></pre>
-<p>添加tony权限</p>
-<pre><code>tony	ALL=(ALL)	ALL
-</code></pre>
-<p>强制保存文件</p>
-<pre><code>:wq!
-</code></pre>
-<p>切换到 tony 用户，在无权限区域，使用 sudo + 命令。</p>
-<hr>
-<h2 id="如何删除普通用户">如何删除普通用户</h2>
-<p>删除用户但是保留其主文件夹</p>
-<pre><code>userdel tony
-</code></pre>
-<p>如果不需要主目录，可在删除用户时指定删除主目录</p>
-<pre><code>userdel -r tony
-</code></pre>
-<hr>
-<h2 id="如何添加用户组">如何添加用户组</h2>
-<p>添加用户组 meifa</p>
-<pre><code>group meifa
-</code></pre>
-<p>添加用户到用户组 meifa</p>
-<pre><code>usermod -g meifa tony
-usermod -g meifa david
-</code></pre>
-<p>重命名用户组</p>
-<pre><code>groupmod -n haircut meifa
-</code></pre>
-<p>删除用户组</p>
-<pre><code>groupdel tony
-groupdel david
-</code></pre>
-<p>给组以 sudo 权限</p>
-<ul>
-<li>打开 sudoers 文件</li>
-</ul>
+<p>[csdn博文]: <a href="https://blog.csdn.net/weixin_39603604/article/details/116710683">https://blog.csdn.net/weixin_39603604/article/details/116710683</a>	&quot;GDB调试&quot;</p>
+<p>编译时必须添加-g才能利用GDB进行调试，如：<a href="https://so.csdn.net/so/search?q=gcc&amp;spm=1001.2101.3001.7020">gcc</a> -g test.c -o test</p>
+<ol>
+<li><p>gdb -tui test打开调试程序，界面分页，上面是代码，下面是命令；</p>
+</li>
+<li><p>gdb tui的开关快捷键：ctrl+x ctrl+a或者ctrl+x A</p>
+</li>
+<li><p>file test在运行gdb下打开某个文件【这个好像不行】</p>
+</li>
+<li><p>run/r 运行</p>
+</li>
+<li><p><font color='red'>continue/c 继续运行</font></p>
+</li>
+<li><p><font color='red'>step/s 如果有函数则进入函数执行</font></p>
+</li>
+<li><p><font color='red'>finish 跳出当前的函数</font></p>
+</li>
+<li><p>stop 停止运行</p>
+</li>
+<li><p>until xxx 可用于跳出循环</p>
+</li>
+<li><p>guit/ctrl+d 退出GDB</p>
+</li>
+<li><p><font color='red'>print/p var 打印变量的值</font></p>
+</li>
+<li><p>print/p &amp;var 打印变量地址</p>
+</li>
+<li><p><font color='red'>printf/p *addr 打印地址的值</font></p>
+</li>
+<li><p>printf/p /x var 用16进制显示数据</p>
+<p>x十六进制/d十进制/u十六进制无符号/t二进制/c字符/f浮点</p>
+</li>
+<li><p><font color='red'>break/b xxx 在某行打断点</font></p>
+</li>
+<li><p><font color='red'>break/b fun 在某个函数处加断点</font></p>
+</li>
+<li><p><font color='red'>break/b 30 if n==100 //当变量n等于100的时候在30行处加断点</font></p>
+</li>
+<li><p><font color='red'>break fileName:N 在某个文件的N行加断点</font></p>
+</li>
+<li><p>info break/b 查看断点</p>
+</li>
+<li><p>clear N 删除N行断点</p>
+</li>
+<li><p>delete N 删除N号断点</p>
+</li>
+<li><p>delete 删除所有断点</p>
+</li>
+<li><p>disable xxx 失能断点</p>
+</li>
+<li><p>enable xxx 使能断点</p>
+</li>
+<li><p>info b 查看断点</p>
+</li>
+<li><p>info source 查看当前程序</p>
+</li>
+<li><p><font color='red'>info stack 查看堆栈信息</font></p>
+</li>
+<li><p><font color='red'>info args 查看当前参数值</font></p>
+</li>
+<li><p>display args 查看当前参数值</p>
+</li>
+<li><p><font color='red'>bt 查看函数堆栈</font></p>
+</li>
+<li><p>pwd查看程序路径</p>
+</li>
+<li><p>ctrl+p 前一条命令</p>
+</li>
+<li><p>ctrl+n 下一条命令</p>
+</li>
+<li><p>watch xxx 设置监控点，在变量改变的时候停下来。(不可直接设置，先加断点在监测)</p>
+</li>
+<li><p>ctrl+l可能layout会造成控制台花屏,使用ctrl+L清屏</p>
+</li>
+<li><p>list linenum：以linenum指定的行号为中心，显示10行</p>
+</li>
+<li><p>list function：以指定的函数为中心，显示10行</p>
+</li>
+<li><p>list：重复上一次的list指令，也可以直接按回车键，重复上次指令。</p>
+</li>
+<li><p>set listsize count：设置每次显示的行数。</p>
+</li>
+<li><p>show listsize：显示已设置的显示行数。</p>
+</li>
+<li><p>list first,last：显示指定起始行到结束结束行的源文件。</p>
+</li>
+<li><p>list ,last：显示以指定的last为结束行，显示10行。</p>
+</li>
+<li><p>list first,：以first为第一行，显示10行。</p>
+</li>
+<li><p>list +：以上次显示的结束行为起始行显示后10行</p>
+</li>
+<li><p>list –：以上次显示的起始行为结束行，显示前10行</p>
+</li>
+</ol>
 </article>
           </div>
           
@@ -145,9 +181,6 @@ groupdel david
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/NaviAvatar/Docfx/blob/master/Linux/Command/user-management-instru.md/#L1" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
